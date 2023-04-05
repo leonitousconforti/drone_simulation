@@ -7,7 +7,7 @@
 #include "Helicopter.h"
 
 /**
- *@brief Helicopter Factory to produce Helicopter class.
+ *@brief Helicopter Factory to produce Helicopters class.
  **/
 class HelicopterFactory : public IEntityFactory {
  public:

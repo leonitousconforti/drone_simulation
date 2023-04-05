@@ -2,12 +2,16 @@
 
 #include "DroneFactory.h"
 #include "RobotFactory.h"
+#include "HelicopterFactory.h"
+#include "HumanFactory.h"
 
 SimulationModel::SimulationModel(IController& controller)
     : controller(controller) {
   compFactory = new CompositeFactory();
   AddFactory(new DroneFactory());
   AddFactory(new RobotFactory());
+  AddFactory(new HelicopterFactory());
+  AddFactory(new HumanFactory());
 }
 
 SimulationModel::~SimulationModel() {
@@ -30,7 +34,7 @@ void SimulationModel::CreateEntity(JsonObject& entity) {
 
   IEntity* myNewEntity = compFactory->CreateEntity(entity);
   myNewEntity->SetGraph(graph);
-
+  
   // Call AddEntity to add it to the view
   controller.AddEntity(*myNewEntity);
   entities.push_back(myNewEntity);
