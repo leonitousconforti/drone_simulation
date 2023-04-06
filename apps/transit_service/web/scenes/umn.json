@@ -69,5 +69,22 @@
             "duration": 2.0,
             "offset": [0, -0.5, 0]
           }
+    },
+    {
+        "command": "CreateEntity",
+        "params": {
+            "type": "dragon",
+            "name": "Dragon",
+            "mesh": "assets/model/dragon.glb",
+            "position":[498.292, 290, 228.623],
+            "scale": [0.900, 0.900, 0.900],
+            "rotation": [0, 0, 0, 0],
+            "direction": [1,1,0],
+            "speed": 30.0,
+            "radius": 2.0,
+            "start": 10.0,
+            "duration": 5.0,
+            "offset": [0, -0.5, 0]
+          }
     }
 ]

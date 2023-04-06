@@ -91,7 +91,7 @@
  include/IStrategy.h include/IController.h include/Robot.h \
  include/DroneFactory.h include/RobotFactory.h \
  include/HelicopterFactory.h include/Helicopter.h include/HumanFactory.h \
- include/Human.h
+ include/Human.h include/DragonFactory.h include/Dragon.h
 
 include/SimulationModel.h:
 
@@ -298,3 +298,7 @@ include/Helicopter.h:
 include/HumanFactory.h:
 
 include/Human.h:
+
+include/DragonFactory.h:
+
+include/Dragon.h:

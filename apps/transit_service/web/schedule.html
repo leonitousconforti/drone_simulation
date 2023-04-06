@@ -166,6 +166,7 @@
             }
         }
         var humanID = 1;
+        var dragonID = 1;
         function addHuman(){
             api.sendCommand("CreateEntity", {
                     "type": "human",
@@ -181,7 +182,22 @@
                     "duration": 2.0,
                     "offset": [0, -0.5, 0]
             });
-            humanID+=1;            
+            humanID+=1;
+            api.sendCommand("CreateEntity", {
+                    "type": "dragon",
+                    "name": "Dragon-"+dragonID,
+                    "mesh": "assets/model/dragon.glb",
+                    "position": [900, 300, 400],
+                    "scale": [0.500, 0.500, 0.500],
+                    "rotation": [0, 0, 0, 0],
+                    "direction": [1,0,0],
+                    "speed": 50.0,
+                    "radius": 3.0,
+                    "start": 20.0,
+                    "duration": 2.0,
+                    "offset": [0, -0.5, 0]
+            });
+            dragonID += 1;            
         }
     </script>
 </body>
