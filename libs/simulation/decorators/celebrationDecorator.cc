@@ -1,4 +1,4 @@
-#include "CelebrationDecorator.h"
+#include "celebrationDecorator.h"
 
 namespace drone_simulation::simulation::decorators {
 
@@ -9,7 +9,7 @@ CelebrationDecorator::CelebrationDecorator(IStrategy* strategy) {
 
 CelebrationDecorator::~CelebrationDecorator() { delete strategy; }
 
-bool CelebrationDecorator::IsCompleted() {
+bool CelebrationDecorator::isCompleted() {
   if (time >= 4.0) {
     return true;
   } else {

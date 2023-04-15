@@ -1,6 +1,6 @@
 #pragma once
 
-#include "CelebrationDecorator.h"
+#include "celebrationDecorator.h"
 
 namespace drone_simulation::simulation::decorators {
 
@@ -28,7 +28,7 @@ class SpinDecorator : public CelebrationDecorator {
    * @param entity Entity to move
    * @param dt Delta Time
    */
-  virtual void Move(IEntity* entity, double dt);
+  virtual void move(IEntity* entity, double dt);
 };
 
 }  // namespace drone_simulation::simulation::decorators
