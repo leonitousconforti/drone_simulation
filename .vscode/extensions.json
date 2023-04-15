@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "kisstkondoros.vscode-codemetrics",
+    "visualstudioexptteam.vscodeintellicode",
+    "editorconfig.editorconfig",
+    "streetsidesoftware.code-spell-checker",
+    "eamodio.gitlens",
+    "BazelBuild.vscode-bazel",
+    "ms-azuretools.vscode-docker",
+    "ms-vscode.cpptools-extension-pack",
+    "esbenp.prettier-vscode",
+    "mutantdino.resourcemonitor",
+    "ms-python.black-formatter"
+  ]
+}

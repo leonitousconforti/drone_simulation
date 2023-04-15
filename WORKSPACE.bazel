@@ -1,0 +1,49 @@
+workspace(name = "drone_simulation")
+
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+
+git_repository(
+    name = "com_google_googletest",
+    branch = "v1.13.x",
+    remote = "https://github.com/google/googletest",
+)
+
+git_repository(
+    name = "com_google_protobuf",
+    branch = "22.x",
+    remote = "https://github.com/protocolbuffers/protobuf",
+)
+
+git_repository(
+    name = "hedron_compile_commands",
+    branch = "main",
+    remote = "https://github.com/hedronvision/bazel-compile-commands-extractor",
+)
+
+git_repository(
+    name = "org_osmcode_libosmium",
+    branch = "v2.19.0",
+    build_file = "//dependencies:BUILD.libosmium.bazel",
+    remote = "https://github.com/osmcode/libosmium",
+)
+
+git_repository(
+    name = "org_libexpat",
+    branch = "master",
+    build_file = "//dependencies:BUILD.libexpat.bazel",
+    remote = "https://github.com/libexpat/libexpat",
+)
+
+git_repository(
+    name = "lvandeve_lodepng",
+    branch = "master",
+    build_file = "//dependencies:BUILD.lodepng.bazel",
+    remote = "https://github.com/lvandeve/lodepng",
+)
+
+load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
+load("@hedron_compile_commands//:workspace_setup.bzl", "hedron_compile_commands_setup")
+
+protobuf_deps()
+
+hedron_compile_commands_setup()

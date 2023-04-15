@@ -1,0 +1,10 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary")
+
+cc_binary(
+    name = "transit_service",
+    srcs = ["src/transit_service.cc"],
+    deps = [
+        "//libs/routing",
+        "//libs/simulation",
+    ],
+)

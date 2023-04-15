@@ -1,0 +1,121 @@
+{
+  "name": "Drone Simulation",
+  "image": "mcr.microsoft.com/vscode/devcontainers/base:debian-11",
+
+  // Features to add to the dev container. More info: https://containers.dev/features.
+  "features": {
+    "ghcr.io/devcontainers/features/go:1": {},
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/node:1": {},
+    "ghcr.io/devcontainers/features/python:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/common-utils:2": {},
+    "ghcr.io/balazs23/devcontainers-features/bazel:1": {},
+    "ghcr.io/devcontainers-contrib/features/typescript:2": {},
+    "ghcr.io/devcontainers-contrib/features/grpcurl-asdf:2": {},
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
+    "ghcr.io/azutake/devcontainer-features/go-packages-install:0": {
+      "packages": "github.com/bazelbuild/buildtools/buildifier@latest"
+    }
+  },
+
+  // Configure tool-specific properties.
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "kisstkondoros.vscode-codemetrics",
+        "visualstudioexptteam.vscodeintellicode",
+        "editorconfig.editorconfig",
+        "streetsidesoftware.code-spell-checker",
+        "eamodio.gitlens",
+        "BazelBuild.vscode-bazel",
+        "ms-azuretools.vscode-docker",
+        "ms-vscode.cpptools-extension-pack",
+        "esbenp.prettier-vscode",
+        "mutantdino.resourcemonitor",
+        "ms-python.black-formatter"
+      ],
+      "settings": {
+        "cSpell.enabled": true,
+        "editor.formatOnSave": true,
+        "editor.formatOnPaste": true,
+        "editor.bracketPairColorization.enabled": true,
+        "codemetrics.basics.DecorationModeEnabled": false,
+        "codemetrics.basics.OverviewRulerModeEnabled": false,
+        "editor.defaultFormatter": "EditorConfig.EditorConfig",
+        "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google }",
+        "[typescript][typescriptreact][javascript][javascriptreact][json][jsonc]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[c][cpp]": {
+          "editor.defaultFormatter": "ms-vscode.cpptools"
+        },
+        "[starlark]": {
+          "editor.defaultFormatter": "BazelBuild.vscode-bazel"
+        },
+        "[python]": {
+          "editor.wordBasedSuggestions": false,
+          "editor.defaultFormatter": "ms-python.black-formatter",
+          "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+          }
+        },
+        "python.formatting.provider": "black",
+        "isort.args": ["--profile", "black"],
+        "files.associations": { "*.json": "jsonc", "package.json": "json" },
+        "cSpell.enableFiletypes": [
+          "dockercompose",
+          "dockerfile",
+          "editorconfig",
+          "markdown-math",
+          "markdown_latex_combined",
+          "shellscript"
+        ],
+        "cSpell.words": [
+          "aarch",
+          "azuretools",
+          "azutake",
+          "balazs",
+          "bazel",
+          "bazelbuild",
+          "bazelisk",
+          "buildifier",
+          "buildtools",
+          "clangd",
+          "codemetrics",
+          "cpptools",
+          "ctest",
+          "dbaeumer",
+          "devcontainer",
+          "devcontainers",
+          "dockercompose",
+          "eamodio",
+          "esbenp",
+          "kisstkondoros",
+          "mktemp",
+          "noninteractive",
+          "vcpkg",
+          "visualstudioexptteam",
+          "vscodeintellicode",
+          "pugi",
+          "astar",
+          "libwebsockets",
+          "runfiles",
+          "Rlocation"
+        ]
+      }
+    }
+  },
+
+  // To use ptrace-based debuggers with C++, Go, and Rust
+  "runArgs": ["--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined"],
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally
+  "forwardPorts": [8080],
+
+  // Use 'postCreateCommand' to run commands after the container is created
+  "postCreateCommand": "bazelisk version && bazelisk run @hedron_compile_commands//:refresh_all",
+
+  // Connect as root instead. More info: https://aka.ms/dev-containers-non-root
+  "remoteUser": "root"
+}

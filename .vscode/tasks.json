@@ -1,0 +1,20 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build transit service",
+      "type": "shell",
+      "command": "bazelisk build //apps/transit_service",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Generate compiler commands (only needed when dependencies change)",
+      "type": "shell",
+      "command": "bazelisk run @hedron_compile_commands//:refresh_all",
+      "problemMatcher": []
+    }
+  ]
+}

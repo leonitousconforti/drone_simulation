@@ -29,6 +29,6 @@
 *.out
 *.app
 
-build
-
-.vscode
+# Custom
+.DS_STORE
+bazel-*/

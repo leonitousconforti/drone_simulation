@@ -1,0 +1,10 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+cc_library(
+    name = "org_osmcode_libosmium",
+    hdrs = glob(["include/**/*.hpp"]),
+    includes = ["include"],
+    linkopts = ["-lpthread"],
+    visibility = ["//visibility:public"],
+    deps = ["@org_libexpat"],
+)
