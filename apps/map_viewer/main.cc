@@ -10,10 +10,17 @@ using namespace drone_simulation::geometry;
 using namespace drone_simulation::maps;
 
 int main(int argc, char* argv[]) {
+  if (argc != 3) {
+    std::cerr << "wrong usage, expected \"map_viewer <path/to/map.osm> "
+                 "<path/to/output/image.png>\""
+              << std::endl;
+    return -1;
+  }
+
   const IGraph* graph = loadOsmGraph(argv[1]);
   if (graph == nullptr) {
     std::cout << "Failed to parse graph file" << std::endl;
-    return -1;
+    return -2;
   }
 
   BoundingBox bb = graph->getBoundingBox();
@@ -33,9 +40,9 @@ int main(int argc, char* argv[]) {
       std::vector<float> neighborPos =
           bb.Normalize(neighbors[j]->getPosition().toVec());
       int startX = normalizedPoint[0] * output.getWidth();
-      int startY = normalizedPoint[2] * output.getHeight();
+      int startY = normalizedPoint[1] * output.getHeight();
       int endX = neighborPos[0] * output.getWidth();
-      int endY = neighborPos[2] * output.getHeight();
+      int endY = neighborPos[1] * output.getHeight();
       output.drawLine(startX, startY, endX, endY, Color(0.5, 0.5, 1, 1));
     }
   }

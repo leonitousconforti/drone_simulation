@@ -2,43 +2,25 @@
 
 namespace drone_simulation::simulation {
 
-SimulationModel::SimulationModel(IController& controller)
-    : controller(controller) {}
+SimulationModel::SimulationModel() {}
 
 SimulationModel::~SimulationModel() {
-  // Delete dynamically allocated variables
-  for (int i = 0; i < entities.size(); i++) {
+  for (size_t i = 0; i < entities.size(); i++) {
     delete entities[i];
   }
-  for (int i = 0; i < scheduler.size(); i++) {
-    delete scheduler[i];
-  }
   delete graph;
-  delete compFactory;
 }
 
-void SimulationModel::CreateEntity(JsonObject& entity) {
-  std::string type = entity["type"];
-  std::string name = entity["name"];
-  JsonArray position = entity["position"];
-  std::cout << name << ": " << position << std::endl;
-
-  IEntity* myNewEntity = compFactory->CreateEntity(entity);
-  myNewEntity->SetGraph(graph);
-
-  // Call AddEntity to add it to the view
-  controller.AddEntity(*myNewEntity);
-  entities.push_back(myNewEntity);
+void SimulationModel::addEntity(IEntity* entity) {
+  entity->setGraph(this->graph);
+  entities.push_back(entity);
 }
 
 /// Schedules a trip for an object in the scene
-void SimulationModel::ScheduleTrip(JsonObject& details) {
-  std::string name = details["name"];
-  JsonArray start = details["start"];
-  JsonArray end = details["end"];
-  std::cout << name << ": " << start << " --> " << end << std::endl;
-
-  for (auto entity : entities) {  // Add the entity to the scheduler
+void SimulationModel::scheduleTrip(const std::string& name,
+                                   geometry::Point3f start,
+                                   geometry::Point3f end) {
+  for (auto entity : entities) {
     JsonObject detailsTemp = entity->GetDetails();
     std::string nameTemp = detailsTemp["name"];
     std::string typeTemp = detailsTemp["type"];
@@ -51,19 +33,13 @@ void SimulationModel::ScheduleTrip(JsonObject& details) {
       break;
     }
   }
-  controller.SendEventToView("TripScheduled", details);
 }
 
 /// Updates the simulation
-void SimulationModel::Update(double dt) {
-  for (int i = 0; i < entities.size(); i++) {
-    entities[i]->Update(dt, scheduler);
-    controller.UpdateEntity(*entities[i]);
+void SimulationModel::update(double dt) {
+  for (size_t i = 0; i < this->entities.size(); i++) {
+    entities[i]->update(dt);
   }
-}
-
-void SimulationModel::AddFactory(IEntityFactory* factory) {
-  compFactory->AddFactory(factory);
 }
 
 }  // namespace drone_simulation::simulation

@@ -1,5 +1,6 @@
 #include "osm_graph.h"
 
+#include <cmath>
 #include <exception>
 #include <iostream>
 
@@ -9,22 +10,53 @@
 
 namespace drone_simulation::maps {
 
+// Helpful reference https://wiki.openstreetmap.org/wiki/Elements
 IGraph* loadOsmGraph(const std::string& filepath) {
   IGraph* graph = new IGraph();
 
   try {
-    // Initialize the reader with the filename from the command line and tell it
-    // to only read nodes, ways, and relations
-    osmium::io::Reader reader{filepath, osmium::osm_entity_bits::node};
+    // Only read the node and the way data entries
+    osmium::osm_entity_bits::type read_types =
+        osmium::osm_entity_bits::node | osmium::osm_entity_bits::way;
+    osmium::io::Reader reader{filepath, read_types};
 
-    // Apply a lambda function to the data to make our graph
-    osmium::apply(reader, [&](const osmium::Node& node) {
-      float lat = node.location().lat();
-      float lon = node.location().lon();
-      osmium::object_id_type id = node.id();
+    // The file header can contain metadata such as the program that generated
+    // the file and the bounding box of the data.
+    osmium::io::Header header = reader.header();
+    osmium::Box bounding_box = header.boxes()[0];
+    float min_lat = bounding_box.top();
+    float min_lon = bounding_box.left();
+    float max_lat = bounding_box.bottom();
+    float max_lon = bounding_box.right();
+    float center_lat = min_lat + (max_lat - min_lat) / 2.0;
+    float center_lon = min_lon + (max_lon - min_lon) / 2.0;
+
+    // Lambda function that adds a node to the graph
+    auto node_handler = [&](const osmium::Node& node) {
+      int64_t id = node.id();
+      float lat_diff = node.location().lat() - center_lat;
+      float lon_diff = node.location().lon() - center_lon;
+
+      float center_lat_rads = center_lat * M_PI / 180.0;
+      float lon = lon_diff * 40075160 * std::cos(center_lat_rads) / 360.0f;
+      float lat = -lat_diff * 40008000.0 / 360.0;
+
       IGraphNode* graphNode = new IGraphNode({lat, lon, 0}, std::to_string(id));
       graph->addNode(graphNode);
-    });
+    };
+
+    // Lambda function that takes a way and computes the adjacency lists
+    auto way_handler = [&](const osmium::Way& way) {
+      if (way.tags().has_key("highway"))
+        for (size_t i = 0; i < way.nodes().size() - 2; i++) {
+          std::string from = std::to_string(way.nodes()[i].ref());
+          std::string to = std::to_string(way.nodes()[i + 1].ref());
+          graph->addEdge(from, to);
+        }
+    };
+
+    // Apply our lambda functions (in order) to create the graph
+    osmium::apply(reader, node_handler, way_handler);
 
     // You do not have to close the Reader explicitly, but because the
     // destructor can't throw, you will not see any errors otherwise.

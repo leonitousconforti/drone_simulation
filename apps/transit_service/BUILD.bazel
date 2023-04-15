@@ -2,8 +2,11 @@ load("@rules_cc//cc:defs.bzl", "cc_binary")
 
 cc_binary(
     name = "transit_service",
-    srcs = ["src/transit_service.cc"],
+    srcs = ["main.cc"],
+    visibility = ["//visibility:private"],
     deps = [
+        "//libs/geometry",
+        "//libs/maps",
         "//libs/routing",
         "//libs/simulation",
     ],

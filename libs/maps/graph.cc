@@ -8,11 +8,7 @@ namespace drone_simulation::maps {
 IGraphNode::IGraphNode(geometry::Point3f position, const std::string& name)
     : name(name), position(position){};
 
-IGraphNode::~IGraphNode() {
-  for (auto neighbor : this->neighbors) {
-    delete neighbor;
-  }
-};
+IGraphNode::~IGraphNode(){};
 
 const std::string& IGraphNode::getName() const { return this->name; };
 const std::vector<IGraphNode*>& IGraphNode::getNeighbors() const {

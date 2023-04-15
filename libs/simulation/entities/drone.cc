@@ -1,15 +1,16 @@
-#define _USE_MATH_DEFINES
-#include "Drone.h"
+#pragma once
+
+#include "drone.h"
 
 #include <cmath>
 #include <limits>
 
-#include "AstarStrategy.h"
-#include "BeelineStrategy.h"
-#include "DfsStrategy.h"
-#include "DijkstraStrategy.h"
-#include "JumpDecorator.h"
-#include "SpinDecorator.h"
+#include "libs/simulation/decorators/jumpDecorator.h"
+#include "libs/simulation/decorators/spinDecorator.h"
+#include "libs/simulation/movement_strategies/astarStrategy.h"
+#include "libs/simulation/movement_strategies/beelineStrategy.h"
+#include "libs/simulation/movement_strategies/dfsStrategy.h"
+#include "libs/simulation/movement_strategies/dijkstraStrategy.h"
 
 Drone::Drone(JsonObject& obj) : details(obj) {
   JsonArray pos = obj["position"];

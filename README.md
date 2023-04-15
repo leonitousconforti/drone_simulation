@@ -1,4 +1,5 @@
 # Drone Simulation
 
-To build: `command + shift + b on mac`
-or run: `bazelisk build --symlink_prefix=build/ //apps/transit_service` in the terminal
+__see the [README_Project.md](./README_Project.md) for the documentation about the project, here's what changed though__
+
+## Switch from Make to Bazel
