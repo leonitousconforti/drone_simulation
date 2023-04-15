@@ -1,0 +1,14 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary")
+
+# bazelisk run //apps/routing_viewer
+cc_binary(
+    name = "routing_viewer",
+    srcs = [
+        "main.cc",
+    ],
+    visibility = ["//visibility:private"],
+    deps = [
+        "//libs/geometry",
+        "//libs/routing",
+    ],
+)
