@@ -1,6 +1,8 @@
-#include "DijkstraStrategy.h"
+#include "dijkstraStrategy.h"
 
-#include "routing/dijkstra.h"
+#include "libs/routing/dijkstra.h"
+
+namespace drone_simulation::simulation::movement_strategies {
 
 DijkstraStrategy::DijkstraStrategy(Vector3 pos, Vector3 des,
                                    const routing::IGraph* g) {
@@ -8,3 +10,5 @@ DijkstraStrategy::DijkstraStrategy(Vector3 pos, Vector3 des,
   std::vector<float> end = {des[0], des[1], des[2]};
   path = g->GetPath(start, end, Dijkstra::Instance());
 }
+
+}  // namespace drone_simulation::simulation::movement_strategies

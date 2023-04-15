@@ -18,9 +18,9 @@ class AStar : public RoutingStrategy {
   AStar(geometry::DistanceFunction cost, geometry::DistanceFunction heuristic)
       : cost(cost), heuristic(heuristic) {}
 
-  std::vector<std::string> getPath(const maps::IGraph* graph,
-                                   const geometry::Point3f& from,
-                                   const geometry::Point3f& to) const;
+  std::vector<geometry::Point3f> getPath(const maps::IGraph* graph,
+                                         const geometry::Point3f& from,
+                                         const geometry::Point3f& to) const;
 
   static const RoutingStrategy& Default() {
     static AStar astar;

@@ -170,7 +170,6 @@ class IEntity {
   geometry::Point3f position;
   geometry::Vector3f direction;
   geometry::Point3f destination;
-  IStrategy* toFinalDestination;
 };
 
 }  // namespace drone_simulation::simulation

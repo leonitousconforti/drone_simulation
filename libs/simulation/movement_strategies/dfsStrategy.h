@@ -1,11 +1,12 @@
-#ifndef DFS_STRATEGY_H_
-#define DFS_STRATEGY_H_
+#pragma once
 
-#include "PathStrategy.h"
 #include "graph.h"
+#include "pathStrategy.h"
+
+namespace drone_simulation::simulation::movement_strategies {
 
 /**
- * @brief this class inhertis from the PathStrategy class and is responsible for
+ * @brief this class inherits from the PathStrategy class and is responsible for
  * generating the depth first search path that the drone will take.
  */
 class DfsStrategy : public PathStrategy {
@@ -20,4 +21,5 @@ class DfsStrategy : public PathStrategy {
   DfsStrategy(Vector3 position, Vector3 destination,
               const routing::IGraph* graph);
 };
-#endif  // DFS_STRATEGY_H_
+
+}  // namespace drone_simulation::simulation::movement_strategies

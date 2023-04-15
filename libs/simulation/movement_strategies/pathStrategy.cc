@@ -1,4 +1,4 @@
-#include "PathStrategy.h"
+#include "pathStrategy.h"
 
 namespace drone_simulation::simulation::movement_strategies {
 

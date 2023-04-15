@@ -12,9 +12,9 @@ class DepthFirstSearch : public RoutingStrategy {
  public:
   virtual ~DepthFirstSearch() {}
 
-  std::vector<std::string> getPath(const maps::IGraph* graph,
-                                   const geometry::Point3f& from,
-                                   const geometry::Point3f& to) const;
+  std::vector<geometry::Point3f> getPath(const maps::IGraph* graph,
+                                         const geometry::Point3f& from,
+                                         const geometry::Point3f& to) const;
 
   static const RoutingStrategy& Default() {
     static DepthFirstSearch dfs;

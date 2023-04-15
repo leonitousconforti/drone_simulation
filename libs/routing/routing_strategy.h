@@ -11,7 +11,7 @@ namespace drone_simulation::routing {
 class RoutingStrategy {
  public:
   virtual ~RoutingStrategy() {}
-  virtual std::vector<std::string> getPath(
+  virtual std::vector<geometry::Point3f> getPath(
       const maps::IGraph* graph, const geometry::Point3f& from,
       const geometry::Point3f& to) const = 0;
 };

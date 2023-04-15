@@ -1,8 +1,9 @@
-#ifndef DIJKSTRA_STRATEGY_H_
-#define DIJKSTRA_STRATEGY_H_
+#pragma once
 
-#include "PathStrategy.h"
 #include "graph.h"
+#include "pathStrategy.h"
+
+namespace drone_simulation::simulation::movement_strategies {
 
 /**
  * @brief this class inhertis from the PathStrategy class and is responsible for
@@ -20,4 +21,5 @@ class DijkstraStrategy : public PathStrategy {
   DijkstraStrategy(Vector3 position, Vector3 destination,
                    const routing::IGraph* graph);
 };
-#endif  // DIJKSTRA_STRATEGY_H_
+
+}  // namespace drone_simulation::simulation::movement_strategies

@@ -1,4 +1,4 @@
-#include "SimulationModel.h"
+#include "simulationModel.h"
 
 namespace drone_simulation::simulation {
 

@@ -1,4 +1,4 @@
-#include "BeelineStrategy.h"
+#include "beelineStrategy.h"
 
 BeelineStrategy::BeelineStrategy(Vector3 position, Vector3 destination)
     : position(position), destination(destination) {}

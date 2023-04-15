@@ -1,7 +1,10 @@
 #pragma once
 
-#include "PathStrategy.h"
-#include "graph.h"
+#include "libs/geometry/point3f.h"
+#include "libs/maps/graph.h"
+#include "pathStrategy.h"
+
+namespace drone_simulation::simulation::movement_strategies {
 
 /**
  * @brief this class inherits from the PathStrategy class and is responsible for
@@ -16,6 +19,8 @@ class AstarStrategy : public PathStrategy {
    * @param destination End destination
    * @param graph Graph/Nodes of the map
    */
-  AstarStrategy(Vector3f position, Vector3f destination,
-                const routing::IGraph* graph);
+  AstarStrategy(geometry::Point3f position, geometry::Point3f destination,
+                const maps::IGraph* graph);
 };
+
+}  // namespace drone_simulation::simulation::movement_strategies

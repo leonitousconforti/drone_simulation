@@ -10,13 +10,13 @@
 
 namespace drone_simulation::routing {
 
-std::vector<std::string> AStar::getPath(const maps::IGraph* graph,
-                                        const geometry::Point3f& from,
-                                        const geometry::Point3f& to) const {
+std::vector<geometry::Point3f> AStar::getPath(
+    const maps::IGraph* graph, const geometry::Point3f& from,
+    const geometry::Point3f& to) const {
   throw std::runtime_error("Not implemented");
 }
 
-std::vector<std::string> DepthFirstSearch::getPath(
+std::vector<geometry::Point3f> DepthFirstSearch::getPath(
     const maps::IGraph* graph, const geometry::Point3f& from,
     const geometry::Point3f& to) const {
   throw std::runtime_error("Not implemented");
