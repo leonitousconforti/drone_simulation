@@ -62,21 +62,18 @@ const geometry::BoundingBox IGraph::getBoundingBox() const {
   geometry::BoundingBox bb;
   const std::vector<IGraphNode*>& nodes = this->getNodes();
 
-  for (size_t i = 0; i < nodes.size(); i++) {
-    std::vector<float> pos = nodes[i]->getPosition().toVec();
-    if (i == 0) {
-      bb.min = pos;
-      bb.max = pos;
-    } else {
-      for (size_t j = 0; j < pos.size(); j++) {
-        if (bb.min[j] > pos[j]) {
-          bb.min[j] = pos[j];
-        }
-        if (bb.max[j] < pos[j]) {
-          bb.max[j] = pos[j];
-        }
-      }
-    }
+  geometry::Point3f initial = nodes[0]->getPosition();
+  bb.min.x = initial.x;
+  bb.min.y = initial.y;
+  bb.max.x = initial.x;
+  bb.max.y = initial.y;
+
+  for (IGraphNode* node : nodes) {
+    geometry::Point3f pos = node->getPosition();
+    if (bb.min.x > pos.x) bb.min.x = pos.x;
+    if (bb.min.y > pos.y) bb.min.y = pos.y;
+    if (bb.max.x < pos.x) bb.max.x = pos.x;
+    if (bb.max.y < pos.y) bb.max.y = pos.y;
   }
 
   return bb;

@@ -25,24 +25,24 @@ int main(int argc, char* argv[]) {
 
   BoundingBox bb = graph->getBoundingBox();
   const std::vector<IGraphNode*>& nodes = graph->getNodes();
-  float aspectRatio = (bb.max[1] - bb.min[1]) / (bb.max[0] - bb.min[0]);
+  float aspectRatio = (bb.max.y - bb.min.y) / (bb.max.x - bb.min.x);
 
   int resolution = 1024;
   Image output(resolution, resolution * aspectRatio);
   output.clear(Color{0, 0, 0, 1});
 
   for (size_t i = 0; i < nodes.size(); i++) {
-    std::vector<float> normalizedPoint =
-        bb.Normalize(nodes[i]->getPosition().toVec());
+    Point3f normalizedPoint = bb.normalize(nodes[i]->getPosition());
     const std::vector<IGraphNode*>& neighbors = nodes[i]->getNeighbors();
 
+    int startX = normalizedPoint.x * output.getWidth();
+    int startY = normalizedPoint.y * output.getHeight();
+    output.drawPoint(startX, startY, Color(1, 0.5, 0.5, 1));
+
     for (size_t j = 0; j < neighbors.size(); j++) {
-      std::vector<float> neighborPos =
-          bb.Normalize(neighbors[j]->getPosition().toVec());
-      int startX = normalizedPoint[0] * output.getWidth();
-      int startY = normalizedPoint[1] * output.getHeight();
-      int endX = neighborPos[0] * output.getWidth();
-      int endY = neighborPos[1] * output.getHeight();
+      Point3f neighborPos = bb.normalize(neighbors[j]->getPosition());
+      int endX = neighborPos.x * output.getWidth();
+      int endY = neighborPos.y * output.getHeight();
       output.drawLine(startX, startY, endX, endY, Color(0.5, 0.5, 1, 1));
     }
   }
