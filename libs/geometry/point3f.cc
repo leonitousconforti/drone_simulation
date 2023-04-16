@@ -1,6 +1,6 @@
 #include "point3f.h"
 
-#include <cmath>
+#include "distance_function.h"
 
 namespace drone_simulation::geometry {
 
@@ -30,6 +30,11 @@ float Point3f::distanceBetween(const Point3f& other) const {
 
 std::vector<float> Point3f::toVec() const {
   return std::vector<float>{x, y, z};
+}
+
+std::ostream& operator<<(std::ostream& os, const Point3f& p) {
+  os << "(" << p.x << ", " << p.y << ", " << p.z << ")";
+  return os;
 }
 
 }  // namespace drone_simulation::geometry

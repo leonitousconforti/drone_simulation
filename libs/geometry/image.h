@@ -16,6 +16,7 @@ class Image {
   void clear(Color color);
   Color getPixel(int x, int y) const;
   void setPixel(int x, int y, Color color);
+  void drawPoint(int x, int y, Color color);
   void drawLine(int startX, int startY, int endX, int endY, Color color);
   int saveAs(const std::string& filename) const;
 

@@ -36,6 +36,10 @@ void Image::setPixel(int x, int y, Color color) {
   pixel[3] = color.alpha() * 255.0;
 }
 
+void Image::drawPoint(int x, int y, Color color) {
+  this->setPixel(x, y, color);
+}
+
 void Image::drawLine(int startX, int startY, int endX, int endY, Color color) {
   float dist = std::sqrt((endX - startX) * (endX - startX) +
                          (endY - startY) * (endY - startY));

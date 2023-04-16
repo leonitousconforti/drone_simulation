@@ -1,8 +1,7 @@
 #pragma once
 
+#include <iostream>
 #include <vector>
-
-#include "distance_function.h"
 
 namespace drone_simulation::geometry {
 
@@ -20,6 +19,8 @@ struct Point3f {
 
   std::vector<float> toVec() const;
   float distanceBetween(const Point3f& other) const;
+
+  friend std::ostream& operator<<(std::ostream& os, const Point3f& p);
 };
 
 }  // namespace drone_simulation::geometry

@@ -2,38 +2,21 @@
 
 namespace drone_simulation::geometry {
 
-std::vector<float> BoundingBox::Normalize(std::vector<float> point) const {
-  std::vector<float> out;
+Point3f BoundingBox::Normalize(Point3f point) const {
+  auto normalize = [](float val, float min, float max) {
+    float diff = max - min;
+    if (diff < 0.00001)
+      return 0.0f;
+    else
+      return (val - min) / diff;
+  };
 
-  for (size_t i = 0; i < point.size(); i++) {
-    float diff = max[i] - min[i];
-    if (diff < 0.00001) {
-      out.push_back(0.0);
-    } else {
-      out.push_back((point[i] - min[i]) / diff);
-    }
-  }
-
-  return out;
+  return {normalize(point.x, min.x, max.x), normalize(point.y, min.y, max.y),
+          normalize(point.z, min.z, max.z)};
 }
 
 std::ostream& operator<<(std::ostream& os, const BoundingBox& bb) {
-  os << "[(";
-  for (size_t i = 0; i < bb.min.size(); i++) {
-    if (i > 0) {
-      os << ", ";
-    }
-    os << bb.min[i];
-  }
-  os << "), (";
-  for (size_t i = 0; i < bb.max.size(); i++) {
-    if (i > 0) {
-      os << ", ";
-    }
-    os << bb.max[i];
-  }
-  os << ")]";
-
+  os << "[" << bb.min << ", " << bb.max << "]";
   return os;
 }
 

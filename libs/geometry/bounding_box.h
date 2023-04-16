@@ -1,14 +1,16 @@
 #pragma once
 
 #include <iostream>
-#include <vector>
+
+#include "point3f.h"
 
 namespace drone_simulation::geometry {
 
 struct BoundingBox {
-  std::vector<float> min;
-  std::vector<float> max;
-  std::vector<float> Normalize(std::vector<float> point) const;
+  Point3f min;
+  Point3f max;
+  Point3f Normalize(Point3f point) const;
+
   friend std::ostream& operator<<(std::ostream& os, const BoundingBox& bb);
 };
 
