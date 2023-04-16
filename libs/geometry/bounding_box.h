@@ -9,7 +9,7 @@ namespace drone_simulation::geometry {
 struct BoundingBox {
   Point3f min;
   Point3f max;
-  Point3f Normalize(Point3f point) const;
+  Point3f normalize(Point3f point) const;
 
   friend std::ostream& operator<<(std::ostream& os, const BoundingBox& bb);
 };
