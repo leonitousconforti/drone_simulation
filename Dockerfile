@@ -9,7 +9,7 @@ COPY . /app
 # 3 - CD into new directory for running container
 WORKDIR /app
 
-# 4 - compile code
+# 4 - compile all projects in the monorepo
 RUN bazel build ...
 
 # 5 - expose port
