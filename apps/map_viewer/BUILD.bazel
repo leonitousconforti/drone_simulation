@@ -4,13 +4,11 @@ load("@rules_cc//cc:defs.bzl", "cc_binary")
 cc_binary(
     name = "map_viewer",
     srcs = [
-        "image.h",
         "main.cc",
     ],
     visibility = ["//visibility:private"],
     deps = [
         "//libs/geometry",
         "//libs/maps",
-        "@lvandeve_lodepng",
     ],
 )

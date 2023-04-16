@@ -7,12 +7,16 @@ cc_library(
         "bounding_box.cc",
         "color.cc",
         "distance_function.cc",
+        "image.cc",
         "point3f.cc",
         "vector3f.cc",
     ],
     hdrs = glob(["**/*.h"]),
     visibility = [
         "//visibility:public",
+    ],
+    deps = [
+        "@lvandeve_lodepng",
     ],
 )
 
@@ -30,5 +34,6 @@ cc_test(
     deps = [
         "@com_google_googletest//:gtest",
         "@com_google_googletest//:gtest_main",
+        "@lvandeve_lodepng",
     ],
 )

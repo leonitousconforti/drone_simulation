@@ -10,7 +10,7 @@ COPY . /app
 WORKDIR /app
 
 # 4 - compile code
-RUN bazel build
+RUN bazel build ...
 
 # 5 - expose port
 EXPOSE 8080

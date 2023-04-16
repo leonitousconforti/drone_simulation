@@ -1,8 +1,8 @@
 load("@rules_cc//cc:defs.bzl", "cc_binary")
 
-# bazelisk run //apps/routing_viewer
+# bazelisk run //apps/pathfinding_viewer
 cc_binary(
-    name = "routing_viewer",
+    name = "pathfinding_viewer",
     srcs = [
         "main.cc",
     ],

@@ -1,8 +1,8 @@
 #include <iostream>
 
-#include "image.h"
 #include "libs/geometry/bounding_box.h"
 #include "libs/geometry/color.h"
+#include "libs/geometry/image.h"
 #include "libs/maps/graph.h"
 #include "libs/maps/osm_graph.h"
 

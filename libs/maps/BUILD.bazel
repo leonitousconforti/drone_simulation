@@ -5,7 +5,10 @@ cc_library(
     name = "maps",
     srcs = glob(["**/*.cc"]),
     hdrs = glob(["**/*.h"]),
-    data = glob(["data/**/*.osm"]),
+    data = glob([
+        "data/**/*.osm",
+        "textures/**/*.png",
+    ]),
     visibility = ["//visibility:public"],
     deps = [
         "//libs/geometry",
