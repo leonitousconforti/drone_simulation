@@ -22,8 +22,8 @@ class IGraphNode {
 
  protected:
   const std::string& name;
-  std::vector<IGraphNode*> neighbors;
   geometry::Point3f position;
+  std::vector<IGraphNode*> neighbors;
 };
 
 class IGraph {

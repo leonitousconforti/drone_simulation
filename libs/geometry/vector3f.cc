@@ -10,10 +10,10 @@ Vector3f::Vector3f(Point3f p) {
   this->z = p.z;
 }
 
-float Vector3f::Magnitude() { return std::sqrt(x * x + y * y + z * z); }
+float Vector3f::magnitude() { return std::sqrt(x * x + y * y + z * z); }
 
-Vector3f Vector3f::Unit() {
-  return Magnitude() == 0 ? (*this) : (*this) / Magnitude();
+Vector3f Vector3f::unit() {
+  return magnitude() == 0 ? (*this) : (*this) / magnitude();
 }
 
 }  // namespace drone_simulation::geometry

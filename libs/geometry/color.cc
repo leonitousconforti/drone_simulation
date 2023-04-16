@@ -9,10 +9,12 @@ float Color::green() const { return this->g; }
 float Color::blue() const { return this->b; }
 float Color::alpha() const { return this->a; }
 
-Color Color::opaque() const { return Color(r, g, b, 1); }
+// https://en.wikipedia.org/wiki/Relative_luminance
 float Color::getLuminance() const {
   return 0.2126 * this->r + 0.7152 * this->g + 0.0722 * this->b;
 }
+
+Color Color::opaque() const { return Color(r, g, b, 1); }
 
 Color Color::operator+(Color c) const {
   return Color(this->r + c.r, this->g + c.g, this->b + c.b, this->a + c.a);
