@@ -15,6 +15,12 @@
       "type": "shell",
       "command": "bazelisk run @hedron_compile_commands//:refresh_all",
       "problemMatcher": []
+    },
+    {
+      "label": "count lines of code",
+      "type": "shell",
+      "command": "cloc $(git ls-files) --exclude-lang=JavaScript,XML,CSS",
+      "problemMatcher": []
     }
   ]
 }
