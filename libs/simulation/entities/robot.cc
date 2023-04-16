@@ -1,20 +1,15 @@
-#include "Robot.h"
+#include "robot.h"
 
-Robot::Robot(JsonObject &obj) : details(obj) {
-  JsonArray pos = obj["position"];
-  position = {pos[0], pos[1], pos[2]};
-  JsonArray dir = obj["direction"];
-  direction = {dir[0], dir[1], dir[2]};
-  speed = obj["speed"];
-  available = true;
-}
+#include <cmath>
 
-JsonObject Robot::GetDetails() const { return details; }
+#include "libs/geometry/vector3f.h"
 
-void Robot::SetAvailability(bool choice) { available = choice; }
+namespace drone_simulation::simulation::entities {
 
 void Robot::Rotate(double angle) {
-  Vector3 dirTmp = direction;
-  direction.x = dirTmp.x * std::cos(angle) - dirTmp.z * std::sin(angle);
-  direction.z = dirTmp.x * std::sin(angle) + dirTmp.z * std::cos(angle);
+  geometry::Vector3f dirTmp = direction;
+  this->direction.x = dirTmp.x * std::cos(angle) - dirTmp.z * std::sin(angle);
+  this->direction.z = dirTmp.x * std::sin(angle) + dirTmp.z * std::cos(angle);
 }
+
+}  // namespace drone_simulation::simulation::entities

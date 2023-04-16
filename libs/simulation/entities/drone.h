@@ -5,6 +5,8 @@
 #include "libs/geometry/vector3f.h"
 #include "libs/simulation/IEntity.h"
 
+namespace drone_simulation::simulation::entities {
+
 // Represents a drone in a physical system.
 // Drones move using euler integration based on a specified
 // velocity and direction.
@@ -15,17 +17,6 @@
  */
 class Drone : public IEntity {
  public:
-  /**
-   * @brief Drones are created with a name
-   * @param obj JSON object containing the drone's information
-   */
-  Drone();
-
-  /**
-   * @brief Destructor
-   */
-  ~Drone();
-
   /**
    * @brief Gets the nearest entity in the scheduler
    * @param scheduler Vector containing all the entities in the system
@@ -53,14 +44,9 @@ class Drone : public IEntity {
 
  private:
   float jumpHeight = 0;
-  bool goUp = true;  // jump helper
-  Vector3 destination;
+  bool goUp = true;
   float speed;
-  bool available;
   bool pickedUp;
-  IEntity* nearestEntity = nullptr;
-  IStrategy* toRobot = nullptr;
-  IStrategy* toFinalDestination = nullptr;
 };
 
-#endif
+}  // namespace drone_simulation::simulation::entities

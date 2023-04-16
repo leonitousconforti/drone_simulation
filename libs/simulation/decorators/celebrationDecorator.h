@@ -24,7 +24,7 @@ class CelebrationDecorator : public IStrategy {
   /**
    * @brief Celebration Destructor
    */
-  ~CelebrationDecorator();
+  virtual ~CelebrationDecorator();
 
   /**
    * @brief Move the entity with the behavior as described for 4 seconds.

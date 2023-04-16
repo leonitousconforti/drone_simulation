@@ -14,17 +14,6 @@ namespace drone_simulation::simulation::entities {
 class Dragon : public IEntity {
  public:
   /**
-   * @brief Dragons are created with a name
-   * @param obj JSON object containing the Dragon's information
-   */
-  Dragon();
-
-  /**
-   * @brief Destructor
-   */
-  ~Dragon();
-
-  /**
    * @brief Updates the Dragon's position
    * @param dt Delta time
    * @param scheduler Vector containing all the entities in the system

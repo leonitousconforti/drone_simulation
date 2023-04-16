@@ -1,6 +1,6 @@
 #pragma once
 
-#include "graph.h"
+#include "libs/maps/graph.h"
 #include "pathStrategy.h"
 
 namespace drone_simulation::simulation::movement_strategies {

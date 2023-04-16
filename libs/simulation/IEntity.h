@@ -2,11 +2,11 @@
 
 #include <vector>
 
+#include "IStrategy.h"
 #include "libs/geometry/color.h"
 #include "libs/geometry/point3f.h"
 #include "libs/geometry/vector3f.h"
 #include "libs/maps/graph.h"
-#include "libs/simulation/IStrategy.h"
 
 namespace drone_simulation::simulation {
 
@@ -24,25 +24,22 @@ class IEntity {
   /**
    * @brief Constructor that assigns a unique ID to the entity.
    */
-  IEntity(float speed, geometry::Color color) {
+  IEntity() {
     static int currentId = 0;
     id = currentId;
     currentId++;
-
-    this->speed = speed;
-    this->color = color;
   }
 
   /**
    * @brief Virtual destructor for IEntity.
    */
-  virtual ~IEntity() { delete graph; }
+  ~IEntity() { delete this->strategy; }
 
   /**
    * @brief Gets the ID of the entity.
    * @return The ID of the entity.
    */
-  virtual int getId() const final { return id; }
+  virtual int getId() const final { return this->id; }
 
   /**
    * @brief Gets the position of the entity.
@@ -71,12 +68,6 @@ class IEntity {
    * @return The color of the drone
    */
   virtual geometry::Color getColor() const final { return this->color; }
-
-  /**
-   * @brief Gets the speed of the entity.
-   * @return The speed of the entity.
-   */
-  virtual float getSpeed() const final { return this->speed; }
 
   /**
    * @brief Gets the availability of the entity.
@@ -129,12 +120,6 @@ class IEntity {
   virtual void setColor(geometry::Color color) final { this->color = color; }
 
   /**
-   * @brief Sets the speed of the drone
-   * @param speed The new speed of the drone
-   */
-  virtual void setSpeed(float speed) final { this->speed = speed; }
-
-  /**
    * @brief Updates the entity's position in the physical system.
    * @param dt The time step of the update.
    * @param scheduler The list of all entities in the system.
@@ -162,14 +147,14 @@ class IEntity {
 
  protected:
   int id;
-  float speed;
   bool available;
 
-  maps::IGraph* graph;
-  geometry::Color color;
-  geometry::Point3f position;
-  geometry::Vector3f direction;
-  geometry::Point3f destination;
+  IStrategy* strategy = nullptr;
+  maps::IGraph* graph = nullptr;
+  geometry::Color color = {0, 0, 0, 0};
+  geometry::Point3f position = {0, 0, 0};
+  geometry::Vector3f direction = {0, 0, 0};
+  geometry::Point3f destination = {0, 0, 0};
 };
 
 }  // namespace drone_simulation::simulation

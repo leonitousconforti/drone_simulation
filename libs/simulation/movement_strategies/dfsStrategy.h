@@ -1,6 +1,6 @@
 #pragma once
 
-#include "graph.h"
+#include "libs/maps/graph.h"
 #include "pathStrategy.h"
 
 namespace drone_simulation::simulation::movement_strategies {
@@ -18,8 +18,8 @@ class DfsStrategy : public PathStrategy {
    * @param destination End destination
    * @param graph Graph/Nodes of the map
    */
-  DfsStrategy(Vector3 position, Vector3 destination,
-              const routing::IGraph* graph);
+  DfsStrategy(geometry::Vector3f position, geometry::Vector3f destination,
+              const maps::IGraph* graph);
 };
 
 }  // namespace drone_simulation::simulation::movement_strategies

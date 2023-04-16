@@ -10,6 +10,12 @@ Vector3f::Vector3f(Point3f p) {
   this->z = p.z;
 }
 
+Vector3f::Vector3f(float x, float y, float z) {
+  this->x = x;
+  this->y = y;
+  this->z = z;
+}
+
 float Vector3f::magnitude() { return std::sqrt(x * x + y * y + z * z); }
 
 Vector3f Vector3f::unit() {

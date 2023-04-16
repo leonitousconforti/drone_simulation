@@ -10,6 +10,8 @@ namespace drone_simulation::simulation {
  */
 class IStrategy {
  public:
+  virtual ~IStrategy() {}
+
   /**
    * @brief Move toward next position
    *
