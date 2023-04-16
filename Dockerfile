@@ -1,9 +1,4 @@
-FROM ubuntu:20.04
-
-RUN apt-get update && apt-get install -y \
-  build-essential \
-  libssl-dev \
-  zlib1g-dev
+FROM gcr.io/bazel-public/bazel:latest
 
 # 1 - make directory to run container (directory on container)
 RUN mkdir /app
@@ -15,7 +10,10 @@ COPY . /app
 WORKDIR /app
 
 # 4 - compile code
-RUN make -j
+RUN bazel build
 
-# 5 - run command in docker container once image ran
-CMD ["./build/bin/transit_service", "8081", "apps/transit_service/web/"]
+# 5 - expose port
+EXPOSE 8080
+
+# 6 - run command in docker container once image ran
+CMD ["bazel", "run", "//apps/transit_service"]

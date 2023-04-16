@@ -12,7 +12,7 @@ class Dijkstra : public AStar {
   Dijkstra()
       : AStar(geometry::euclideanDistance, geometry::euclideanDistance) {}
 
-  static const RoutingStrategy& Instance() {
+  static const RoutingStrategy& Default() {
     static Dijkstra dikjstra;
     return dikjstra;
   }

@@ -22,4 +22,10 @@ Vector3f Vector3f::unit() {
   return magnitude() == 0 ? (*this) : (*this) / magnitude();
 }
 
+Vector3f Vector3f::operator+(const Vector3f& v) { return *this + v; }
+Vector3f Vector3f::operator-(const Vector3f& v) { return *this - v; }
+Vector3f Vector3f::operator*(float m) { return *this * m; }
+Vector3f Vector3f::operator/(float m) { return *this / m; }
+bool Vector3f::operator==(const Vector3f& other) { return *this == other; }
+
 }  // namespace drone_simulation::geometry

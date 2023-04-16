@@ -4,6 +4,8 @@
 
 namespace drone_simulation::simulation {
 
+class IEntity;
+
 /**
  * @brief Strategy interface
  *

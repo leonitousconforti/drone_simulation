@@ -13,7 +13,7 @@ namespace drone_simulation::simulation::movement_strategies {
 class PathStrategy : public IStrategy {
  protected:
   std::vector<geometry::Point3f> path;
-  int index;
+  unsigned int index;
 
  public:
   /**

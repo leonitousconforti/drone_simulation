@@ -1,18 +1,8 @@
 #include "beelineStrategy.h"
 
-BeelineStrategy::BeelineStrategy(Vector3 position, Vector3 destination)
-    : position(position), destination(destination) {}
+namespace drone_simulation::simulation::movement_strategies {
 
-void BeelineStrategy::Move(IEntity* entity, double dt) {
-  if (IsCompleted()) return;
+BeelineStrategy::BeelineStrategy(geometry::Vector3f start,
+                                 geometry::Vector3f end) {}
 
-  Vector3 dir = (destination - position).Unit();
-
-  position = position + dir * entity->GetSpeed() * dt;
-  entity->SetPosition(position);
-  entity->SetDirection(dir);
-}
-
-bool BeelineStrategy::IsCompleted() {
-  return position.Distance(destination) < 1.0;
-}
+}  // namespace drone_simulation::simulation::movement_strategies

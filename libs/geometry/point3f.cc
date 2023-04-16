@@ -5,7 +5,7 @@
 namespace drone_simulation::geometry {
 
 Point3f Point3f::operator+(const Point3f& v) {
-  return Point3f{x + v.x, y + v.y, z + v.z};
+  return Point3f{this->x + v.x, this->y + v.y, this->z + v.z};
 }
 
 Point3f Point3f::operator-(const Point3f& v) {

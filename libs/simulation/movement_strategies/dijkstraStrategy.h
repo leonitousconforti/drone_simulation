@@ -6,7 +6,7 @@
 namespace drone_simulation::simulation::movement_strategies {
 
 /**
- * @brief this class inhertis from the PathStrategy class and is responsible for
+ * @brief this class inherits from the PathStrategy class and is responsible for
  * generating the dijkstra path that the drone will take.
  */
 class DijkstraStrategy : public PathStrategy {
@@ -18,8 +18,8 @@ class DijkstraStrategy : public PathStrategy {
    * @param destination End destination
    * @param graph Graph/Nodes of the map
    */
-  DijkstraStrategy(Vector3 position, Vector3 destination,
-                   const routing::IGraph* graph);
+  DijkstraStrategy(geometry::Vector3f position, geometry::Vector3f destination,
+                   const maps::IGraph* graph);
 };
 
 }  // namespace drone_simulation::simulation::movement_strategies

@@ -10,14 +10,16 @@
 
 namespace drone_simulation::simulation {
 
+class IStrategy;
+
 /**
  * @class IEntity
  * @brief Represents an entity in a physical system.
  *
- * An IEntity object has a unique ID, a position, a direction, a destination,
- * and details. It also has a speed, which determines how fast the entity moves
- * in the physical system. Subclasses of IEntity can override the `Update`
- * function to implement their own movement behavior.
+ * An IEntity object has a unique ID, a position, a direction, a
+ * destination, and details. It also has a speed, which determines how fast
+ * the entity moves in the physical system. Subclasses of IEntity can
+ * override the `Update` function to implement their own movement behavior.
  */
 class IEntity {
  public:
@@ -69,6 +71,8 @@ class IEntity {
    */
   virtual geometry::Color getColor() const final { return this->color; }
 
+  virtual float getSpeed() const final { return this->speed; }
+
   /**
    * @brief Gets the availability of the entity.
    * @return The availability of the entity.
@@ -119,6 +123,8 @@ class IEntity {
    */
   virtual void setColor(geometry::Color color) final { this->color = color; }
 
+  virtual void setSpeed(float speed) final { this->speed = speed; }
+
   /**
    * @brief Updates the entity's position in the physical system.
    * @param dt The time step of the update.
@@ -147,6 +153,7 @@ class IEntity {
 
  protected:
   int id;
+  float speed;
   bool available;
 
   IStrategy* strategy = nullptr;

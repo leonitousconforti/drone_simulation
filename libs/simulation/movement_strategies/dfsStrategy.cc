@@ -1,9 +1,12 @@
-#include "DfsStrategy.h"
+#include "dfsStrategy.h"
 
-#include "routing/depth_first_search.h"
+#include "libs/routing/depth_first_search.h"
 
-DfsStrategy::DfsStrategy(Vector3 pos, Vector3 des, const routing::IGraph* g) {
-  std::vector<float> start = {pos[0], pos[1], pos[2]};
-  std::vector<float> end = {des[0], des[1], des[2]};
-  path = g->GetPath(start, end, DepthFirstSearch::Default());
+namespace drone_simulation::simulation::movement_strategies {
+
+DfsStrategy::DfsStrategy(geometry::Vector3f start, geometry::Vector3f end,
+                         const maps::IGraph* graph) {
+  path = routing::DepthFirstSearch::Default().getPath(graph, start, end);
 }
+
+}  // namespace drone_simulation::simulation::movement_strategies
