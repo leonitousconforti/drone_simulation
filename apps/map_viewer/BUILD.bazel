@@ -1,4 +1,4 @@
-load("@rules_cc//cc:defs.bzl", "cc_binary")
+load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library")
 
 # bazelisk run //apps/map_viewer
 cc_binary(
@@ -7,6 +7,19 @@ cc_binary(
         "main.cc",
     ],
     visibility = ["//visibility:private"],
+    deps = [
+        ":map_drawer",
+        "//libs/geometry",
+        "//libs/maps",
+    ],
+)
+
+# bazelisk build //apps/map_viewer:map_drawer
+cc_library(
+    name = "map_drawer",
+    srcs = ["draw_map.cc"],
+    hdrs = ["draw_map.h"],
+    visibility = ["//apps:__subpackages__"],
     deps = [
         "//libs/geometry",
         "//libs/maps",
