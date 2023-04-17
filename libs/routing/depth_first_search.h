@@ -1,6 +1,6 @@
 #pragma once
 
-#include <string>
+#include <vector>
 
 #include "libs/geometry/point3f.h"
 #include "libs/maps/graph.h"
@@ -12,9 +12,9 @@ class DepthFirstSearch : public RoutingStrategy {
  public:
   virtual ~DepthFirstSearch() {}
 
-  std::vector<geometry::Point3f> getPath(const maps::IGraph* graph,
-                                         const geometry::Point3f& from,
-                                         const geometry::Point3f& to) const;
+  virtual std::vector<geometry::Point3f> getPath(
+      const maps::IGraph* graph, const geometry::Point3f& from,
+      const geometry::Point3f& to) const;
 
   static const RoutingStrategy& Default() {
     static DepthFirstSearch dfs;
