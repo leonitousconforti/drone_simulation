@@ -1,25 +1,11 @@
 #include "graph.h"
 
+#include <functional>
 #include <limits>
 #include <stdexcept>
+#include <unordered_set>
 
 namespace drone_simulation::maps {
-
-IGraphNode::IGraphNode(geometry::Point3f position, const std::string& name)
-    : name(name), position(position){};
-
-IGraphNode::~IGraphNode(){};
-
-const std::string& IGraphNode::getName() const { return this->name; };
-const std::vector<IGraphNode*>& IGraphNode::getNeighbors() const {
-  return this->neighbors;
-};
-const geometry::Point3f IGraphNode::getPosition() const {
-  return this->position;
-}
-void IGraphNode::addNeighbor(IGraphNode* neighbor) {
-  this->neighbors.push_back(neighbor);
-};
 
 IGraph::IGraph() {}
 
@@ -42,7 +28,7 @@ bool IGraph::contains(std::string& name) const {
   return !(this->lookup.find(name) == this->lookup.end());
 };
 
-IGraphNode* IGraph::nodeNamed(std::string& name) const {
+IGraphNode* IGraph::getNodeByName(std::string& name) const {
   auto result = this->lookup.find(name);
   if (result == this->lookup.end()) {
     throw std::invalid_argument(name);
@@ -53,10 +39,19 @@ IGraphNode* IGraph::nodeNamed(std::string& name) const {
 const std::vector<IGraphNode*>& IGraph::getNodes() const { return this->nodes; }
 
 void IGraph::addEdge(std::string& name1, std::string& name2) {
-  IGraphNode* node1 = nodeNamed(name1);
-  IGraphNode* node2 = nodeNamed(name2);
+  IGraphNode* node1 = getNodeByName(name1);
+  IGraphNode* node2 = getNodeByName(name2);
   node1->addNeighbor(node2);
+  node2->addNeighbor(node1);
 };
+
+void IGraph::prune() {
+  auto noNeighbors = [](IGraphNode* node) {
+    return node->getNeighbors().size() == 0;
+  };
+  auto _ = std::remove_if(this->nodes.begin(), this->nodes.end(), noNeighbors);
+  this->nodes.erase(_, this->nodes.end());
+}
 
 const geometry::BoundingBox IGraph::getBoundingBox() const {
   geometry::BoundingBox bb;

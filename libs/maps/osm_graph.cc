@@ -55,12 +55,15 @@ IGraph* loadOsmGraph(const std::string& filepath) {
         }
     };
 
-    // Apply our lambda functions (in order) to create the graph
+    // Apply our lambda functions (in this order) to create the graph
     osmium::apply(reader, node_handler, way_handler);
 
     // You do not have to close the Reader explicitly, but because the
     // destructor can't throw, you will not see any errors otherwise.
     reader.close();
+
+    // Prune the graph (remove all nodes with no neighbors)
+    graph->prune();
     return graph;
   }
 
