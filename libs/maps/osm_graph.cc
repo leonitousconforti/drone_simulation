@@ -48,9 +48,9 @@ IGraph* loadOsmGraph(const std::string& filepath, const bool prune) {
     // Lambda function that takes a way and computes the adjacency lists
     auto way_handler = [&](const osmium::Way& way) {
       if (way.tags().has_key("highway"))
-        for (size_t i = 0; i < way.nodes().size() - 1; i++) {
-          int64_t from = way.nodes()[i].ref();
-          int64_t to = way.nodes()[i + 1].ref();
+        for (size_t i = 1; i < way.nodes().size(); i++) {
+          int64_t from = way.nodes()[i - 1].ref();
+          int64_t to = way.nodes()[i].ref();
           graph->addEdge(from, to);
         }
     };
