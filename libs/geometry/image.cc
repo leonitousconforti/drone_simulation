@@ -29,6 +29,10 @@ Color Image::getPixel(int x, int y) const {
 }
 
 void Image::setPixel(int x, int y, Color color) {
+  if (x < 0) x = 0;
+  if (y < 0) y = 0;
+  if (x >= this->width) x = this->width - 1;
+  if (y >= this->height) y = this->height - 1;
   unsigned char* pixel = &this->pixels[(x + width * y) * 4];
   pixel[0] = color.red() * 255.0;
   pixel[1] = color.green() * 255.0;

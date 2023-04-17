@@ -47,7 +47,11 @@ void IGraph::addEdge(std::string& name1, std::string& name2) {
 
 void IGraph::prune() {
   auto noNeighbors = [](IGraphNode* node) {
-    return node->getNeighbors().size() == 0;
+    if (node->getNeighbors().size() == 0) {
+      delete node;
+      return true;
+    }
+    return false;
   };
   auto _ = std::remove_if(this->nodes.begin(), this->nodes.end(), noNeighbors);
   this->nodes.erase(_, this->nodes.end());
@@ -62,6 +66,8 @@ const geometry::BoundingBox IGraph::getBoundingBox() const {
   bb.min.y = initial.y;
   bb.max.x = initial.x;
   bb.max.y = initial.y;
+  bb.min.z = 0;
+  bb.max.z = 0;
 
   for (IGraphNode* node : nodes) {
     geometry::Point3f pos = node->getPosition();

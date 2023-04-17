@@ -5,7 +5,7 @@ namespace drone_simulation::geometry {
 Point3f BoundingBox::normalize(Point3f point) const {
   auto normalize_1d = [](float val, float min, float max) {
     float diff = max - min;
-    if (diff < 0.00001)
+    if (diff < 1e-5)
       return 0.0f;
     else
       return (val - min) / diff;
