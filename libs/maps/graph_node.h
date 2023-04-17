@@ -16,6 +16,8 @@ class IGraphNode {
   const std::vector<IGraphNode*>& getNeighbors() const;
   void addNeighbor(IGraphNode* neighbor);
 
+  friend std::ostream& operator<<(std::ostream& os, const IGraphNode& node);
+
  private:
   const std::string& name;
   geometry::Point3f position;

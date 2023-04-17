@@ -21,4 +21,10 @@ void IGraphNode::addNeighbor(IGraphNode* neighbor) {
   this->neighbors.push_back(neighbor);
 };
 
+std::ostream& operator<<(std::ostream& os, const IGraphNode& node) {
+  os << node.name << "@" << node.position << " has " << node.neighbors.size()
+     << " neighbors";
+  return os;
+}
+
 }  // namespace drone_simulation::maps
