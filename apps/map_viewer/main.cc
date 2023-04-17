@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "draw_map.h"
+#include "libs/geometry/image.h"
 #include "libs/maps/graph.h"
 #include "libs/maps/osm_graph.h"
 
@@ -17,7 +18,7 @@ int main(int argc, char* argv[]) {
 
   IGraph* graph = loadOsmGraph(argv[1], false);
   if (graph == nullptr) {
-    std::cout << "Failed to parse graph file" << std::endl;
+    std::cerr << "Failed to parse graph file" << std::endl;
     return -2;
   }
 

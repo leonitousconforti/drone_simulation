@@ -41,16 +41,16 @@ IGraph* loadOsmGraph(const std::string& filepath, const bool prune) {
       float lon = lon_diff * 40075160 * std::cos(center_lat_rads) / 360.0f;
       float lat = -lat_diff * 40008000.0 / 360.0;
 
-      IGraphNode* graphNode = new IGraphNode({lat, lon, 0}, std::to_string(id));
+      IGraphNode* graphNode = new IGraphNode({lat, lon, 0}, id);
       graph->addNode(graphNode);
     };
 
     // Lambda function that takes a way and computes the adjacency lists
     auto way_handler = [&](const osmium::Way& way) {
       if (way.tags().has_key("highway"))
-        for (size_t i = 0; i < way.nodes().size() - 2; i++) {
-          std::string from = std::to_string(way.nodes()[i].ref());
-          std::string to = std::to_string(way.nodes()[i + 1].ref());
+        for (size_t i = 0; i < way.nodes().size() - 1; i++) {
+          int64_t from = way.nodes()[i].ref();
+          int64_t to = way.nodes()[i + 1].ref();
           graph->addEdge(from, to);
         }
     };

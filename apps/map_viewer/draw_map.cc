@@ -1,5 +1,7 @@
 #include "draw_map.h"
 
+#include <vector>
+
 #include "libs/geometry/bounding_box.h"
 #include "libs/geometry/image.h"
 #include "libs/geometry/point3f.h"
@@ -13,7 +15,7 @@ geometry::Image drawGraph(const maps::IGraph* graph) {
   const std::vector<maps::IGraphNode*>& nodes = graph->getNodes();
   float aspectRatio = (bb.max.x - bb.min.x) / (bb.max.y - bb.min.y);
 
-  int resolution = 1024;
+  int resolution = 2048;
   geometry::Image output(resolution, resolution * aspectRatio);
   output.clear({0, 0, 0, 1});
 

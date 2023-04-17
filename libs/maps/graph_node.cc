@@ -2,12 +2,12 @@
 
 namespace drone_simulation::maps {
 
-IGraphNode::IGraphNode(geometry::Point3f position, const std::string& name)
-    : name(name), position(position){};
+IGraphNode::IGraphNode(geometry::Point3f position, const int64_t id)
+    : id(id), position(position){};
 
 IGraphNode::~IGraphNode(){};
 
-const std::string& IGraphNode::getName() const { return this->name; };
+const int64_t IGraphNode::getId() const { return this->id; };
 
 const std::vector<IGraphNode*>& IGraphNode::getNeighbors() const {
   return this->neighbors;
@@ -22,8 +22,8 @@ void IGraphNode::addNeighbor(IGraphNode* neighbor) {
 };
 
 std::ostream& operator<<(std::ostream& os, const IGraphNode& node) {
-  os << node.name << "@" << node.position << " has " << node.neighbors.size()
-     << " neighbors";
+  os << "node " << node.id << "@" << node.position << " has "
+     << node.neighbors.size() << " neighbor(s)";
   return os;
 }
 

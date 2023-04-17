@@ -17,10 +17,10 @@ class IGraph {
   ~IGraph();
 
   void addNode(IGraphNode* node);
-  bool contains(std::string& name) const;
+  bool contains(int64_t id) const;
   const std::vector<IGraphNode*>& getNodes() const;
-  IGraphNode* getNodeByName(std::string& name) const;
-  void addEdge(std::string& name1, std::string& name2);
+  IGraphNode* getNodeById(int64_t id) const;
+  void addEdge(int64_t id1, int64_t id2);
 
   void prune();
   const geometry::BoundingBox getBoundingBox() const;
@@ -30,7 +30,7 @@ class IGraph {
 
  private:
   std::vector<IGraphNode*> nodes;
-  std::unordered_map<std::string, IGraphNode*> lookup;
+  std::unordered_map<int64_t, IGraphNode*> lookup;
 };
 
 }  // namespace drone_simulation::maps

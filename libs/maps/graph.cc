@@ -16,31 +16,31 @@ IGraph::~IGraph() {
 }
 
 void IGraph::addNode(IGraphNode* node) {
-  std::string name = node->getName();
-  if (this->contains(name)) {
-    throw std::invalid_argument(name);
+  int64_t id = node->getId();
+  if (this->contains(id)) {
+    throw std::invalid_argument("graph already contains that node");
   }
-  this->lookup.insert({name, node});
+  this->lookup.insert({id, node});
   this->nodes.push_back(node);
 };
 
-bool IGraph::contains(std::string& name) const {
-  return !(this->lookup.find(name) == this->lookup.end());
+bool IGraph::contains(int64_t id) const {
+  return !(this->lookup.find(id) == this->lookup.end());
 };
 
-IGraphNode* IGraph::getNodeByName(std::string& name) const {
-  auto result = this->lookup.find(name);
+IGraphNode* IGraph::getNodeById(int64_t id) const {
+  auto result = this->lookup.find(id);
   if (result == this->lookup.end()) {
-    throw std::invalid_argument(name);
+    throw std::invalid_argument("graph does not contain that node");
   }
   return result->second;
 };
 
 const std::vector<IGraphNode*>& IGraph::getNodes() const { return this->nodes; }
 
-void IGraph::addEdge(std::string& name1, std::string& name2) {
-  IGraphNode* node1 = getNodeByName(name1);
-  IGraphNode* node2 = getNodeByName(name2);
+void IGraph::addEdge(int64_t id1, int64_t id2) {
+  IGraphNode* node1 = getNodeById(id1);
+  IGraphNode* node2 = getNodeById(id2);
   node1->addNeighbor(node2);
   node2->addNeighbor(node1);
 };
