@@ -11,7 +11,7 @@
 namespace drone_simulation::maps {
 
 // Helpful reference https://wiki.openstreetmap.org/wiki/Elements
-IGraph* loadOsmGraph(const std::string& filepath) {
+IGraph* loadOsmGraph(const std::string& filepath, const bool prune) {
   IGraph* graph = new IGraph();
 
   try {
@@ -63,7 +63,7 @@ IGraph* loadOsmGraph(const std::string& filepath) {
     reader.close();
 
     // Prune the graph (remove all nodes with no neighbors)
-    graph->prune();
+    if (prune) graph->prune();
     return graph;
   }
 
