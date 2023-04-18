@@ -6,12 +6,9 @@
   "features": {
     "ghcr.io/devcontainers/features/go:1": {},
     "ghcr.io/devcontainers/features/git:1": {},
-    "ghcr.io/devcontainers/features/node:1": {},
     "ghcr.io/devcontainers/features/github-cli:1": {},
     "ghcr.io/devcontainers/features/common-utils:2": {},
     "ghcr.io/balazs23/devcontainers-features/bazel:1": {},
-    "ghcr.io/devcontainers-contrib/features/typescript:2": {},
-    "ghcr.io/devcontainers-contrib/features/grpcurl-asdf:2": {},
     "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
     "ghcr.io/azutake/devcontainer-features/go-packages-install:0": {
       "packages": "github.com/bazelbuild/buildtools/buildifier@latest"
@@ -42,7 +39,7 @@
         "codemetrics.basics.OverviewRulerModeEnabled": false,
         "editor.defaultFormatter": "EditorConfig.EditorConfig",
         "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google }",
-        "[typescript][typescriptreact][javascript][javascriptreact][json][jsonc]": {
+        "[json][jsonc]": {
           "editor.defaultFormatter": "esbenp.prettier-vscode"
         },
         "[c][cpp]": {
@@ -100,7 +97,7 @@
   "runArgs": ["--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined"],
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally
-  "forwardPorts": [8080],
+  // "forwardPorts": [8080],
 
   // Use 'postCreateCommand' to run commands after the container is created
   "postCreateCommand": "bazelisk version && bazelisk run @hedron_compile_commands//:refresh_all",
