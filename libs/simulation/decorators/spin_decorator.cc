@@ -1,4 +1,4 @@
-#include "spinDecorator.h"
+#include "spin_decorator.h"
 
 namespace drone_simulation::simulation::decorators {
 

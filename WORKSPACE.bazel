@@ -9,12 +9,6 @@ git_repository(
 )
 
 git_repository(
-    name = "com_google_protobuf",
-    branch = "22.x",
-    remote = "https://github.com/protocolbuffers/protobuf",
-)
-
-git_repository(
     name = "hedron_compile_commands",
     branch = "main",
     remote = "https://github.com/hedronvision/bazel-compile-commands-extractor",
@@ -41,9 +35,20 @@ git_repository(
     remote = "https://github.com/lvandeve/lodepng",
 )
 
-load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
+git_repository(
+    name = "rules_qt",
+    branch = "main",
+    remote = "https://github.com/Vertexwahn/rules_qt6",
+)
+
 load("@hedron_compile_commands//:workspace_setup.bzl", "hedron_compile_commands_setup")
 
-protobuf_deps()
-
 hedron_compile_commands_setup()
+
+load("@rules_qt//:fetch_qt.bzl", "fetch_qt6")
+
+fetch_qt6()
+
+load("@rules_qt//tools:qt_toolchain.bzl", "register_qt_toolchains")
+
+register_qt_toolchains()

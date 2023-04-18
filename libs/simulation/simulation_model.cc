@@ -1,4 +1,4 @@
-#include "simulationModel.h"
+#include "simulation_model.h"
 
 namespace drone_simulation::simulation {
 
@@ -11,10 +11,7 @@ SimulationModel::~SimulationModel() {
   delete graph;
 }
 
-void SimulationModel::addEntity(IEntity* entity) {
-  entity->setGraph(this->graph);
-  entities.push_back(entity);
-}
+void SimulationModel::addEntity(IEntity* entity) { entities.push_back(entity); }
 
 /// Schedules a trip for an object in the scene
 void SimulationModel::scheduleTrip(const std::string& name,

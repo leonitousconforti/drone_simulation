@@ -6,11 +6,8 @@
 #include "libs/geometry/color.h"
 #include "libs/geometry/point3f.h"
 #include "libs/geometry/vector3f.h"
-#include "libs/maps/graph.h"
 
 namespace drone_simulation::simulation {
-
-class IStrategy;
 
 /**
  * @class IEntity
@@ -35,7 +32,7 @@ class IEntity {
   /**
    * @brief Virtual destructor for IEntity.
    */
-  ~IEntity() { delete this->strategy; }
+  virtual ~IEntity() { delete this->strategy; }
 
   /**
    * @brief Gets the ID of the entity.
@@ -86,12 +83,6 @@ class IEntity {
   virtual void setAvailability(bool available) final {
     this->available = available;
   }
-
-  /**
-   * @brief Sets the graph object used by the entity in the simulation.
-   * @param graph The IGraph object to be used.
-   */
-  virtual void setGraph(maps::IGraph* graph) final { this->graph = graph; }
 
   /**
    * @brief Sets the position of the entity.
@@ -157,7 +148,6 @@ class IEntity {
   bool available;
 
   IStrategy* strategy = nullptr;
-  maps::IGraph* graph = nullptr;
   geometry::Color color = {0, 0, 0, 0};
   geometry::Point3f position = {0, 0, 0};
   geometry::Vector3f direction = {0, 0, 0};

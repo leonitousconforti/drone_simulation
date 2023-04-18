@@ -31,12 +31,6 @@ class SimulationModel {
   ~SimulationModel();
 
   /**
-   * @brief Set the Graph for the SimulationModel
-   * @param graph Type IGraph* contain the new graph for SimulationModel
-   **/
-  void setGraph(const maps::IGraph* graph);
-
-  /**
    * @brief Creates a new simulation entity
    * @param entity Type JsonObject contain the entity's reference to decide
    * which entity to create

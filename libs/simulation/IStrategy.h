@@ -1,7 +1,5 @@
 #pragma once
 
-#include "IEntity.h"
-
 namespace drone_simulation::simulation {
 
 class IEntity;

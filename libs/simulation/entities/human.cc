@@ -2,6 +2,6 @@
 
 namespace drone_simulation::simulation::entities {
 
-void Human::Update(double dt, std::vector<IEntity*> scheduler) {}
+void Human::update(double dt, std::vector<IEntity*> scheduler) {}
 
-}
+}  // namespace drone_simulation::simulation::entities

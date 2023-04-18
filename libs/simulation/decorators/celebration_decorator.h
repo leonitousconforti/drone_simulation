@@ -1,5 +1,6 @@
 #pragma once
 
+#include "libs/simulation/IEntity.h"
 #include "libs/simulation/IStrategy.h"
 
 namespace drone_simulation::simulation::decorators {

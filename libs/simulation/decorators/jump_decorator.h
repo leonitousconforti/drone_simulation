@@ -1,6 +1,6 @@
 #pragma once
 
-#include "celebrationDecorator.h"
+#include "celebration_decorator.h"
 
 namespace drone_simulation::simulation::decorators {
 

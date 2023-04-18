@@ -2,9 +2,9 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Build transit service",
+      "label": "Build all",
       "type": "shell",
-      "command": "bazelisk build //apps/transit_service",
+      "command": "bazelisk build --config=gcc11 ...",
       "group": {
         "kind": "build",
         "isDefault": true
@@ -19,7 +19,7 @@
     {
       "label": "count lines of code",
       "type": "shell",
-      "command": "cloc $(git ls-files) --exclude-lang=JavaScript,XML,CSS",
+      "command": "cloc $(git ls-files) --exclude-lang=XML,JSON",
       "problemMatcher": []
     }
   ]

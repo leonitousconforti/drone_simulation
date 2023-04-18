@@ -1,15 +1,15 @@
 #pragma once
 
 #include "libs/maps/graph.h"
-#include "pathStrategy.h"
+#include "path_strategy.h"
 
 namespace drone_simulation::simulation::movement_strategies {
 
 /**
  * @brief this class inherits from the PathStrategy class and is responsible for
- * generating the depth first search path that the drone will take.
+ * generating the dijkstra path that the drone will take.
  */
-class DfsStrategy : public PathStrategy {
+class DijkstraStrategy : public PathStrategy {
  public:
   /**
    * @brief Construct a new Astar Strategy object
@@ -18,8 +18,8 @@ class DfsStrategy : public PathStrategy {
    * @param destination End destination
    * @param graph Graph/Nodes of the map
    */
-  DfsStrategy(geometry::Vector3f position, geometry::Vector3f destination,
-              const maps::IGraph* graph);
+  DijkstraStrategy(geometry::Vector3f position, geometry::Vector3f destination,
+                   const maps::IGraph* graph);
 };
 
 }  // namespace drone_simulation::simulation::movement_strategies

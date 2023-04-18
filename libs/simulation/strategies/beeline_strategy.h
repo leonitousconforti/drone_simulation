@@ -2,7 +2,7 @@
 
 #include "libs/geometry/point3f.h"
 #include "libs/maps/graph.h"
-#include "pathStrategy.h"
+#include "path_strategy.h"
 
 namespace drone_simulation::simulation::movement_strategies {
 
