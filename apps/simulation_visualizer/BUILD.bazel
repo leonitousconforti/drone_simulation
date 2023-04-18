@@ -1,0 +1,16 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary")
+
+# bazelisk run //apps/simulation_visualizer
+cc_binary(
+    name = "simulation_visualizer",
+    srcs = [
+        "main.cc",
+    ],
+    visibility = ["//visibility:private"],
+    deps = [
+        "//libs/geometry",
+        "//libs/maps",
+        "//libs/routing",
+        "//libs/simulation",
+    ],
+)

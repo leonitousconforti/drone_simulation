@@ -7,7 +7,6 @@
     "ghcr.io/devcontainers/features/go:1": {},
     "ghcr.io/devcontainers/features/git:1": {},
     "ghcr.io/devcontainers/features/node:1": {},
-    "ghcr.io/devcontainers/features/python:1": {},
     "ghcr.io/devcontainers/features/github-cli:1": {},
     "ghcr.io/devcontainers/features/common-utils:2": {},
     "ghcr.io/balazs23/devcontainers-features/bazel:1": {},
@@ -32,8 +31,7 @@
         "ms-azuretools.vscode-docker",
         "ms-vscode.cpptools-extension-pack",
         "esbenp.prettier-vscode",
-        "mutantdino.resourcemonitor",
-        "ms-python.black-formatter"
+        "mutantdino.resourcemonitor"
       ],
       "settings": {
         "cSpell.enabled": true,
@@ -53,15 +51,6 @@
         "[starlark]": {
           "editor.defaultFormatter": "BazelBuild.vscode-bazel"
         },
-        "[python]": {
-          "editor.wordBasedSuggestions": false,
-          "editor.defaultFormatter": "ms-python.black-formatter",
-          "editor.codeActionsOnSave": {
-            "source.organizeImports": true
-          }
-        },
-        "python.formatting.provider": "black",
-        "isort.args": ["--profile", "black"],
         "files.associations": { "*.json": "jsonc", "package.json": "json" },
         "cSpell.enableFiletypes": [
           "dockercompose",

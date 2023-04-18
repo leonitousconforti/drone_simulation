@@ -9,21 +9,21 @@
 
 namespace drone_simulation::routing {
 
-class AStar : public RoutingStrategy {
+class A_Star : public RoutingStrategy {
  public:
-  AStar()
+  A_Star()
       : cost(geometry::euclideanDistance),
         heuristic(geometry::euclideanDistance) {}
 
-  AStar(geometry::DistanceFunction cost, geometry::DistanceFunction heuristic)
+  A_Star(geometry::DistanceFunction cost, geometry::DistanceFunction heuristic)
       : cost(cost), heuristic(heuristic) {}
 
-  virtual std::vector<geometry::Point3f> getPath(
-      const maps::IGraph* graph, const geometry::Point3f& from,
-      const geometry::Point3f& to) const;
+  virtual const std::vector<geometry::Point3f> getPath(
+      const maps::IGraph* graph, const int64_t from_id,
+      const int64_t to_id) const;
 
   static const RoutingStrategy& Default() {
-    static AStar astar;
+    static A_Star astar;
     return astar;
   }
 

@@ -6,11 +6,11 @@
 
 namespace drone_simulation::routing {
 
-class Dijkstra : public AStar {
+class Dijkstra : public A_Star {
  public:
   virtual ~Dijkstra() {}
   Dijkstra()
-      : AStar(geometry::euclideanDistance, geometry::euclideanDistance) {}
+      : A_Star(geometry::euclideanDistance, geometry::euclideanDistance) {}
 
   static const RoutingStrategy& Default() {
     static Dijkstra dikjstra;
