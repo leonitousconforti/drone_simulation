@@ -1,15 +1,15 @@
-load("@rules_qt//:qt.bzl", "qt_cc_binary")
+# load("@rules_qt//:qt.bzl", "qt_cc_binary")
 
-qt_cc_binary(
-    name = "simulation_visualizer",
-    srcs = ["main.cc"],
-    visibility = ["//visibility:private"],
-    deps = [
-        "//libs/geometry",
-        "//libs/maps",
-        "//libs/routing",
-        "//libs/simulation",
-        "@rules_qt//:qt_core",
-        "@rules_qt//:qt_widgets",
-    ],
-)
+# qt_cc_binary(
+#     name = "simulation_visualizer",
+#     srcs = ["main.cc"],
+#     visibility = ["//visibility:private"],
+#     deps = [
+#         "//libs/geometry",
+#         "//libs/maps",
+#         "//libs/routing",
+#         "//libs/simulation",
+#         "@rules_qt//:qt_core",
+#         "@rules_qt//:qt_widgets",
+#     ],
+# )
