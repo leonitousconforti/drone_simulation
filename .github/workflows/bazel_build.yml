@@ -34,7 +34,7 @@ jobs:
         bazelisk build --config=gcc11 ...
 
   build_and_test_windows10:
-    name: Windows Server 2019 build <Visual Studio 2019>
+    name: Windows 10 build <Visual Studio 2019>
     runs-on: windows-2019
     steps:
     - uses: actions/checkout@v3
@@ -48,7 +48,7 @@ jobs:
         bazelisk build --config=vs2019 ...
 
   build_and_test_windows11:
-    name: Windows Server 2022 build <Visual Studio 2022>
+    name: Windows 11 build <Visual Studio 2022>
     runs-on: windows-2022
     steps:
     - uses: actions/checkout@v3

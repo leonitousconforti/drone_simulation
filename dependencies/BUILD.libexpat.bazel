@@ -19,6 +19,7 @@ cmake(
         "EXPAT_BUILD_TESTS": "OFF",
         "EXPAT_BUILD_FUZZERS": "OFF",
         "EXPAT_BUILD_EXAMPLES": "OFF",
+        "EXPAT_MSVC_STATIC_CRT": "ON",
     },
     generate_args = select({
         "@platforms//os:windows": ["-G\"NMake Makefiles\""],
@@ -27,7 +28,7 @@ cmake(
     lib_name = "org_libexpat_libexpat",
     lib_source = ":all_srcs",
     out_static_libs = select({
-        "@platforms//os:windows": ["libexpatd.lib"],
+        "@platforms//os:windows": ["libexpatMT.lib"],
         "//conditions:default": ["libexpat.a"],
     }),
     visibility = ["//visibility:public"],
