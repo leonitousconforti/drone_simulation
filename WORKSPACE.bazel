@@ -26,9 +26,9 @@ git_repository(
 http_archive(
     name = "org_libexpat_libexpat",
     build_file = "//dependencies:BUILD.libexpat.bazel",
-    sha256 = "a00ae8a6b96b63a3910ddc1100b1a7ef50dc26dceb65ced18ded31ab392f132b",
-    strip_prefix = "expat-2.4.1",
-    urls = ["https://github.com/libexpat/libexpat/releases/download/R_2_4_1/expat-2.4.1.tar.gz"],
+    sha256 = "6b902ab103843592be5e99504f846ec109c1abb692e85347587f237a4ffa1033",
+    strip_prefix = "expat-2.5.0",
+    urls = ["https://github.com/libexpat/libexpat/releases/download/R_2_5_0/expat-2.5.0.tar.gz"],
 )
 
 # https://github.com/hedronvision/bazel-compile-commands-extractor
