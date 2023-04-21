@@ -36,6 +36,7 @@ void SimulationModel::scheduleTrip(const std::string& name,
 void SimulationModel::update(double dt) {
   for (size_t i = 0; i < this->entities.size(); i++) {
     entities[i]->update(dt, this->entities);
+    std::cout << this->entities[i]->getSpeed() << std::endl;
   }
 }
 
