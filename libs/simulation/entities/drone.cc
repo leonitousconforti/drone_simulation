@@ -1,6 +1,6 @@
 #include "drone.h"
 
-#include <math.h>
+#include <cmath>
 
 namespace drone_simulation::simulation::entities {
 

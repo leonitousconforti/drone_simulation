@@ -1,6 +1,6 @@
 #include "robot.h"
 
-#include <math.h>
+#include <cmath>
 
 #include "libs/geometry/vector3f.h"
 

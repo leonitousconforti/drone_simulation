@@ -1,6 +1,6 @@
 #include "distance_function.h"
 
-#include <math.h>
+#include <cmath>
 
 namespace drone_simulation::geometry {
 

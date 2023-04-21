@@ -1,6 +1,6 @@
 #include "image.h"
 
-#include <math.h>
+#include <cmath>
 
 #include "lodepng/lodepng.h"
 
