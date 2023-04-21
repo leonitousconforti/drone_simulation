@@ -1,6 +1,6 @@
 #include "vector3f.h"
 
-#include <cmath>
+#include <math.h>
 
 namespace drone_simulation::geometry {
 

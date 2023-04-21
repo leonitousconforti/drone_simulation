@@ -1,6 +1,7 @@
 #include "osm_graph.h"
 
-#include <cmath>
+#include <math.h>
+
 #include <exception>
 #include <iostream>
 
