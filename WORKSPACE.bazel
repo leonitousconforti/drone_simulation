@@ -1,5 +1,6 @@
 workspace(name = "drone_simulation")
 
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 git_repository(
@@ -16,26 +17,38 @@ git_repository(
 )
 
 git_repository(
-    name = "org_libexpat_libexpat",
-    branch = "master",
-    build_file = "//dependencies:BUILD.libexpat.bazel",
-    remote = "https://github.com/libexpat/libexpat",
-)
-
-git_repository(
     name = "lvandeve_lodepng",
     branch = "master",
     build_file = "//dependencies:BUILD.lodepng.bazel",
     remote = "https://github.com/lvandeve/lodepng",
 )
 
+http_archive(
+    name = "org_libexpat_libexpat",
+    build_file = "//dependencies:BUILD.libexpat.bazel",
+    sha256 = "a00ae8a6b96b63a3910ddc1100b1a7ef50dc26dceb65ced18ded31ab392f132b",
+    strip_prefix = "expat-2.4.1",
+    urls = ["https://github.com/libexpat/libexpat/releases/download/R_2_4_1/expat-2.4.1.tar.gz"],
+)
+
 # https://github.com/hedronvision/bazel-compile-commands-extractor
-git_repository(
+http_archive(
     name = "hedron_compile_commands",
-    branch = "main",
-    remote = "https://github.com/hedronvision/bazel-compile-commands-extractor",
+    strip_prefix = "bazel-compile-commands-extractor-b33a4b05c2287372c8e932c55ff4d3a37e6761ed",
+    url = "https://github.com/hedronvision/bazel-compile-commands-extractor/archive/b33a4b05c2287372c8e932c55ff4d3a37e6761ed.tar.gz",
 )
 
 load("@hedron_compile_commands//:workspace_setup.bzl", "hedron_compile_commands_setup")
 
 hedron_compile_commands_setup()
+
+# https://github.com/bazelbuild/rules_foreign_cc
+http_archive(
+    name = "rules_foreign_cc",
+    strip_prefix = "rules_foreign_cc-c6980bc2a28f86562f62bcd8242dce5dfb9d0175",
+    url = "https://github.com/bazelbuild/rules_foreign_cc/archive/c6980bc2a28f86562f62bcd8242dce5dfb9d0175.tar.gz",
+)
+
+load("@rules_foreign_cc//foreign_cc:repositories.bzl", "rules_foreign_cc_dependencies")
+
+rules_foreign_cc_dependencies()
