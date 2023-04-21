@@ -1,4 +1,4 @@
-load("@rules_foreign_cc//foreign_cc:defs.bzl", "cmake", "configure_make")
+load("@rules_foreign_cc//foreign_cc:defs.bzl", "cmake")
 
 filegroup(
     name = "all_srcs",
@@ -9,48 +9,27 @@ filegroup(
     visibility = ["//visibility:private"],
 )
 
-config_setting(
-    name = "msvc_compiler",
-    flag_values = {
-        "@bazel_tools//tools/cpp:compiler": "msvc-cl",
-    },
-)
-
-alias(
-    name = "org_libexpat_libexpat",
-    actual = select({
-        ":msvc_compiler": "expat_msvc",
-        "//conditions:default": "expat_unix",
-    }),
-    visibility = ["//visibility:public"],
-)
-
 cmake(
-    name = "expat_msvc",
+    name = "org_libexpat_libexpat",
     cache_entries = {
         "CMAKE_BUILD_TYPE": "Release",
-        "EXPAT_MSVC_STATIC_CRT": "ON",
         "EXPAT_SHARED_LIBS": "OFF",
+        "EXPAT_BUILD_DOCS": "OFF",
+        "EXPAT_BUILD_TOOLS": "OFF",
+        "EXPAT_BUILD_TESTS": "OFF",
+        "EXPAT_BUILD_FUZZERS": "OFF",
+        "EXPAT_BUILD_EXAMPLES": "OFF",
     },
-    generate_args = ["-G\"NMake Makefiles\""],
-    lib_name = "org_libexpat_libexpat",
-    lib_source = ":all_srcs",
-    out_static_libs = ["libexpatMT.lib"],
-)
-
-configure_make(
-    name = "expat_unix",
-    configure_options = [
-        "--disable-shared",
-        "--without-docbook",
-        "--without-examples",
-        "--without-tests",
-    ],
-    env = select({
-        "@platforms//os:macos": {"AR": ""},
-        "//conditions:default": {},
+    generate_args = select({
+        "@platforms//os:windows": ["-G\"NMake Makefiles\""],
+        "//conditions:default": [],
     }),
     lib_name = "org_libexpat_libexpat",
     lib_source = ":all_srcs",
-    out_static_libs = ["libexpat.a"],
+    out_static_libs = select({
+        "@platforms//os:windows": ["libexpatMT.lib"],
+        "//conditions:default": ["libexpat.a"],
+    }),
+    visibility = ["//visibility:public"],
+    working_directory = "expat",
 )
