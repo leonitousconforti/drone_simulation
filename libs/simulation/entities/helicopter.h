@@ -19,9 +19,6 @@ class Helicopter : public IEntity {
    * @param scheduler Vector containing all the entities in the system
    */
   void Update(double dt, std::vector<IEntity*> scheduler);
-
- private:
-  float speed;
 };
 
 }  // namespace drone_simulation::simulation::entities

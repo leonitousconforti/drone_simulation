@@ -42,11 +42,10 @@ class Drone : public IEntity {
    */
   void Jump(double height);
 
- private:
-  float jumpHeight = 0;
-  bool goUp = true;
-  float speed;
-  bool pickedUp;
+  //  private:
+  //   float jumpHeight = 0;
+  //   bool goUp = true;
+  //   bool pickedUp;
 };
 
 }  // namespace drone_simulation::simulation::entities
