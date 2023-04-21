@@ -9,12 +9,6 @@ git_repository(
 )
 
 git_repository(
-    name = "hedron_compile_commands",
-    branch = "main",
-    remote = "https://github.com/hedronvision/bazel-compile-commands-extractor",
-)
-
-git_repository(
     name = "org_osmcode_libosmium",
     branch = "v2.19.0",
     build_file = "//dependencies:BUILD.libosmium.bazel",
@@ -22,7 +16,7 @@ git_repository(
 )
 
 git_repository(
-    name = "org_libexpat",
+    name = "org_libexpat_libexpat",
     branch = "master",
     build_file = "//dependencies:BUILD.libexpat.bazel",
     remote = "https://github.com/libexpat/libexpat",
@@ -35,20 +29,13 @@ git_repository(
     remote = "https://github.com/lvandeve/lodepng",
 )
 
-# git_repository(
-#     name = "rules_qt",
-#     branch = "main",
-#     remote = "https://github.com/Vertexwahn/rules_qt6",
-# )
+# https://github.com/hedronvision/bazel-compile-commands-extractor
+git_repository(
+    name = "hedron_compile_commands",
+    branch = "main",
+    remote = "https://github.com/hedronvision/bazel-compile-commands-extractor",
+)
 
 load("@hedron_compile_commands//:workspace_setup.bzl", "hedron_compile_commands_setup")
 
 hedron_compile_commands_setup()
-
-# load("@rules_qt//:fetch_qt.bzl", "fetch_qt6")
-
-# fetch_qt6()
-
-# load("@rules_qt//tools:qt_toolchain.bzl", "register_qt_toolchains")
-
-# register_qt_toolchains()
