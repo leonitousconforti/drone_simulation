@@ -27,7 +27,7 @@ cmake(
     lib_name = "org_libexpat_libexpat",
     lib_source = ":all_srcs",
     out_static_libs = select({
-        "@platforms//os:windows": ["libexpatMT.lib"],
+        "@platforms//os:windows": ["libexpatd.lib"],
         "//conditions:default": ["libexpat.a"],
     }),
     visibility = ["//visibility:public"],
