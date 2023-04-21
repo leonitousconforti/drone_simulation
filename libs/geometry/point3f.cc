@@ -5,19 +5,19 @@
 namespace drone_simulation::geometry {
 
 Point3f Point3f::operator+(const Point3f& v) {
-  return Point3f{this->x + v.x, this->y + v.y, this->z + v.z};
+  return {this->x + v.x, this->y + v.y, this->z + v.z};
 }
 
 Point3f Point3f::operator-(const Point3f& v) {
-  return Point3f{this->x - v.x, this->y - v.y, this->z - v.z};
+  return {this->x - v.x, this->y - v.y, this->z - v.z};
 }
 
 Point3f Point3f::operator*(float m) {
-  return Point3f{m * this->x, m * this->y, m * this->z};
+  return {m * this->x, m * this->y, m * this->z};
 }
 
 Point3f Point3f::operator/(float m) {
-  return Point3f{this->x / m, this->y / m, this->z / m};
+  return {this->x / m, this->y / m, this->z / m};
 }
 
 bool Point3f::operator==(const Point3f& other) {
