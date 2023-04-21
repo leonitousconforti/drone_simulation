@@ -4,7 +4,10 @@ cc_library(
     name = "org_osmcode_libosmium",
     hdrs = glob(["include/**/*.hpp"]),
     includes = ["include"],
-    linkopts = ["-lpthread"],
+    linkopts = select({
+        "@platforms//os:windows": [],
+        "//conditions:default": ["-lpthread"],
+    }),
     visibility = ["//visibility:public"],
     deps = ["@org_libexpat_libexpat"],
 )
