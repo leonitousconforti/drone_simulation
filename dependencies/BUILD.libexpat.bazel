@@ -22,7 +22,10 @@ cmake(
         "EXPAT_MSVC_STATIC_CRT": "ON",
     },
     generate_args = select({
-        "@platforms//os:windows": ["-G \"Visual Studio 16 2019\""],
+        "@platforms//os:windows": [
+            "-G \"NMake Makefiles\"",
+            "-A x64",
+        ],
         "//conditions:default": [],
     }),
     lib_name = "org_libexpat_libexpat",
@@ -30,8 +33,9 @@ cmake(
     out_include_dir = "lib",
     out_lib_dir = "lib",
     out_static_libs = select({
+        "@platforms//os:osx": ["libexpat.a"],
+        "@platforms//os:linux": ["libexpat.a"],
         "@platforms//os:windows": ["libexpatMT.lib"],
-        "//conditions:default": ["libexpat.a"],
     }),
     visibility = ["//visibility:public"],
     working_directory = "expat",

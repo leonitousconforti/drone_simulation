@@ -30,6 +30,13 @@ git_repository(
     remote = "https://github.com/libexpat/libexpat",
 )
 
+git_repository(
+    name = "raysan5_raylib",
+    branch = "master",
+    build_file = "//dependencies:BUILD.raylib.bazel",
+    remote = "https://github.com/raysan5/raylib",
+)
+
 # https://github.com/hedronvision/bazel-compile-commands-extractor
 http_archive(
     name = "hedron_compile_commands",
