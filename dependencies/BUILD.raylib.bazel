@@ -34,6 +34,8 @@ cmake(
         "@platforms//os:osx": [
             "-framework",
             "GLUT",
+            "-framework",
+            "Cocoa",
         ],
     }),
     out_static_libs = select({
