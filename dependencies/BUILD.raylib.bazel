@@ -32,11 +32,7 @@ cmake(
             "winmm.lib",
         ],
         "@platforms//os:osx": [
-            "-framework CoreVideo",
-            "-framework IOKit",
-            "-framework Cocoa",
-            "-framework GLUT",
-            "-framework OpenGL",
+            "-framework CoreVideo -framework IOKit -framework Cocoa -framework GLUT -framework OpenGL",
         ],
     }),
     out_static_libs = select({
