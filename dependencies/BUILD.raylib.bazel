@@ -31,9 +31,7 @@ cmake(
             "shell32.lib",
             "winmm.lib",
         ],
-        "@platforms//os:osx": [
-            "-framework CoreVideo",
-        ],
+        "@platforms//os:osx": ["-framework GLUT"],
     }),
     out_static_libs = select({
         "@platforms//os:osx": ["libraylib.a"],
