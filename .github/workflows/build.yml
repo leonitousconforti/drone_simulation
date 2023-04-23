@@ -17,7 +17,7 @@ jobs:
         key: bazel_ubuntu20
     - name: Install Dependencies
       run: |
-        sudo apt-get install libasound2-dev,mesa-common-dev,libx11-dev,libxrandr-dev,libxi-dev,xorg-dev,libgl1-mesa-dev,libglu1-mesa-dev
+        sudo apt-get install libasound2-dev mesa-common-dev libx11-dev libxrandr-dev libxi-dev xorg-dev libgl1-mesa-dev libglu1-mesa-dev
     - name: Build
       run: |
         bazelisk build --config=gcc9 ...
@@ -34,7 +34,7 @@ jobs:
         key: bazel_ubuntu22
     - name: Install Dependencies
       run: |
-        sudo apt-get install libasound2-dev,mesa-common-dev,libx11-dev,libxrandr-dev,libxi-dev,xorg-dev,libgl1-mesa-dev,libglu1-mesa-dev
+        sudo apt-get install libasound2-dev mesa-common-dev libx11-dev libxrandr-dev libxi-dev xorg-dev libgl1-mesa-dev libglu1-mesa-dev
     - name: Build
       run: |
         bazelisk build --config=gcc11 ...
