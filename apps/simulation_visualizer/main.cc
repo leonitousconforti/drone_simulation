@@ -1,6 +1,7 @@
 #include "raylib.h"
 
 int main(void) {
+  SetTraceLogLevel(LOG_WARNING);
   InitWindow(800, 450, "raylib example - basic window");
   SetTargetFPS(60);
 
