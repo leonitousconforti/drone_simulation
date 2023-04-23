@@ -1,0 +1,37 @@
+load("@rules_foreign_cc//foreign_cc:defs.bzl", "cmake")
+
+filegroup(
+    name = "all_srcs",
+    srcs = glob(
+        include = ["**"],
+        exclude = ["*.bazel"],
+    ),
+    visibility = ["//visibility:private"],
+)
+
+cmake(
+    name = "raysan5_raylib",
+    cache_entries = {
+        "STATIC": "ON",
+        "SHARED": "OFF",
+        "CMAKE_BUILD_TYPE": "Release",
+        "SUPPORT_VR_SIMULATOR": "OFF",
+        "SUPPORT_SCREEN_CAPTURE": "OFF",
+        "SUPPORT_GIF_RECORDING": " OFF",
+        "SUPPORT_GESTURES_SYSTEM": "OFF",
+    },
+    generate_args = select({
+        "@platforms//os:windows": [
+            "-G \"NMake Makefiles\"",
+        ],
+        "//conditions:default": None,
+    }),
+    lib_name = "libraylib",
+    lib_source = ":all_srcs",
+    linkopts = select({
+        "@platforms//os:windows": None,
+        "//conditions:default": ["-ldl"],
+    }),
+    visibility = ["//visibility:public"],
+    alwayslink = True,
+)

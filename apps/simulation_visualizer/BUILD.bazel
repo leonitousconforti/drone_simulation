@@ -10,5 +10,6 @@ cc_binary(
         "//libs/maps",
         "//libs/routing",
         "//libs/simulation",
+        "@raysan5_raylib",
     ],
 )
