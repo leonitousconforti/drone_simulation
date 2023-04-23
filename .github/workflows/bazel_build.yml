@@ -75,6 +75,8 @@ jobs:
       with:
         path: "/home/runner/.cache/bazel"
         key: bazel_macos11
+    - name: Install Xcode command-line tools
+      run: xcode-select --install
     - name: Build
       run: |
         bazelisk build ...
@@ -89,6 +91,8 @@ jobs:
       with:
         path: "/home/runner/.cache/bazel"
         key: bazel_macos12
+    - name: Install Xcode command-line tools
+      run: xcode-select --install
     - name: Build
       run: |
         bazelisk build ...
