@@ -5,7 +5,7 @@ cc_library(
     hdrs = glob(["include/**/*.hpp"]),
     includes = ["include"],
     linkopts = select({
-        "@platforms//os:windows": [],
+        "@platforms//os:windows": None,
         "//conditions:default": ["-lpthread"],
     }),
     visibility = ["//visibility:public"],
