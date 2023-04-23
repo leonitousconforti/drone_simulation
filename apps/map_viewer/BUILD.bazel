@@ -3,9 +3,7 @@ load("@rules_cc//cc:defs.bzl", "cc_binary")
 # bazelisk run //apps/map_viewer
 cc_binary(
     name = "map_viewer",
-    srcs = [
-        "main.cc",
-    ],
+    srcs = ["main.cc"],
     visibility = ["//visibility:private"],
     deps = [
         "//libs/geometry",
