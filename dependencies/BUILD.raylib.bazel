@@ -22,11 +22,20 @@ cmake(
         ],
         "//conditions:default": None,
     }),
-    lib_name = "raylib",
     lib_source = ":all_srcs",
     linkopts = select({
-        "@platforms//os:windows": ["user32.lib", "gdi32.lib", "shell32.lib", "winmm.lib"],
+        "@platforms//os:windows": [
+            "user32.lib",
+            "gdi32.lib",
+            "shell32.lib",
+            "winmm.lib",
+        ],
         "//conditions:default": ["-ldl"],
+    }),
+    out_static_libs = select({
+        "@platforms//os:osx": ["libraylib.a"],
+        "@platforms//os:linux": ["libraylib.a"],
+        "@platforms//os:windows": ["raylib.lib"],
     }),
     visibility = ["//visibility:public"],
 )
