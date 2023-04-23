@@ -12,8 +12,5 @@ WORKDIR /app
 # 4 - compile all projects in the monorepo
 RUN bazel build ...
 
-# 5 - expose port
-EXPOSE 8080
-
-# 6 - run command in docker container once image ran
-CMD ["bazel", "run", "//apps/transit_service"]
+# 5 - run command in docker container once image ran
+CMD ["bazel", "run", "//libs/simulation"]
