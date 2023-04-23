@@ -32,6 +32,7 @@ cmake(
             "winmm.lib",
         ],
         "@platforms//os:osx": [
+            "-L/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks",
             "-framework CoreVideo",
             "-framework IOKit",
             "-framework Cocoa",
