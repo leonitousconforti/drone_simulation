@@ -68,7 +68,6 @@
           "bazelisk",
           "buildifier",
           "buildtools",
-          "clangd",
           "codemetrics",
           "cpptools",
           "ctest",
@@ -79,16 +78,9 @@
           "eamodio",
           "esbenp",
           "kisstkondoros",
-          "mktemp",
-          "noninteractive",
-          "vcpkg",
           "visualstudioexptteam",
           "vscodeintellicode",
-          "pugi",
-          "astar",
-          "libwebsockets",
-          "runfiles",
-          "Rlocation"
+          "astar"
         ]
       }
     }
