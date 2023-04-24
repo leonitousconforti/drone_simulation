@@ -21,7 +21,7 @@ jobs:
         bazelisk build --config=gcc9 ...
     - uses: actions/upload-artifact@v3
       with:
-        name: drone-simulation-ubuntu20.04
+        name: drone-simulation-ubuntu20.04-x86_64
         path: |
           bazel-bin/apps/map_viewer/map_viewer
           bazel-bin/apps/simulation_visualizer/simulation_visualizer
@@ -45,7 +45,7 @@ jobs:
         bazelisk build ...
     - uses: actions/upload-artifact@v3
       with:
-        name: drone-simulation-ubuntu22.04
+        name: drone-simulation-ubuntu22.04-x86_64
         path: |
           bazel-bin/apps/map_viewer/map_viewer
           bazel-bin/apps/simulation_visualizer/simulation_visualizer
@@ -66,7 +66,7 @@ jobs:
         bazelisk build --config=vs2019 ...
     - uses: actions/upload-artifact@v3
       with:
-        name: drone-simulation-windows10
+        name: drone-simulation-windows10-x86_64
         path: |
           bazel-bin/apps/map_viewer/map_viewer.exe
           bazel-bin/apps/simulation_visualizer/simulation_visualizer.exe
@@ -87,7 +87,7 @@ jobs:
         bazelisk build ...
     - uses: actions/upload-artifact@v3
       with:
-        name: drone-simulation-windows11
+        name: drone-simulation-windows11-x86_64
         path: |
           bazel-bin/apps/map_viewer/map_viewer.exe
           bazel-bin/apps/simulation_visualizer/simulation_visualizer.exe
@@ -108,7 +108,7 @@ jobs:
         bazelisk build ...
     - uses: actions/upload-artifact@v3
       with:
-        name: drone-simulation-macos11
+        name: drone-simulation-macos11-x86_64
         path: |
           bazel-bin/apps/map_viewer/map_viewer
           bazel-bin/apps/simulation_visualizer/simulation_visualizer
@@ -129,7 +129,7 @@ jobs:
         bazelisk build ...
     - uses: actions/upload-artifact@v3
       with:
-        name: drone-simulation-macos12
+        name: drone-simulation-macos12-x86_64
         path: |
           bazel-bin/apps/map_viewer/map_viewer
           bazel-bin/apps/simulation_visualizer/simulation_visualizer
