@@ -126,7 +126,7 @@ jobs:
         key: bazel_macos12
     - name: Build
       run: |
-        bazelisk build ...
+        BAZEL_USE_XCODE_TOOLCHAIN=0 bazelisk build ...
     - uses: actions/upload-artifact@v3
       with:
         name: drone-simulation-macos12-x86_64
