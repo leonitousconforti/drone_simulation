@@ -31,4 +31,4 @@
 
 # Custom
 .DS_STORE
-bazel-*/
+bazel-*
