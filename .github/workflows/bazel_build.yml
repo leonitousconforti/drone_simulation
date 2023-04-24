@@ -11,7 +11,7 @@ jobs:
     - name: Mount bazel cache
       uses: actions/cache@v3
       with:
-        path: "/home/runner/.cache/bazel"
+        path: "/home/runner/.cache/bazel/_bazel_runner"
         key: bazel_ubuntu20
     - name: Install Dependencies
       run: |
@@ -28,7 +28,7 @@ jobs:
     - name: Mount bazel cache
       uses: actions/cache@v3
       with:
-        path: "/home/runner/.cache/bazel"
+        path: "/home/runner/.cache/bazel/_bazel_runner"
         key: bazel_ubuntu22
     - name: Install Dependencies
       run: |
@@ -42,11 +42,11 @@ jobs:
     runs-on: windows-2019
     steps:
     - uses: actions/checkout@v3
-    # - name: Mount bazel cache
-    #   uses: actions/cache@v3
-    #   with:
-    #     path: ""
-    #     key: bazel_windows10
+    - name: Mount bazel cache
+      uses: actions/cache@v3
+      with:
+        path: "C:/users/runneradmin/_bazel_runneradmin"
+        key: bazel_windows10
     - name: Build
       run: |
         bazelisk build --config=vs2019 ...
@@ -56,11 +56,11 @@ jobs:
     runs-on: windows-2022
     steps:
     - uses: actions/checkout@v3
-    # - name: Mount bazel cache
-    #   uses: actions/cache@v3
-    #   with:
-    #     path: ""
-    #     key: bazel_windows11
+    - name: Mount bazel cache
+      uses: actions/cache@v3
+      with:
+        path: "C:/users/runneradmin/_bazel_runneradmin"
+        key: bazel_windows11
     - name: Build
       run: |
         bazelisk build ...
