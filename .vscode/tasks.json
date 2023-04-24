@@ -19,7 +19,7 @@
     {
       "label": "count lines of code",
       "type": "shell",
-      "command": "cloc $(git ls-files) --exclude-lang=XML,JSON",
+      "command": "cloc $(git ls-files) --exclude-lang=XML,JSON,Markdown",
       "problemMatcher": []
     }
   ]
