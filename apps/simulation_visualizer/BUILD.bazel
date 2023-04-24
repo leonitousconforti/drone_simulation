@@ -10,6 +10,7 @@ cc_binary(
         "//libs/maps",
         "//libs/routing",
         "//libs/simulation",
+        "@bazel_tools//tools/cpp/runfiles",
         "@raysan5_raylib",
     ],
 )
