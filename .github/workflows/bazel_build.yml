@@ -105,7 +105,10 @@ jobs:
         key: bazel_macos11
     - name: Build
       run: |
-        bazelisk build ...
+        xcodebuild -showsdks
+        xcode-select -p
+        export BAZEL_USE_CPP_ONLY_TOOLCHAIN=1
+        bazel build ...
     - uses: actions/upload-artifact@v3
       with:
         name: drone-simulation-macos11-x86_64
@@ -129,6 +132,7 @@ jobs:
         xcodebuild -showsdks
         xcode-select -p
         sudo xcode-select -s /Library/Developer/CommandLineTools
+        xcode-select -p
         export BAZEL_USE_CPP_ONLY_TOOLCHAIN=1
         bazel build ...
     - uses: actions/upload-artifact@v3
