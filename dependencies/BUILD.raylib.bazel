@@ -32,7 +32,7 @@ cmake(
         ],
         "@platforms//os:osx": [
             "-framework",
-            "GLUT",
+            "Cocoa",
         ],
         "@platforms//os:linux": ["-ldl"],
     }),
