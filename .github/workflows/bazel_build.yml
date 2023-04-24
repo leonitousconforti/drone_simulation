@@ -41,7 +41,7 @@ jobs:
     name: Windows 10 build <Visual Studio 2019>
     runs-on: windows-2019
     steps:
-    # - uses: actions/checkout@v3
+    - uses: actions/checkout@v3
     # - name: Mount bazel cache
     #   uses: actions/cache@v3
     #   with:
@@ -55,7 +55,7 @@ jobs:
     name: Windows 11 build <Visual Studio 2022>
     runs-on: windows-2022
     steps:
-    # - uses: actions/checkout@v3
+    - uses: actions/checkout@v3
     # - name: Mount bazel cache
     #   uses: actions/cache@v3
     #   with:
@@ -69,7 +69,7 @@ jobs:
     name: macOS 11 build <Apple Clang13>
     runs-on: macOS-11
     steps:
-    # - uses: actions/checkout@v3
+    - uses: actions/checkout@v3
     # - name: Mount bazel cache
     #   uses: actions/cache@v3
     #   with:
@@ -84,7 +84,7 @@ jobs:
     name: macOS 12 build <Apple Clang14>
     runs-on: macOS-12
     steps:
-    # - uses: actions/checkout@v3
+    - uses: actions/checkout@v3
     # - name: Mount bazel cache
     #   uses: actions/cache@v3
     #   with:
@@ -92,5 +92,4 @@ jobs:
     #     key: bazel_macos12
     - name: Build
       run: |
-        clang --version
-        ld -v
+        bazelisk build ...
