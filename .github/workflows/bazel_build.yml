@@ -105,8 +105,6 @@ jobs:
         key: bazel_macos11
     - name: Build
       run: |
-        xcodebuild -showsdks
-        xcode-select -p
         export BAZEL_USE_CPP_ONLY_TOOLCHAIN=1
         bazel build ...
     - uses: actions/upload-artifact@v3
@@ -129,10 +127,7 @@ jobs:
         key: bazel_macos12
     - name: Build
       run: |
-        xcodebuild -showsdks
-        xcode-select -p
-        sudo xcode-select -s /Library/Developer/CommandLineTools
-        xcode-select -p
+        export BAZEL_USE_CPP_ONLY_TOOLCHAIN=1
         bazel build ...
     - uses: actions/upload-artifact@v3
       with:
