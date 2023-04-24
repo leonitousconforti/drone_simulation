@@ -78,6 +78,7 @@ jobs:
     - name: Build
       run: |
         clang --version
+        /Library/Developer/CommandLineTools/usr/bin/clang --version
         ld -v
 
   build_and_test_macos12:
