@@ -24,7 +24,11 @@ jobs:
         name: drone-simulation-ubuntu20.04-x86_64
         path: |
           bazel-bin/apps/map_viewer/map_viewer
+          bazel-bin/apps/map_viewer/map_viewer.runfiles/*
+          bazel-bin/apps/map_viewer/map_viewer.runfiles_manifest
           bazel-bin/apps/simulation_visualizer/simulation_visualizer
+          bazel-bin/apps/simulation_visualizer/simulation_visualizer.runfiles/*
+          bazel-bin/apps/simulation_visualizer/simulation_visualizer.runfiles_manifest
         if-no-files-found: error
 
   build_and_test_ubuntu22:
@@ -48,7 +52,11 @@ jobs:
         name: drone-simulation-ubuntu22.04-x86_64
         path: |
           bazel-bin/apps/map_viewer/map_viewer
+          bazel-bin/apps/map_viewer/map_viewer.runfiles/*
+          bazel-bin/apps/map_viewer/map_viewer.runfiles_manifest
           bazel-bin/apps/simulation_visualizer/simulation_visualizer
+          bazel-bin/apps/simulation_visualizer/simulation_visualizer.runfiles/*
+          bazel-bin/apps/simulation_visualizer/simulation_visualizer.runfiles_manifest
         if-no-files-found: error
 
   build_and_test_windows10:
@@ -69,7 +77,11 @@ jobs:
         name: drone-simulation-windows10-x86_64
         path: |
           bazel-bin/apps/map_viewer/map_viewer.exe
+          bazel-bin/apps/map_viewer/map_viewer.runfiles/*
+          bazel-bin/apps/map_viewer/map_viewer.runfiles_manifest
           bazel-bin/apps/simulation_visualizer/simulation_visualizer.exe
+          bazel-bin/apps/simulation_visualizer/simulation_visualizer.runfiles/*
+          bazel-bin/apps/simulation_visualizer/simulation_visualizer.runfiles_manifest
         if-no-files-found: error
 
   build_and_test_windows11:
@@ -90,7 +102,11 @@ jobs:
         name: drone-simulation-windows11-x86_64
         path: |
           bazel-bin/apps/map_viewer/map_viewer.exe
+          bazel-bin/apps/map_viewer/map_viewer.runfiles/*
+          bazel-bin/apps/map_viewer/map_viewer.runfiles_manifest
           bazel-bin/apps/simulation_visualizer/simulation_visualizer.exe
+          bazel-bin/apps/simulation_visualizer/simulation_visualizer.runfiles/*
+          bazel-bin/apps/simulation_visualizer/simulation_visualizer.runfiles_manifest
         if-no-files-found: error
 
   build_and_test_macos11:
@@ -112,7 +128,11 @@ jobs:
         name: drone-simulation-macos11-universal
         path: |
           bazel-bin/apps/map_viewer/map_viewer
+          bazel-bin/apps/map_viewer/map_viewer.runfiles/*
+          bazel-bin/apps/map_viewer/map_viewer.runfiles_manifest
           bazel-bin/apps/simulation_visualizer/simulation_visualizer
+          bazel-bin/apps/simulation_visualizer/simulation_visualizer.runfiles/*
+          bazel-bin/apps/simulation_visualizer/simulation_visualizer.runfiles_manifest
         if-no-files-found: error
 
   build_and_test_macos12:
@@ -134,5 +154,9 @@ jobs:
         name: drone-simulation-macos12-universal
         path: |
           bazel-bin/apps/map_viewer/map_viewer
+          bazel-bin/apps/map_viewer/map_viewer.runfiles/*
+          bazel-bin/apps/map_viewer/map_viewer.runfiles_manifest
           bazel-bin/apps/simulation_visualizer/simulation_visualizer
+          bazel-bin/apps/simulation_visualizer/simulation_visualizer.runfiles/*
+          bazel-bin/apps/simulation_visualizer/simulation_visualizer.runfiles_manifest
         if-no-files-found: error
