@@ -31,11 +31,8 @@ cmake(
             "shell32.lib",
         ],
         "@platforms//os:osx": [
-            "-framework GLUT",
-            "-framework Cocoa",
-            "-framework IOKit",
-            "-framework OpenGL",
-            "-framework CoreVideo",
+            "-framework",
+            "Cocoa",
         ],
         "@platforms//os:linux": ["-ldl"],
     }),
