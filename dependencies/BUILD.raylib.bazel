@@ -33,9 +33,13 @@ cmake(
         "@platforms//os:osx": [
             "-framework",
             "CoreVideo",
+            "-framework",
             "IOKit",
+            "-framework",
             "Cocoa",
+            "-framework",
             "GLUT",
+            "-framework",
             "OpenGL",
         ],
         "@platforms//os:linux": ["-ldl"],
