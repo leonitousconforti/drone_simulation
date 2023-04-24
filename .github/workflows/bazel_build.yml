@@ -126,7 +126,7 @@ jobs:
         key: bazel_macos12
     - name: Build
       run: |
-        bazelisk build --config=vs2022 ...
+        bazelisk build ...
     - uses: actions/upload-artifact@v3
       with:
         name: drone-simulation-macos12
