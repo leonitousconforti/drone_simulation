@@ -126,7 +126,9 @@ jobs:
         key: bazel_macos12
     - name: Build
       run: |
-        bazelisk build ...
+        export PATH=$PATH:/System/Library/Frameworks
+        xcrun --show-sdk-path
+        bazelisk build ... --sandbox_debug
     - uses: actions/upload-artifact@v3
       with:
         name: drone-simulation-macos12-x86_64
