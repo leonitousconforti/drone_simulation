@@ -133,7 +133,6 @@ jobs:
         xcode-select -p
         sudo xcode-select -s /Library/Developer/CommandLineTools
         xcode-select -p
-        export BAZEL_USE_CPP_ONLY_TOOLCHAIN=1
         bazel build ...
     - uses: actions/upload-artifact@v3
       with:
