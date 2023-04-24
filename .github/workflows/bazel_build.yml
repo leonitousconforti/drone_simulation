@@ -109,7 +109,7 @@ jobs:
         bazel build ...
     - uses: actions/upload-artifact@v3
       with:
-        name: drone-simulation-macos11-x86_64
+        name: drone-simulation-macos11-universal
         path: |
           bazel-bin/apps/map_viewer/map_viewer
           bazel-bin/apps/simulation_visualizer/simulation_visualizer
@@ -131,7 +131,7 @@ jobs:
         bazel build ...
     - uses: actions/upload-artifact@v3
       with:
-        name: drone-simulation-macos12-x86_64
+        name: drone-simulation-macos12-universal
         path: |
           bazel-bin/apps/map_viewer/map_viewer
           bazel-bin/apps/simulation_visualizer/simulation_visualizer
