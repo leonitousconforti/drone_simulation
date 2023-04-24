@@ -4,6 +4,9 @@ load("@rules_cc//cc:defs.bzl", "cc_binary")
 cc_binary(
     name = "simulation_visualizer",
     srcs = ["main.cc"],
+    data = glob([
+        "models/**/*.glb",
+    ]),
     visibility = ["//visibility:private"],
     deps = [
         "//libs/geometry",
