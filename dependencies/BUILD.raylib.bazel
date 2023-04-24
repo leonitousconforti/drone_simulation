@@ -25,14 +25,17 @@ cmake(
     lib_source = ":all_srcs",
     linkopts = select({
         "@platforms//os:windows": [
-            "user32.lib",
-            "gdi32.lib",
-            "shell32.lib",
             "winmm.lib",
+            "gdi32.lib",
+            "user32.lib",
+            "shell32.lib",
         ],
         "@platforms//os:osx": [
-            "-framework",
-            "Cocoa",
+            "-framework GLUT",
+            "-framework Cocoa",
+            "-framework IOKit",
+            "-framework OpenGL",
+            "-framework CoreVideo",
         ],
         "@platforms//os:linux": ["-ldl"],
     }),
