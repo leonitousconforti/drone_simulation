@@ -25,7 +25,7 @@ int main(int argc, char* argv[]) {
   DisableCursor();
 
   // Define the camera to look into our 3d world
-  Camera camera = {0};
+  Camera camera;
   camera.position = {5.0f, 5.0f, 5.0f};
   camera.target = {0.0f, 2.0f, 0.0f};
   camera.up = {0.0f, 1.0f, 0.0f};
