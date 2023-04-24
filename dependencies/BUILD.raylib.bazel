@@ -31,7 +31,8 @@ cmake(
             "winmm.lib",
         ],
         "@platforms//os:osx": [
-            "-framework GLUT",
+            "-framework",
+            "GLUT",
         ],
         "@platforms//os:linux": ["-ldl"],
     }),
