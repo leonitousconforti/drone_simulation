@@ -25,10 +25,10 @@ jobs:
         path: |
           bazel-bin/apps/map_viewer/map_viewer
           bazel-bin/apps/map_viewer/map_viewer.runfiles/*
-          bazel-bin/apps/map_viewer/map_viewer.runfiles_manifest
+          !bazel-bin/apps/map_viewer/map_viewer.runfiles/MANIFEST
           bazel-bin/apps/simulation_visualizer/simulation_visualizer
           bazel-bin/apps/simulation_visualizer/simulation_visualizer.runfiles/*
-          bazel-bin/apps/simulation_visualizer/simulation_visualizer.runfiles_manifest
+          !bazel-bin/apps/simulation_visualizer/simulation_visualizer.runfiles/MANIFEST
         if-no-files-found: error
 
   build_and_test_ubuntu22:
@@ -53,10 +53,10 @@ jobs:
         path: |
           bazel-bin/apps/map_viewer/map_viewer
           bazel-bin/apps/map_viewer/map_viewer.runfiles/*
-          bazel-bin/apps/map_viewer/map_viewer.runfiles_manifest
+          !bazel-bin/apps/map_viewer/map_viewer.runfiles/MANIFEST
           bazel-bin/apps/simulation_visualizer/simulation_visualizer
           bazel-bin/apps/simulation_visualizer/simulation_visualizer.runfiles/*
-          bazel-bin/apps/simulation_visualizer/simulation_visualizer.runfiles_manifest
+          !bazel-bin/apps/simulation_visualizer/simulation_visualizer.runfiles/MANIFEST
         if-no-files-found: error
 
   build_and_test_windows10:
@@ -78,10 +78,10 @@ jobs:
         path: |
           bazel-bin/apps/map_viewer/map_viewer.exe
           bazel-bin/apps/map_viewer/map_viewer.runfiles/*
-          bazel-bin/apps/map_viewer/map_viewer.runfiles_manifest
+          !bazel-bin/apps/map_viewer/map_viewer.runfiles/MANIFEST
           bazel-bin/apps/simulation_visualizer/simulation_visualizer.exe
           bazel-bin/apps/simulation_visualizer/simulation_visualizer.runfiles/*
-          bazel-bin/apps/simulation_visualizer/simulation_visualizer.runfiles_manifest
+          !bazel-bin/apps/simulation_visualizer/simulation_visualizer.runfiles/MANIFEST
         if-no-files-found: error
 
   build_and_test_windows11:
@@ -103,10 +103,10 @@ jobs:
         path: |
           bazel-bin/apps/map_viewer/map_viewer.exe
           bazel-bin/apps/map_viewer/map_viewer.runfiles/*
-          bazel-bin/apps/map_viewer/map_viewer.runfiles_manifest
+          !bazel-bin/apps/map_viewer/map_viewer.runfiles/MANIFEST
           bazel-bin/apps/simulation_visualizer/simulation_visualizer.exe
           bazel-bin/apps/simulation_visualizer/simulation_visualizer.runfiles/*
-          bazel-bin/apps/simulation_visualizer/simulation_visualizer.runfiles_manifest
+          !bazel-bin/apps/simulation_visualizer/simulation_visualizer.runfiles/MANIFEST
         if-no-files-found: error
 
   build_and_test_macos11:
@@ -129,10 +129,10 @@ jobs:
         path: |
           bazel-bin/apps/map_viewer/map_viewer
           bazel-bin/apps/map_viewer/map_viewer.runfiles/*
-          bazel-bin/apps/map_viewer/map_viewer.runfiles_manifest
+          !bazel-bin/apps/map_viewer/map_viewer.runfiles/MANIFEST
           bazel-bin/apps/simulation_visualizer/simulation_visualizer
           bazel-bin/apps/simulation_visualizer/simulation_visualizer.runfiles/*
-          bazel-bin/apps/simulation_visualizer/simulation_visualizer.runfiles_manifest
+          !bazel-bin/apps/simulation_visualizer/simulation_visualizer.runfiles/MANIFEST
         if-no-files-found: error
 
   build_and_test_macos12:
@@ -155,8 +155,8 @@ jobs:
         path: |
           bazel-bin/apps/map_viewer/map_viewer
           bazel-bin/apps/map_viewer/map_viewer.runfiles/*
-          bazel-bin/apps/map_viewer/map_viewer.runfiles_manifest
+          !bazel-bin/apps/map_viewer/map_viewer.runfiles/MANIFEST
           bazel-bin/apps/simulation_visualizer/simulation_visualizer
           bazel-bin/apps/simulation_visualizer/simulation_visualizer.runfiles/*
-          bazel-bin/apps/simulation_visualizer/simulation_visualizer.runfiles_manifest
+          !bazel-bin/apps/simulation_visualizer/simulation_visualizer.runfiles/MANIFEST
         if-no-files-found: error
