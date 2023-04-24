@@ -105,7 +105,7 @@ jobs:
         key: bazel_macos11
     - name: Build
       run: |
-        bazelisk build --sandbox_debug ...
+        bazelisk build ...
     - uses: actions/upload-artifact@v3
       with:
         name: drone-simulation-macos11
@@ -126,7 +126,7 @@ jobs:
         key: bazel_macos12
     - name: Build
       run: |
-        bazelisk build --sandbox_debug ...
+        bazelisk build --config=vs2022 ...
     - uses: actions/upload-artifact@v3
       with:
         name: drone-simulation-macos12
