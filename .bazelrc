@@ -12,7 +12,6 @@ build:gcc11 --cxxopt=-Werror
 build:clang12 --cxxopt=-std=c++17
 build:clang12 --cxxopt=-Wall
 build:clang12 --cxxopt=-Werror
-build:clang12 --subcommands
 
 # Windows Visual Studio 2019
 build:vs2019 --cxxopt=/std:c++17
