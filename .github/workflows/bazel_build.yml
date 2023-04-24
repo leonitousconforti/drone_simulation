@@ -22,7 +22,9 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: drone-simulation-ubuntu20.04
-        path: bazel-bin/apps/*
+        path: |
+          bazel-bin/apps/map_viewer/map_viewer
+          bazel-bin/apps/simulation_visualizer/simulation_visualizer
         if-no-files-found: error
 
   build_and_test_ubuntu22:
@@ -44,7 +46,9 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: drone-simulation-ubuntu22.04
-        path: bazel-bin/apps/*
+        path: |
+          bazel-bin/apps/map_viewer/map_viewer
+          bazel-bin/apps/simulation_visualizer/simulation_visualizer
         if-no-files-found: error
 
   build_and_test_windows10:
@@ -63,7 +67,9 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: drone-simulation-windows10
-        path: bazel-bin/apps/*
+        path: |
+          bazel-bin/apps/map_viewer/map_viewer.exe
+          bazel-bin/apps/simulation_visualizer/simulation_visualizer.exe
         if-no-files-found: error
 
   build_and_test_windows11:
@@ -82,7 +88,9 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: drone-simulation-windows11
-        path: bazel-bin/apps/*
+        path: |
+          bazel-bin/apps/map_viewer/map_viewer.exe
+          bazel-bin/apps/simulation_visualizer/simulation_visualizer.exe
         if-no-files-found: error
 
   build_and_test_macos11:
@@ -101,7 +109,9 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: drone-simulation-macos11
-        path: bazel-bin/apps/*
+        path: |
+          bazel-bin/apps/map_viewer/map_viewer
+          bazel-bin/apps/simulation_visualizer/simulation_visualizer
         if-no-files-found: error
 
   build_and_test_macos12:
@@ -120,5 +130,7 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: drone-simulation-macos12
-        path: bazel-bin/apps/*
+        path: |
+          bazel-bin/apps/map_viewer/map_viewer
+          bazel-bin/apps/simulation_visualizer/simulation_visualizer
         if-no-files-found: error
