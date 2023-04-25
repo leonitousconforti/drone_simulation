@@ -25,10 +25,10 @@ const std::unordered_map<std::string, SimulationModel> loadAllModels(
     }
 
     SimulationModel sm;
-    unsigned int count = 0;
-    sm.model = LoadModel(entry.path().c_str());
-    sm.modelAnimations = LoadModelAnimations(entry.path().c_str(), &count);
-    sm.totalAnimations = count;
+    unsigned int c = 0;
+    sm.model = LoadModel(entry.path().string().c_str());
+    sm.modelAnimations = LoadModelAnimations(entry.path().string().c_str(), &c);
+    sm.totalAnimations = c;
     models[name] = sm;
   }
 
