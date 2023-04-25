@@ -9,6 +9,9 @@ namespace drone_simulation::simulation::movement_strategies {
 class BeelineStrategy : public PathStrategy {
  public:
   BeelineStrategy(geometry::Vector3f start, geometry::Vector3f end);
+
+  void move(IEntity* entity, double dt);
+  bool isCompleted();
 };
 
 }  // namespace drone_simulation::simulation::movement_strategies

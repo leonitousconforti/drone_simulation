@@ -1,38 +1,50 @@
 #include "simulation_model.h"
 
+#include "libs/simulation/factories/dragon_factory.h"
+#include "libs/simulation/factories/drone_factory.h"
+#include "libs/simulation/factories/helicopter_factory.h"
+#include "libs/simulation/factories/human_factory.h"
+#include "libs/simulation/factories/robot_factory.h"
+
 namespace drone_simulation::simulation {
 
-SimulationModel::SimulationModel() {}
+SimulationModel::SimulationModel() {
+  this->addFactory(new factories::DroneFactory());
+  this->addFactory(new factories::HumanFactory());
+  this->addFactory(new factories::RobotFactory());
+  this->addFactory(new factories::DragonFactory());
+  this->addFactory(new factories::HelicopterFactory());
+}
 
 SimulationModel::~SimulationModel() {
-  for (size_t i = 0; i < entities.size(); i++) {
-    delete entities[i];
-  }
+  for (size_t i = 0; i < this->entities.size(); i++) delete this->entities[i];
+  for (size_t i = 0; i < this->factories.size(); i++) delete this->factories[i];
   delete graph;
 }
 
-void SimulationModel::addEntity(IEntity* entity) { entities.push_back(entity); }
+SimulationModel* SimulationModel::instance = nullptr;
 
-/// Schedules a trip for an object in the scene
-void SimulationModel::scheduleTrip(const std::string& name,
-                                   geometry::Point3f start,
-                                   geometry::Point3f end) {
-  // for (auto entity : entities) {
-  //   JsonObject detailsTemp = entity->GetDetails();
-  //   std::string nameTemp = detailsTemp["name"];
-  //   std::string typeTemp = detailsTemp["type"];
-  //   if (name.compare(nameTemp) == 0 && typeTemp.compare("robot") == 0 &&
-  //       entity->GetAvailability()) {
-  //     std::string strategyName = details["search"];
-  //     entity->SetDestination(Vector3(end[0], end[1], end[2]));
-  //     entity->SetStrategyName(strategyName);
-  //     scheduler.push_back(entity);
-  //     break;
-  //   }
-  // }
+SimulationModel* SimulationModel::getInstance() {
+  if (instance == nullptr) {
+    instance = new SimulationModel();
+  }
+  return instance;
 }
 
-/// Updates the simulation
+anyBuilder getEntityBuilder(const std::string& forEntity) { return {}; }
+
+void SimulationModel::addEntity(IEntity* entity) {
+  this->entities.push_back(entity);
+}
+
+void SimulationModel::addFactory(IFactory* factory) {
+  this->factories.push_back(factory);
+}
+
+void SimulationModel::scheduleTrip(const std::string& name,
+                                   geometry::Point3f start,
+                                   geometry::Point3f end) {}
+
 void SimulationModel::update(double dt) {
   for (size_t i = 0; i < this->entities.size(); i++) {
     entities[i]->update(dt, this->entities);

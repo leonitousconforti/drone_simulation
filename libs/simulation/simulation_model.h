@@ -2,18 +2,14 @@
 
 #include <string>
 
+#include "IBuilder.h"
 #include "IEntity.h"
+#include "IFactory.h"
 #include "libs/geometry/point3f.h"
 #include "libs/maps/graph.h"
-#include "libs/simulation/entities/drone.h"
-#include "libs/simulation/entities/robot.h"
 
 namespace drone_simulation::simulation {
 
-//--------------------  Model ----------------------------
-
-/// Simulation Model handling the transit simulation.  The model can communicate
-/// with the controller.
 /**
  * @brief Class SimulationModel handling the transit simulation. it can
  * communicate with the controller
@@ -21,14 +17,26 @@ namespace drone_simulation::simulation {
 class SimulationModel {
  public:
   /**
-   * @brief Default constructor that create the SimulationModel object
-   **/
-  SimulationModel();
+   * @brief Singleton "constructor"
+   */
+  static SimulationModel* getInstance();
 
   /**
    * @brief Destructor
    */
   ~SimulationModel();
+
+  /**
+   * Singletons should not be cloneable.
+   */
+  SimulationModel(SimulationModel& other) = delete;
+
+  /**
+   * Singletons should not be assignable.
+   */
+  void operator=(const SimulationModel&) = delete;
+
+  anyBuilder getEntityBuilder(const std::string& forEntity);
 
   /**
    * @brief Creates a new simulation entity
@@ -37,12 +45,12 @@ class SimulationModel {
    **/
   void addEntity(IEntity* entity);
 
+  void addFactory(IFactory* factory);
+
   /**
-   * @brief Schedule a trip for an object in the scene
-   * @param detail Type JsonObject contain the entity's reference to schedule
-   * the detail of the trip being scheduled
+   * @brief Schedule a trip for an entity
    **/
-  void scheduleTrip(const std::string& name, geometry::Point3f start,
+  void scheduleTrip(const std::string& tripName, geometry::Point3f start,
                     geometry::Point3f end);
 
   /**
@@ -51,9 +59,16 @@ class SimulationModel {
    **/
   void update(double dt);
 
- protected:
+ private:
   maps::IGraph* graph;
   std::vector<IEntity*> entities;
+  std::vector<IFactory*> factories;
+  static SimulationModel* instance;
+
+  /**
+   * @brief Default constructor that create the SimulationModel object
+   **/
+  SimulationModel();
 };
 
 }  // namespace drone_simulation::simulation

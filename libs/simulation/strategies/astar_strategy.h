@@ -21,6 +21,9 @@ class AstarStrategy : public PathStrategy {
    */
   AstarStrategy(geometry::Point3f position, geometry::Point3f destination,
                 const maps::IGraph* graph);
+
+  void move(IEntity* entity, double dt);
+  bool isCompleted();
 };
 
 }  // namespace drone_simulation::simulation::movement_strategies

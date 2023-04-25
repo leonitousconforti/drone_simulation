@@ -20,6 +20,9 @@ class DijkstraStrategy : public PathStrategy {
    */
   DijkstraStrategy(geometry::Vector3f position, geometry::Vector3f destination,
                    const maps::IGraph* graph);
+
+  void move(IEntity* entity, double dt);
+  bool isCompleted();
 };
 
 }  // namespace drone_simulation::simulation::movement_strategies

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <vector>
 
 #include "IStrategy.h"
@@ -11,7 +12,7 @@ namespace drone_simulation::simulation {
 
 /**
  * @class IEntity
- * @brief Represents an entity in a physical system.
+ * @brief Represents a moveable entity in a physical system.
  *
  * An IEntity object has a unique ID, a position, a direction, a
  * destination, and details. It also has a speed, which determines how fast
@@ -63,22 +64,26 @@ class IEntity {
   }
 
   /**
-   * @brief Gets the color of the drone
-   * @return The color of the drone
+   * @brief Gets the color of the entity.
+   * @return The color of the entity.
    */
   virtual geometry::Color getColor() const final { return this->color; }
 
+  /**
+   * @brief Gets the speed of the entity.
+   * @return The color of the entity.
+   */
   virtual float getSpeed() const final { return this->speed; }
 
   /**
    * @brief Gets the availability of the entity.
-   * @return The availability of the entity.
+   * @return The new availability of the entity.
    */
   virtual bool getAvailability() const final { return this->available; }
 
   /**
    * @brief Sets the availability of the entity.
-   * @param choice The desired availability of the entity.
+   * @param available The new availability of the entity.
    */
   virtual void setAvailability(bool available) final {
     this->available = available;
@@ -86,7 +91,7 @@ class IEntity {
 
   /**
    * @brief Sets the position of the entity.
-   * @param pos_ The desired position of the entity.
+   * @param position The new position of the entity.
    */
   virtual void setPosition(geometry::Point3f position) final {
     this->position = position;
@@ -94,7 +99,7 @@ class IEntity {
 
   /**
    *@brief Set the direction of the entity.
-   *@param dir_ The new direction of the entity.
+   *@param direction The new direction of the entity.
    */
   virtual void setDirection(geometry::Vector3f direction) final {
     this->direction = direction;
@@ -102,26 +107,27 @@ class IEntity {
 
   /**
    *@brief Set the destination of the entity.
-   *@param des_ The new destination of the entity.
+   *@param destination The new destination of the entity.
    */
   virtual void setDestination(geometry::Point3f destination) final {
     this->destination = destination;
   }
 
   /**
-   * @brief Sets the color of the drone
-   * @param col_ The new color of the drone
+   * @brief Sets the color of the entity.
+   * @param color The new color of the entity.
    */
   virtual void setColor(geometry::Color color) final { this->color = color; }
 
+  /**
+   * @brief Sets the speed of the entity.
+   * @param speed The new speed of the entity.
+   */
   virtual void setSpeed(float speed) final { this->speed = speed; }
 
-  /**
-   * @brief Updates the entity's position in the physical system.
-   * @param dt The time step of the update.
-   * @param scheduler The list of all entities in the system.
-   */
-  virtual void update(double dt, std::vector<IEntity*> scheduler) = 0;
+  virtual void setStrategy(IStrategy* strategy) final {
+    this->strategy = strategy;
+  }
 
   /**
    * @brief Rotate the entity.
@@ -136,8 +142,15 @@ class IEntity {
   virtual void jump(double height) {}
 
   /**
+   * @brief Updates the entity's position in the physical system.
+   * @param dt The time step of the update.
+   * @param scheduler The list of all entities in the system.
+   */
+  virtual void update(double dt, std::vector<IEntity*> scheduler) = 0;
+
+  /**
    * @brief Removing the copy constructor and assignment operator
-   * so that Dragon cannot be copied.
+   * so that entity cannot be copied.
    */
   IEntity(const IEntity& entity) = delete;
   IEntity& operator=(const IEntity& entity) = delete;

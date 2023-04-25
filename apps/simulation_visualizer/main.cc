@@ -1,7 +1,6 @@
 #include <iostream>
 #include <memory>
 #include <string>
-#include <unordered_map>
 #include <vector>
 
 #include "libs/simulation/IEntity.h"
@@ -10,7 +9,9 @@
 #include "raylib.h"
 #include "tools/cpp/runfiles/runfiles.h"
 
-using bazel::tools::cpp::runfiles::Runfiles;
+using namespace bazel::tools::cpp::runfiles;
+using namespace drone_simulation::simulation;
+using namespace drone_simulation::simulation::entities;
 
 int main(int argc, char* argv[]) {
   // Create a runfiles object to load models
@@ -30,8 +31,6 @@ int main(int argc, char* argv[]) {
 
   // Load all the models
   auto all_models = loadAllModels(runfiles.get());
-  std::cout << all_models.size() << std::endl;
-  std::cout << all_models.at("robot").totalAnimations << std::endl;
 
   // Define the camera to look into our 3d world
   Camera camera;
