@@ -13,7 +13,7 @@ const std::unordered_map<std::string, SimulationModel> loadAllModels(
   // Iterate over all files in the models directory
   for (const auto& entry : std::filesystem::directory_iterator(models_dir)) {
     std::string name = entry.path().stem().string();
-    const std::string extension = entry.path().extension();
+    const std::string extension = entry.path().extension().string();
 
     // Transform the name to lowercase
     std::transform(name.begin(), name.end(), name.begin(),
