@@ -15,7 +15,7 @@
       "packages": "github.com/bazelbuild/buildtools/buildifier@latest"
     },
     "ghcr.io/devcontainers-contrib/features/apt-get-packages:1": {
-      "packages": "libasound2-dev,mesa-common-dev,libx11-dev,libxrandr-dev,libxi-dev,xorg-dev,libgl1-mesa-dev,libglu1-mesa-dev"
+      "packages": "libasound2-dev,mesa-common-dev,libx11-dev,libxrandr-dev,libxi-dev,xorg-dev,libgl1-mesa-dev,libglu1-mesa-dev,cloc"
     }
   },
 
@@ -83,7 +83,8 @@
           "kisstkondoros",
           "visualstudioexptteam",
           "vscodeintellicode",
-          "astar"
+          "astar",
+          "runfiles"
         ]
       }
     }
@@ -96,7 +97,7 @@
   // "forwardPorts": [8080],
 
   // Use 'postCreateCommand' to run commands after the container is created
-  "postCreateCommand": "bazelisk version && bazelisk run @hedron_compile_commands//:refresh_all",
+  "postCreateCommand": "bazelisk version && bazelisk run @hedron_compile_commands//:refresh_all && bazelisk build ...",
 
   // Connect as root instead. More info: https://aka.ms/dev-containers-non-root
   "remoteUser": "root"
