@@ -1,7 +1,12 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <unordered_map>
+#include <vector>
 
+#include "libs/simulation/IEntity.h"
+#include "libs/simulation/entities/robot.h"
+#include "load_models.h"
 #include "raylib.h"
 #include "tools/cpp/runfiles/runfiles.h"
 
@@ -9,20 +14,22 @@ using bazel::tools::cpp::runfiles::Runfiles;
 
 int main(int argc, char* argv[]) {
   // Create a runfiles object to load models
-  std::string error;
-  std::unique_ptr<Runfiles> runfiles(Runfiles::Create(argv[0], &error));
+  std::string rf_error;
+  std::unique_ptr<Runfiles> runfiles(Runfiles::Create(argv[0], &rf_error));
 
   if (runfiles == nullptr) {
-    std::cerr << error << std::endl;
+    std::cerr << rf_error << std::endl;
     return -1;
   }
 
-  // Find the robot model
-  std::string robot_model_path = runfiles->Rlocation(
-      "drone_simulation/apps/simulation_visualizer/models/robot.glb");
+  // Hush all logging to just warnings and error
+  SetTraceLogLevel(LOG_WARNING);
+
+  // Load all the models
+  auto all_models = loadAllModels(runfiles.get());
+  std::cout << all_models.at("robot").totalAnimations << std::endl;
 
   // Setup the window
-  SetTraceLogLevel(LOG_WARNING);
   InitWindow(800, 450, "Drone Simulation");
   SetTargetFPS(60);
   DisableCursor();
@@ -35,44 +42,21 @@ int main(int argc, char* argv[]) {
   camera.fovy = 45.0f;
   camera.projection = CAMERA_PERSPECTIVE;
 
-  // Load robot model and set model position
-  Model model = LoadModel(robot_model_path.c_str());
-  Vector3 position = {0.0f, 0.0f, 0.0f};
-
-  // Load robot model animations
-  unsigned int animationIndex = 0;
-  unsigned int animationsCount = 0;
-  unsigned int animationCurrentFrame = 0;
-  ModelAnimation* modelAnimations =
-      LoadModelAnimations(robot_model_path.c_str(), &animationsCount);
-
   // Detects window close button or ESC key
   while (!WindowShouldClose()) {
-    // Select current animation
-    if (IsKeyPressed(KEY_UP))
-      animationIndex = (animationIndex + 1) % animationsCount;
-    else if (IsKeyPressed(KEY_DOWN))
-      animationIndex = (animationIndex + animationsCount - 1) % animationsCount;
-
-    // Update model animation
-    ModelAnimation animation = modelAnimations[animationIndex];
-    animationCurrentFrame = (animationCurrentFrame + 1) % animation.frameCount;
-    UpdateModelAnimation(model, animation, animationCurrentFrame);
-
-    // Draw the scene
     UpdateCamera(&camera, CAMERA_THIRD_PERSON);
     BeginDrawing();
     ClearBackground(RAYWHITE);
     BeginMode3D(camera);
-    DrawModel(model, position, 1.0f, WHITE);
     DrawGrid(10, 1.0f);
     EndMode3D();
-    DrawText("Use UP/DOWN arrow keys to switch animation", 10, 10, 20, GRAY);
     EndDrawing();
   }
 
   // De-initialize
-  UnloadModel(model);
   CloseWindow();
+  for (auto m : all_models) {
+    UnloadModel(m.second.model);
+  }
   return 0;
 }
