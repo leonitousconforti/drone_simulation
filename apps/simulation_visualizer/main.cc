@@ -22,17 +22,16 @@ int main(int argc, char* argv[]) {
     return -1;
   }
 
-  // Hush all logging to just warnings and error
-  SetTraceLogLevel(LOG_WARNING);
-
-  // Load all the models
-  auto all_models = loadAllModels(runfiles.get());
-  std::cout << all_models.at("robot").totalAnimations << std::endl;
-
   // Setup the window
+  SetTraceLogLevel(LOG_WARNING);
   InitWindow(800, 450, "Drone Simulation");
   SetTargetFPS(60);
   DisableCursor();
+
+  // Load all the models
+  auto all_models = loadAllModels(runfiles.get());
+  std::cout << all_models.size() << std::endl;
+  std::cout << all_models.at("robot").totalAnimations << std::endl;
 
   // Define the camera to look into our 3d world
   Camera camera;
@@ -54,9 +53,7 @@ int main(int argc, char* argv[]) {
   }
 
   // De-initialize
+  for (auto m : all_models) UnloadModel(m.second.model);
   CloseWindow();
-  for (auto m : all_models) {
-    UnloadModel(m.second.model);
-  }
   return 0;
 }
