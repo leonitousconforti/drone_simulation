@@ -16,4 +16,7 @@ DijkstraStrategy::DijkstraStrategy(geometry::Vector3f start,
   path = routing::Dijkstra::Default().getPath(graph, start_id, end_id);
 }
 
+void DijkstraStrategy::move(IEntity* entity, double dt) {}
+bool DijkstraStrategy::isCompleted() { return true; }
+
 }  // namespace drone_simulation::simulation::movement_strategies

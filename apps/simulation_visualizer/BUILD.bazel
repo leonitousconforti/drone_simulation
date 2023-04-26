@@ -3,11 +3,10 @@ load("@rules_cc//cc:defs.bzl", "cc_binary")
 # bazelisk run //apps/simulation_visualizer
 cc_binary(
     name = "simulation_visualizer",
-    srcs = [
-        "load_models.cc",
-        "load_models.h",
-        "main.cc",
-    ],
+    srcs = glob([
+        "**/*.h",
+        "**/*.cc",
+    ]),
     data = glob([
         "models/**/*.glb",
     ]),

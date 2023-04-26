@@ -4,8 +4,9 @@
 #include <vector>
 
 #include "libs/simulation/IEntity.h"
-#include "libs/simulation/entities/robot.h"
+#include "libs/simulation/simulation_model.h"
 #include "load_models.h"
+#include "populate_simulation.h"
 #include "raylib.h"
 #include "tools/cpp/runfiles/runfiles.h"
 
@@ -40,6 +41,10 @@ int main(int argc, char* argv[]) {
   camera.fovy = 45.0f;
   camera.projection = CAMERA_PERSPECTIVE;
 
+  // Populate the simulation
+  SimulationModel* sm = SimulationModel::getInstance();
+  populate_simulation(sm);
+
   // Detects window close button or ESC key
   while (!WindowShouldClose()) {
     UpdateCamera(&camera, CAMERA_THIRD_PERSON);
@@ -47,6 +52,11 @@ int main(int argc, char* argv[]) {
     ClearBackground(RAYWHITE);
     BeginMode3D(camera);
     DrawGrid(10, 1.0f);
+    for (IEntity* entity : sm->getEntities()) {
+      const std::string renderModelName = entity->getTag("renderModel");
+      RenderModel rm = all_models[renderModelName];
+      DrawModel(rm.model, {0, 0, 0}, 1.0f, WHITE);
+    }
     EndMode3D();
     EndDrawing();
   }
@@ -54,5 +64,6 @@ int main(int argc, char* argv[]) {
   // De-initialize
   for (auto m : all_models) UnloadModel(m.second.model);
   CloseWindow();
+  delete sm;
   return 0;
 }

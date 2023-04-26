@@ -2,9 +2,9 @@
 
 #include <filesystem>
 
-const std::unordered_map<std::string, SimulationModel> loadAllModels(
+const std::unordered_map<std::string, RenderModel> loadAllModels(
     bazel::tools::cpp::runfiles::Runfiles* runfiles) {
-  std::unordered_map<std::string, SimulationModel> models;
+  std::unordered_map<std::string, RenderModel> models;
 
   // This is where the models directory is on the filesystem
   const std::string models_dir = runfiles->Rlocation(
@@ -24,12 +24,12 @@ const std::unordered_map<std::string, SimulationModel> loadAllModels(
       continue;
     }
 
-    SimulationModel sm;
+    RenderModel rm;
     unsigned int c = 0;
-    sm.model = LoadModel(entry.path().string().c_str());
-    sm.modelAnimations = LoadModelAnimations(entry.path().string().c_str(), &c);
-    sm.totalAnimations = c;
-    models[name] = sm;
+    rm.model = LoadModel(entry.path().string().c_str());
+    rm.modelAnimations = LoadModelAnimations(entry.path().string().c_str(), &c);
+    rm.totalAnimations = c;
+    models[name] = rm;
   }
 
   return models;

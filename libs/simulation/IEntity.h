@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 #include "IStrategy.h"
@@ -129,6 +130,14 @@ class IEntity {
     this->strategy = strategy;
   }
 
+  virtual void addTag(const std::string& key, const std::string& value) final {
+    this->tags[key] = value;
+  }
+
+  virtual const std::string getTag(const std::string& key) final {
+    return this->tags[key];
+  }
+
   /**
    * @brief Rotate the entity.
    * @param angle The angle to rotate the entity by.
@@ -165,6 +174,7 @@ class IEntity {
   geometry::Point3f position = {0, 0, 0};
   geometry::Vector3f direction = {0, 0, 0};
   geometry::Point3f destination = {0, 0, 0};
+  std::unordered_map<std::string, std::string> tags;
 };
 
 }  // namespace drone_simulation::simulation

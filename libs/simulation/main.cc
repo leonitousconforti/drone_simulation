@@ -41,6 +41,9 @@ int main(int argc, char* argv[]) {
   sm->scheduleTrip("My first trip!", {0, 0, 0}, {1, 1, 1});
 
   // ...
+  sm->update(1.0f);
+
+  // Don't forget to cleanup (since we didn't use a smart pointer)
   delete sm;
   return 0;
 }

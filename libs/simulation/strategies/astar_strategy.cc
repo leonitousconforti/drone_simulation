@@ -15,4 +15,7 @@ AstarStrategy::AstarStrategy(geometry::Point3f start, geometry::Point3f end,
   path = routing::A_Star::Default().getPath(graph, start_id, end_id);
 }
 
+void AstarStrategy::move(IEntity* entity, double dt) {}
+bool AstarStrategy::isCompleted() { return true; }
+
 }  // namespace drone_simulation::simulation::movement_strategies

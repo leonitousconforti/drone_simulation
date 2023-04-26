@@ -31,7 +31,9 @@ SimulationModel* SimulationModel::getInstance() {
   return instance;
 }
 
-anyBuilder getEntityBuilder(const std::string& forEntity) { return {}; }
+anyBuilder SimulationModel::getEntityBuilder(const std::string& forEntity) {
+  return {};
+}
 
 void SimulationModel::addEntity(IEntity* entity) {
   this->entities.push_back(entity);

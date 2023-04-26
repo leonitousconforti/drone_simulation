@@ -59,6 +59,8 @@ class SimulationModel {
    **/
   void update(double dt);
 
+  const std::vector<IEntity*> getEntities() { return this->entities; }
+
  private:
   maps::IGraph* graph;
   std::vector<IEntity*> entities;

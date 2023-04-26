@@ -8,6 +8,8 @@ class BatteryDecorator : public entities::Drone {
  public:
   BatteryDecorator(const entities::Drone* drone);
 
+  virtual void update(double dt, std::vector<IEntity*> scheduler);
+
  private:
   const entities::Drone* drone;
 };

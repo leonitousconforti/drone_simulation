@@ -6,11 +6,11 @@
 #include "raylib.h"
 #include "tools/cpp/runfiles/runfiles.h"
 
-typedef struct SimulationModel {
+typedef struct RenderModel {
   Model model;
   ModelAnimation* modelAnimations;
   unsigned int totalAnimations;
-} SimulationModel;
+} RenderModel;
 
-const std::unordered_map<std::string, SimulationModel> loadAllModels(
+const std::unordered_map<std::string, RenderModel> loadAllModels(
     bazel::tools::cpp::runfiles::Runfiles* runfiles);

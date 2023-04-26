@@ -15,4 +15,7 @@ DfsStrategy::DfsStrategy(geometry::Vector3f start, geometry::Vector3f end,
   path = routing::DepthFirstSearch::Default().getPath(graph, start_id, end_id);
 }
 
+void DfsStrategy::move(IEntity* entity, double dt) {}
+bool DfsStrategy::isCompleted() { return true; }
+
 }  // namespace drone_simulation::simulation::movement_strategies
