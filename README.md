@@ -14,7 +14,7 @@ I really wanted to improve the DX (developer experience) of working on this proj
 
 2. Improve the intellisense support, as it just wouldn't work for me on some things. I wouldn't consider myself a pick and choose developer who just scrolls through intellisense until they find find something that looks right, but I do appreciate it when I can quickly and automatically import all the files I need and when I can hover for documentation.
 
-3. Improve the project structure. I felt like there were quite a few redundant and unnecessary parts of the project that increased complexity and coupling for no reason, which mad it more difficult to understand at first. As an example, all routing strategies used to be paired to a graph, such that if you gave a map to a routing strategy it would calculate the path from point A to B. But all graph used to also be paired to routing strategies, such that if you gave a routing strategy to a graph it would calculate the path from point A to B. This create a cyclic dependency loop, graphs depend on routing strategies and routing strategies depend on maps. It just makes things harder to read to because of the syntax and mental work that goes in to overcoming this. So I ask, why do they both need to be coupled to each other? If anyone has a good response as to why it needs to be that way, then yeah it can be that way. But in my mind, I'm not here to philosophize about whose responsibility it is to calculate paths, I just said that only routing strategies will ever need to calculate paths in our system - and it works just fine. Also having header and source folders increases the number of files shown to the developer at a time, which also increases the cognitive load needed by the developer. So I propose that all files related to one another go in the same folder, and that files are separated based on the domain/responsibility. This is also how most of Google's monorepos are structured and I find it helps me a lot.
+3. Improve the project structure. I felt like there were quite a few redundant and unnecessary parts of the project that increased complexity and coupling for no reason, which made it more difficult to understand at first. As an example, all routing strategies used to be paired to a graph, such that if you gave a graph to a routing strategy it would calculate the path from point A to B. But all graphs used to also be paired to routing strategies, such that if you gave a routing strategy to a graph it would calculate the path from point A to B. This creates a cyclic dependency loop, graphs depend on routing strategies and routing strategies depend on graphs. It just makes things harder to read to because of the syntax and mental work that goes in to overcoming this. So I ask, why do they both need to be coupled to each other? If anyone has a good response as to why it needs to be that way, then yeah it can be that way. But in my mind, I'm not here to philosophize about whose responsibility it is to calculate paths, I just said that only routing strategies will ever need to calculate paths in our system - and it works just fine. Also having header and source folders increases the number of files shown to the developer at a time, which also increases the cognitive load needed by the developer. So I propose that all files related to one another go in the same folder, and that files are separated based on the domain/responsibility. This is also how most of Google's monorepos are structured and I find it helps me a lot.
 
 I determined that the best way to accomplish these goals was through a different build system. I ultimately decided to use either CMake or Bazel. While I have had some experience using CMake, I had no prior experience using bazel before this project. So why did I decide to go with bazel?
 
@@ -24,7 +24,7 @@ I determined that the best way to accomplish these goals was through a different
 
 3. Cross platform / architecture independent. I wanted to make this project cross platform and architecture independent, so having a build system that supported that was going to make my life easier.
 
-4. Its engineered for big projects, not that CMake is not, but bazel is build for monorepos
+4. Its engineered for big projects, not that CMake is not, but bazel is designed for monorepos first
 
 ## Project structure
 
@@ -44,9 +44,13 @@ You can build apps the same way that libs are build, which is great if you just 
 bazelisk run //apps/simulation_visualizer
 ```
 
-## This is the api I was going for
+## Native vs Web
 
-A little convoluted, but I feel it hits on most of the big design patterns we talked about in class
+In my quest to make this project cross platform and architecture independent, I wanted to get rid of as many third party dependencies as possibly. I noticed that the web aspect, i.e the web server and the websockets, were responsible for a majority of the dependencies. And no matter how hard I tried, building libwebsockets and the required dependencies on all platforms proved quite the challenge. And if I couldn't build libwebsockets on all platforms using bazel, then I would have to use a different c++ webserver library for the web component. And that would mean rewriting the entire c++ web component. I was up for that, as that would give me a chance to rewrite the frontend using typescript and I was already theorizing about if I could use protobufs to get end-to-end type checking and eliminate JSON. But what if we could do even better than that? If we need some kind of c++ frontend to interact with the simulation c++ code, why not have it be a native application? Then we could keep the entire codebase as c++ and eliminate all the JS/html/css and the webserver dependencies. Also, think about the framerate boost we could achieve using a native application and maybe even some GPU rendering! I tried QT at first because that is what I read online is a really good cross platform c++ GUI framework. But I quickly realized no one had it working with bazel (you have to use custom build tools) and it didn't have any of the 3d rendering utilities I would need builtin. After quite a bit of digging and research, I landed on RayLib (never heard of it before this), a mini c++ game dev framework which satisfied all my requirements of being cross platform, 3D rendering out of the box, and quite a bit of documentation and examples to learn from.
+
+## Simulation Api
+
+Now that I had decided to go with a native application, I wanted to change the simulation package's API. I thought about how I would want to interact with the simulation from the native application, and this is what I cam up with. Its a little convoluted around the getEntityBuilder part, but I feel it hits on most of the big design patterns we talked about in class
 
 ```c++
 int main(int argc, char* argv[]) {
@@ -65,17 +69,19 @@ int main(int argc, char* argv[]) {
                      ->addAvailability()
                      ->construct();
 
-  // We use the decorator pattern to add unique functionality to the drone.
+  // We use the decorator pattern to add unique functionality to the drone
   Drone* droneWithBat = new BatteryDecorator(drone);
 
-  // Add the drone to the sim.
+  // Add the drone to the sim
   sm->addEntity(droneWithBat);
 
-  // And schedule a trip from the RecWel to Carlson school of Business which
-  // uses the strategy pattern for movement.
+  // And schedule a trip from the RecWel to Carlson school of Business
   sm->scheduleTrip("My first trip!", {0, 0, 0}, {1, 1, 1});
 
   // ...
+  sm->update(1.0f);
+
+  // Don't forget to cleanup (since we didn't use a smart pointer)
   delete sm;
   return 0;
 }
