@@ -4,6 +4,8 @@
     {
       "name": "default",
       "compileCommands": "${workspaceFolder}/compile_commands.json",
+      "intelliSenseMode": "linux-gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
       "cppStandard": "c++17"
     }
   ]
