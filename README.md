@@ -53,7 +53,7 @@ In my quest to make this project cross platform and architecture independent, I 
 Now that I had decided to go with a native application, I wanted to change the simulation package's API. I thought about how I would want to interact with the simulation from the native application, and this is what I cam up with. Its a little convoluted around the getEntityBuilder part, but I feel it hits on most of the big design patterns we talked about in class
 
 ```c++
-int main(int argc, char* argv[]) {
+int main(void) {
   // We use the singleton pattern to only allow one instance of the
   // SimulationModel at a time.
   SimulationModel* sm = SimulationModel::getInstance();
@@ -75,7 +75,7 @@ int main(int argc, char* argv[]) {
   // Add the drone to the sim
   sm->addEntity(droneWithBat);
 
-  // And schedule a trip from the RecWel to Carlson school of Business
+  // And schedule a trip from the RecWel to Carlson School of Business
   sm->scheduleTrip("My first trip!", {0, 0, 0}, {1, 1, 1});
 
   // ...
@@ -86,3 +86,9 @@ int main(int argc, char* argv[]) {
   return 0;
 }
 ```
+
+## Final result
+
+Build artifacts can be found from the most recent successfully CI/CD run. The artifact name includes the platform they were _built on_, however, bazel targets windows10 macos12 and ubuntu20.04. That means the windows11 binaries will still run on windows10 they just happened to be built on windows11. In short, you can download either one of the downloads for your platform.
+
+Also this really doesn't need to be a couple million lines of code (or whatever the number was said to be at the beginning of the semester), it only needs less than 2000 SLOC.

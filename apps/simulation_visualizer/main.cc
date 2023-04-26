@@ -30,7 +30,7 @@ int main(int argc, char* argv[]) {
   SetTargetFPS(60);
   DisableCursor();
 
-  // Load all the models
+  // Load all the models (MUST happen after the window is create!)
   auto all_models = loadAllModels(runfiles.get());
 
   // Define the camera to look into our 3d world
