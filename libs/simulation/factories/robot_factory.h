@@ -10,12 +10,12 @@ class RobotFactory : public IFactory {
  public:
   virtual ~RobotFactory() {}
 
-  anyBuilder createBuilder(const std::string& type) {
+  std::optional<anyBuilder> createBuilder(const std::string& type) {
     if (type == "robot") {
-      return new builders::DroneBuilder();
+      return new builders::RobotBuilder();
     }
 
-    return {};
+    return std::nullopt;
   }
 };
 

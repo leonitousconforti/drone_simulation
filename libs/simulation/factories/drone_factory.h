@@ -10,12 +10,12 @@ class DroneFactory : public IFactory {
  public:
   virtual ~DroneFactory() {}
 
-  anyBuilder createBuilder(const std::string& type) {
+  std::optional<anyBuilder> createBuilder(const std::string& type) {
     if (type == "drone") {
       return new builders::DroneBuilder();
     }
 
-    return {};
+    return std::nullopt;
   }
 };
 

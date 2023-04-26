@@ -1,5 +1,6 @@
 #pragma once
 
+#include <optional>
 #include <variant>
 
 #include "libs/simulation/builders/dragon_builder.h"
@@ -22,7 +23,7 @@ class IFactory {
    **/
   virtual ~IFactory() {}
 
-  virtual anyBuilder createBuilder(const std::string& type) = 0;
+  virtual std::optional<anyBuilder> createBuilder(const std::string& type) = 0;
 };
 
 }  // namespace drone_simulation::simulation

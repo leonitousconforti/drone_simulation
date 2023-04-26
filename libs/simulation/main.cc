@@ -25,10 +25,10 @@ int main(int argc, char* argv[]) {
       std::get<DroneBuilder*>(sm->getEntityBuilder("drone"));
 
   // We use the builder pattern to construct entities.
-  Drone* drone = droneBuilder->addPosition()
-                     ->addSpeed()
-                     ->addDestination()
-                     ->addAvailability()
+  Drone* drone = droneBuilder->addPosition({})
+                     ->addSpeed(1.0f)
+                     ->addDestination({})
+                     ->addAvailability(true)
                      ->construct();
 
   // We use the decorator pattern to add unique functionality to the drone

@@ -89,6 +89,6 @@ int main(void) {
 
 ## Final result
 
-Build artifacts can be found from the most recent successfully CI/CD run. The artifact name includes the platform they were _built on_, however, bazel targets windows10 macos12 and ubuntu20.04. That means the windows11 binaries will still run on windows10 they just happened to be built on windows11. In short, you can download either one of the downloads for your platform.
+Build artifacts can be found from the most recent successfully CI/CD run. The artifact name includes the platform they were _built on_, however, bazel targets windows10 macos12 and ubuntu20.04. That means the windows11 binaries will still run on windows10 they just happened to be built on windows11. In short, you can download either one of the downloads for your platform. You will need to chmod the executable on linux and macos, and windows defender will probably tell you that it is from an unknown publisher - if you are really worried, you can read the source code or build it yourself. And you shouldn't change the directory structure of the artifacts, for example, the simulation_visualizer executable and simulation_visualizer.runfiles folder must be next to each other! So if you copy the executable to your desktop or somewhere else, don't forget to copy the .runfiles folder there to, they are required.
 
-Also this really doesn't need to be a couple million lines of code (or whatever the number was said to be at the beginning of the semester), it only needs less than 2000 SLOC.
+Also this really doesn't need to be a couple million lines of code (or whatever the number was said to be at the beginning of the semester), it only needs less than 5000 SLOC.

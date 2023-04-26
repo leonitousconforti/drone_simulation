@@ -32,6 +32,13 @@ SimulationModel* SimulationModel::getInstance() {
 }
 
 anyBuilder SimulationModel::getEntityBuilder(const std::string& forEntity) {
+  for (auto factory : this->factories) {
+    auto builder = factory->createBuilder(forEntity);
+    if (builder.has_value()) {
+      return builder.value();
+    }
+  }
+
   return {};
 }
 

@@ -43,7 +43,7 @@ int main(int argc, char* argv[]) {
 
   // Populate the simulation
   SimulationModel* sm = SimulationModel::getInstance();
-  populate_simulation(sm);
+  populate_simulation();
 
   // Detects window close button or ESC key
   while (!WindowShouldClose()) {

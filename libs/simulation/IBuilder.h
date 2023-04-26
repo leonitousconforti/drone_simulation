@@ -1,6 +1,8 @@
 #pragma once
 
 #include "IEntity.h"
+#include "libs/geometry/point3f.h"
+#include "libs/geometry/vector3f.h"
 
 namespace drone_simulation::simulation {
 
@@ -12,11 +14,36 @@ class IBuilder {
 
   T* construct() { return this->entity; }
 
-  virtual IBuilder<T>* addSpeed() { return this; }
-  virtual IBuilder<T>* addPosition() { return this; }
-  virtual IBuilder<T>* addDirection() { return this; }
-  virtual IBuilder<T>* addDestination() { return this; }
-  virtual IBuilder<T>* addAvailability() { return this; }
+  virtual IBuilder<T>* addPosition(geometry::Point3f position) {
+    this->entity->setPosition(position);
+    return this;
+  }
+
+  virtual IBuilder<T>* addDirection(geometry::Vector3f direction) {
+    this->entity->setDirection(direction);
+    return this;
+  }
+
+  virtual IBuilder<T>* addDestination(geometry::Point3f destination) {
+    this->entity->setDestination(destination);
+    return this;
+  }
+
+  virtual IBuilder<T>* addSpeed(float speed) {
+    this->entity->setSpeed(speed);
+    return this;
+  }
+
+  virtual IBuilder<T>* addAvailability(bool availability) {
+    this->entity->setAvailability(availability);
+    return this;
+  }
+
+  virtual IBuilder<T>* addTag(const std::string& key,
+                              const std::string& value) {
+    this->entity->addTag(key, value);
+    return this;
+  }
 
  protected:
   T* entity;

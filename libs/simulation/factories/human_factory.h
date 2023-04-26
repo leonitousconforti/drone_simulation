@@ -10,12 +10,12 @@ class HumanFactory : public IFactory {
  public:
   virtual ~HumanFactory() {}
 
-  anyBuilder createBuilder(const std::string& type) {
+  std::optional<anyBuilder> createBuilder(const std::string& type) {
     if (type == "human") {
       return new builders::HumanBuilder();
     }
 
-    return {};
+    return std::nullopt;
   }
 };
 
