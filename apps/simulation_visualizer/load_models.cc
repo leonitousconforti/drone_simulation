@@ -1,8 +1,22 @@
 #include "load_models.h"
 
 #include <filesystem>
+#include <iostream>
 
-const std::unordered_map<std::string, RenderModel> loadAllModels(
+const Model loadUmnModel(bazel::tools::cpp::runfiles::Runfiles* runfiles) {
+  const std::string umn_model_path = runfiles->Rlocation(
+      "drone_simulation/apps/simulation_visualizer/models/umn.obj");
+
+  const std::string umn_model_path2 = runfiles->Rlocation(
+      "drone_simulation/apps/simulation_visualizer/models/umn_diffuse.png");
+
+  Model model = LoadModel(umn_model_path.c_str());
+  Texture2D texture = LoadTexture(umn_model_path2.c_str());
+  model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture;
+  return model;
+}
+
+const std::unordered_map<std::string, RenderModel> loadAllGlbModels(
     bazel::tools::cpp::runfiles::Runfiles* runfiles) {
   std::unordered_map<std::string, RenderModel> models;
 

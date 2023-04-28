@@ -25,25 +25,28 @@ int main(int argc, char* argv[]) {
   }
 
   // Setup the window
-  SetTraceLogLevel(LOG_WARNING);
+  SetTraceLogLevel(LOG_ALL);
   InitWindow(800, 450, "Drone Simulation");
   SetTargetFPS(60);
   DisableCursor();
 
-  // Load all the models (MUST happen after the window is create!)
-  auto all_models = loadAllModels(runfiles.get());
+  // Load the umn obj model
+  auto umn_model = loadUmnModel(runfiles.get());
+
+  // Load all the glb models (MUST happen after the window is create!)
+  // auto all_models = loadAllGlbModels(runfiles.get());
 
   // Define the camera to look into our 3d world
   Camera camera;
-  camera.position = {5.0f, 5.0f, 5.0f};
-  camera.target = {0.0f, 2.0f, 0.0f};
+  camera.position = {5.0f, 5.0f, 25.0f};
+  camera.target = {0.0f, 0.0f, 2.0f};
   camera.up = {0.0f, 1.0f, 0.0f};
   camera.fovy = 45.0f;
   camera.projection = CAMERA_PERSPECTIVE;
 
   // Populate the simulation
-  SimulationModel* sm = SimulationModel::getInstance();
-  populate_simulation();
+  // SimulationModel* sm = SimulationModel::getInstance();
+  // populate_simulation();
 
   // Detects window close button or ESC key
   while (!WindowShouldClose()) {
@@ -51,19 +54,22 @@ int main(int argc, char* argv[]) {
     BeginDrawing();
     ClearBackground(RAYWHITE);
     BeginMode3D(camera);
-    DrawGrid(10, 1.0f);
-    for (IEntity* entity : sm->getEntities()) {
-      const std::string renderModelName = entity->getTag("renderModel");
-      RenderModel rm = all_models[renderModelName];
-      DrawModel(rm.model, {0, 0, 0}, 1.0f, WHITE);
-    }
+    DrawModel(umn_model, {0, 0, 0}, 0.2f, WHITE);
+    DrawGrid(20, 10.0f);
+
+    // for (IEntity* entity : sm->getEntities()) {
+    //   const std::string renderModelName = entity->getTag("renderModel");
+    //   RenderModel rm = all_models[renderModelName];
+    //   DrawModel(rm.model, {0, 0, 0}, 1.0f, WHITE);
+    // }
     EndMode3D();
+    DrawFPS(10, 10);
     EndDrawing();
   }
 
   // De-initialize
-  for (auto m : all_models) UnloadModel(m.second.model);
+  // for (auto m : all_models) UnloadModel(m.second.model);
   CloseWindow();
-  delete sm;
+  // delete sm;
   return 0;
 }

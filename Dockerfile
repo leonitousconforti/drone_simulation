@@ -13,4 +13,4 @@ WORKDIR /app
 RUN bazel build ...
 
 # 5 - run command in docker container once image ran
-CMD ["bazel", "run", "//libs/simulation"]
+CMD ["bazel", "run", "//libs/simulation:example"]

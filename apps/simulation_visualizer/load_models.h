@@ -12,5 +12,7 @@ typedef struct RenderModel {
   unsigned int totalAnimations;
 } RenderModel;
 
-const std::unordered_map<std::string, RenderModel> loadAllModels(
+const std::unordered_map<std::string, RenderModel> loadAllGlbModels(
     bazel::tools::cpp::runfiles::Runfiles* runfiles);
+
+const Model loadUmnModel(bazel::tools::cpp::runfiles::Runfiles* runfiles);

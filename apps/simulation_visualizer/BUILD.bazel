@@ -8,7 +8,8 @@ cc_binary(
         "**/*.cc",
     ]),
     data = glob([
-        "models/**/*.glb",
+        "models/**/*",
+        "textures/**/*",
     ]),
     visibility = ["//visibility:private"],
     deps = [
