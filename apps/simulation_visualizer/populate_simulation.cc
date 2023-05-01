@@ -10,14 +10,14 @@ void populate_simulation() {
   using namespace drone_simulation::simulation::builders;
   using namespace drone_simulation::simulation::entities;
 
-  SimulationModel* sm = SimulationModel::getInstance();
+  // SimulationModel* sm = SimulationModel::getInstance();
 
-  RobotBuilder* robotBuilder =
-      std::get<RobotBuilder*>(sm->getEntityBuilder("robot"));
+  // RobotBuilder* robotBuilder =
+  //     std::get<RobotBuilder*>(sm->getEntityBuilder("robot"));
 
-  Robot* robot = robotBuilder->addPosition({0.0f, 0.0f, 0.0f})
-                     ->addTag("renderModel", "robot")
-                     ->construct();
+  // Robot* robot = robotBuilder->addPosition({0.0f, 0.0f, 0.0f})
+  //                    ->addTag("renderModel", "robot")
+  //                    ->construct();
 
-  sm->addEntity(robot);
+  // sm->addEntity(robot);
 }

@@ -2,8 +2,10 @@
 
 #include <optional>
 
+#include "libs/simulation/IBuilder.h"
+#include "libs/simulation/IEntity.h"
 #include "libs/simulation/IFactory.h"
-#include "libs/simulation/builders/all.h"
+#include "libs/simulation/builders/helicopter_builder.h"
 
 namespace drone_simulation::simulation::factories {
 
@@ -11,9 +13,9 @@ class HelicopterFactory : public IFactory {
  public:
   virtual ~HelicopterFactory() {}
 
-  std::optional<builders::anyBuilder> createBuilder(const std::string& type) {
+  std::optional<IBuilder<IEntity>*> createBuilder(const std::string& type) {
     if (type == "helicopter") {
-      return new builders::HelicopterBuilder();
+      return (IBuilder<IEntity>*)new builders::HelicopterBuilder();
     }
 
     return std::nullopt;

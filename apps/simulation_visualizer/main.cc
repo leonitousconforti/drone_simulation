@@ -12,7 +12,6 @@
 
 using namespace bazel::tools::cpp::runfiles;
 using namespace drone_simulation::simulation;
-using namespace drone_simulation::simulation::entities;
 
 int main(int argc, char* argv[]) {
   // Create a runfiles object to load models

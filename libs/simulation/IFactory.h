@@ -2,7 +2,8 @@
 
 #include <optional>
 
-#include "libs/simulation/builders/all.h"
+#include "libs/simulation/IBuilder.h"
+#include "libs/simulation/IEntity.h"
 
 namespace drone_simulation::simulation {
 
@@ -13,7 +14,7 @@ class IFactory {
    **/
   virtual ~IFactory() {}
 
-  virtual std::optional<builders::anyBuilder> createBuilder(
+  virtual std::optional<IBuilder<IEntity>*> createBuilder(
       const std::string& type) = 0;
 };
 

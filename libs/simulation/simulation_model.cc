@@ -31,7 +31,7 @@ SimulationModel* SimulationModel::getInstance() {
   return instance;
 }
 
-builders::anyBuilder SimulationModel::getEntityBuilder(
+IBuilder<IEntity>* SimulationModel::getEntityBuilder(
     const std::string& entityType) {
   for (auto factory : this->factories) {
     auto builder = factory->createBuilder(entityType);
@@ -40,7 +40,7 @@ builders::anyBuilder SimulationModel::getEntityBuilder(
     }
   }
 
-  return {};
+  return nullptr;
 }
 
 void SimulationModel::addEntity(IEntity* entity) {

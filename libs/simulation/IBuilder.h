@@ -1,5 +1,7 @@
 #pragma once
 
+#include <any>
+
 #include "IEntity.h"
 #include "libs/geometry/point3f.h"
 #include "libs/geometry/vector3f.h"
@@ -44,6 +46,8 @@ class IBuilder {
     this->entity->addTag(key, value);
     return this;
   }
+
+  virtual IBuilder<T>* fromObject(const std::any data) { return this; }
 
  protected:
   T* entity;

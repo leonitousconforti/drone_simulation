@@ -7,7 +7,6 @@
 #include "IFactory.h"
 #include "libs/geometry/point3f.h"
 #include "libs/maps/graph.h"
-#include "libs/simulation/builders/all.h"
 
 namespace drone_simulation::simulation {
 
@@ -37,7 +36,7 @@ class SimulationModel {
    */
   void operator=(const SimulationModel&) = delete;
 
-  builders::anyBuilder getEntityBuilder(const std::string& entityType);
+  IBuilder<IEntity>* getEntityBuilder(const std::string& entityType);
 
   /**
    * @brief Creates a new simulation entity

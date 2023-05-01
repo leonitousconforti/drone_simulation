@@ -20,11 +20,8 @@ int main(void) {
   // SimulationModel at a time.
   SimulationModel* sm = SimulationModel::getInstance();
 
-  // We use the factory pattern to get entity builders.
-  DroneBuilder* droneBuilder =
-      std::get<DroneBuilder*>(sm->getEntityBuilder("drone"));
-
   // We use the builder pattern to construct entities.
+  DroneBuilder* droneBuilder = new DroneBuilder();
   Drone* drone = droneBuilder->addPosition({0, 0, 0})
                      ->addSpeed(1.0f)
                      ->addAvailability(true)
