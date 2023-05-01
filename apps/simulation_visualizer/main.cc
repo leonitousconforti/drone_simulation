@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
   }
 
   // Setup the window
-  SetTraceLogLevel(LOG_ALL);
+  SetTraceLogLevel(LOG_WARNING);
   InitWindow(800, 450, "Drone Simulation");
   SetTargetFPS(60);
   DisableCursor();
