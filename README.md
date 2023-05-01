@@ -63,10 +63,9 @@ int main(void) {
       std::get<DroneBuilder*>(sm->getEntityBuilder("drone"));
 
   // We use the builder pattern to construct entities.
-  Drone* drone = droneBuilder->addPosition()
-                     ->addSpeed()
-                     ->addDestination()
-                     ->addAvailability()
+  Drone* drone = droneBuilder->addPosition({0, 0, 0})
+                     ->addSpeed(1.0f)
+                     ->addAvailability(true)
                      ->construct();
 
   // We use the decorator pattern to add unique functionality to the drone
@@ -75,7 +74,7 @@ int main(void) {
   // Add the drone to the sim
   sm->addEntity(droneWithBat);
 
-  // And schedule a trip from the RecWel to Carlson School of Business
+  // And schedule a trip from the RecWel to Carlson school of Business
   sm->scheduleTrip("My first trip!", {0, 0, 0}, {1, 1, 1});
 
   // ...
