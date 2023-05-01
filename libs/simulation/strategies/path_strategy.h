@@ -21,7 +21,8 @@ class PathStrategy : public IStrategy {
    *
    * @param path the path to follow
    */
-  PathStrategy(std::vector<geometry::Point3f> path = {});
+  PathStrategy(std::vector<geometry::Point3f> path = {})
+      : path(path), index(0) {}
 
   /**
    * @brief Move toward next position in the path
@@ -29,7 +30,17 @@ class PathStrategy : public IStrategy {
    * @param entity Entity to move
    * @param dt Delta Time
    */
-  virtual void move(IEntity* entity, double dt) = 0;
+  virtual void move(IEntity* entity, double dt) {
+    if (isCompleted()) return;
+
+    geometry::Vector3f vi = path[index];
+    geometry::Vector3f dir = (vi - entity->getPosition()).unit();
+
+    entity->setPosition(entity->getPosition() + dir * entity->getSpeed() * dt);
+    entity->setDirection(dir);
+
+    if (entity->getPosition().distanceBetween(vi) < 1) index++;
+  }
 
   /**
    * @brief Check if the trip is completed by seeing if index
@@ -37,7 +48,7 @@ class PathStrategy : public IStrategy {
    *
    * @return True if complete, false if not complete
    */
-  virtual bool isCompleted() = 0;
+  virtual bool isCompleted() { return index >= path.size(); }
 };
 
 }  // namespace drone_simulation::simulation::movement_strategies
