@@ -20,12 +20,15 @@ class CelebrationDecorator : public IStrategy {
    *
    * @param strategy the strategy to decorate onto
    */
-  CelebrationDecorator(IStrategy* strategy);
+  CelebrationDecorator(IStrategy* strategy) {
+    this->strategy = strategy;
+    time = 0;
+  }
 
   /**
    * @brief Celebration Destructor
    */
-  virtual ~CelebrationDecorator();
+  virtual ~CelebrationDecorator() { delete strategy; }
 
   /**
    * @brief Move the entity with the behavior as described for 4 seconds.
@@ -40,7 +43,13 @@ class CelebrationDecorator : public IStrategy {
    *
    * @return True if complete, false if not complete
    */
-  virtual bool isCompleted();
+  virtual bool isCompleted() {
+    if (time >= 4.0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 };
 
 }  // namespace drone_simulation::simulation::decorators
