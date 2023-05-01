@@ -1,3 +1,5 @@
+#pragma once
+
 #include <variant>
 
 #include "dragon_builder.h"
