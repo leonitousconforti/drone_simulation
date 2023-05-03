@@ -12,7 +12,7 @@ COPY --chown=bazel . /app
 WORKDIR /app
 
 # 4 - compile all projects in the monorepo
-RUN bazel build ...
+RUN bazel build //libs/simulation:example
 
 # 5 - run command in docker container once image ran
 CMD ["bazel", "run", "//libs/simulation:example"]
