@@ -23,11 +23,7 @@ class AstarStrategy : public PathStrategy {
    */
   AstarStrategy(const geometry::Point3f start, const geometry::Point3f end,
                 const maps::IGraph* graph) {
-    using namespace geometry;
-    using namespace routing;
-    int64_t start_id = graph->nearestNode(start, euclideanDistance)->getId();
-    int64_t end_id = graph->nearestNode(end, euclideanDistance)->getId();
-    path = A_Star::Default().getPath(graph, start_id, end_id);
+    path = routing::A_Star::Default().getPath(graph, start, end);
   }
 
   void move(IEntity* entity, double dt) {}

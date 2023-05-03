@@ -23,11 +23,7 @@ class DijkstraStrategy : public PathStrategy {
    */
   DijkstraStrategy(geometry::Vector3f start, geometry::Vector3f end,
                    const maps::IGraph* graph) {
-    using namespace geometry;
-    using namespace routing;
-    int64_t start_id = graph->nearestNode(start, euclideanDistance)->getId();
-    int64_t end_id = graph->nearestNode(end, euclideanDistance)->getId();
-    path = Dijkstra::Default().getPath(graph, start_id, end_id);
+    path = routing::Dijkstra::Default().getPath(graph, start, end);
   }
 
   void move(IEntity* entity, double dt) {}
