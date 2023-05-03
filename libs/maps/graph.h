@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -16,21 +17,21 @@ class IGraph {
   IGraph();
   ~IGraph();
 
-  void addNode(IGraphNode* node);
-  bool contains(int64_t id) const;
-  const std::vector<IGraphNode*>& getNodes() const;
-  IGraphNode* getNodeById(int64_t id) const;
-  void addEdge(int64_t id1, int64_t id2);
+  void addNode(std::shared_ptr<IGraphNode> node);
+  const bool contains(const int64_t id) const;
+  const std::vector<std::shared_ptr<IGraphNode>>& getNodes() const;
+  const std::shared_ptr<IGraphNode> getNodeById(const int64_t id) const;
+  void addEdge(const int64_t id1, const int64_t id2);
 
   void prune();
   const geometry::BoundingBox getBoundingBox() const;
-  const IGraphNode* nearestNode(
-      geometry::Point3f point,
+  const std::shared_ptr<IGraphNode> nearestNode(
+      const geometry::Point3f point,
       const geometry::DistanceFunction& distance) const;
 
  private:
-  std::vector<IGraphNode*> nodes;
-  std::unordered_map<int64_t, IGraphNode*> lookup;
+  std::vector<std::shared_ptr<IGraphNode>> nodes;
+  std::unordered_map<int64_t, std::shared_ptr<IGraphNode>> lookup;
 };
 
 }  // namespace drone_simulation::maps
