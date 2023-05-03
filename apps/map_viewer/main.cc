@@ -1,4 +1,5 @@
 #include <iostream>
+#include <memory>
 #include <vector>
 
 #include "libs/geometry/bounding_box.h"
@@ -30,7 +31,7 @@ void drawPath(Image& image, const BoundingBox& bb,
 
 Image drawGraph(const IGraph* graph) {
   BoundingBox bb = graph->getBoundingBox();
-  const std::vector<IGraphNode*>& nodes = graph->getNodes();
+  const auto nodes = graph->getNodes();
   float aspectRatio = (bb.max.x - bb.min.x) / (bb.max.y - bb.min.y);
 
   int resolution = 2048;
@@ -39,7 +40,7 @@ Image drawGraph(const IGraph* graph) {
 
   for (size_t i = 0; i < nodes.size(); i++) {
     Point3f normalizedPoint = bb.normalize(nodes[i]->getPosition());
-    const std::vector<IGraphNode*>& neighbors = nodes[i]->getNeighbors();
+    const auto& neighbors = nodes[i]->getNeighbors();
 
     int startX = normalizedPoint.y * output.getWidth();
     int startY = normalizedPoint.x * output.getHeight();
@@ -64,7 +65,7 @@ int main(int argc, char* argv[]) {
     return -1;
   }
 
-  IGraph* graph = loadOsmGraph(argv[1], false);
+  IGraph* graph = loadOsmGraph(argv[1], false).get();
   if (graph == nullptr) {
     std::cerr << "Failed to parse graph file" << std::endl;
     return -2;
@@ -94,6 +95,5 @@ int main(int argc, char* argv[]) {
   drawPath(base_image, bb, dijkstra_path, {1, 0.5, 0, 1});
   base_image.saveAs(std::string(argv[2]) + "routes.png");
 
-  delete graph;
   return 0;
 }
