@@ -12,12 +12,13 @@
 #include "libs/routing/depth_first_search.h"
 #include "libs/routing/dijkstra.h"
 
+using namespace std;
 using namespace drone_simulation::geometry;
 using namespace drone_simulation::maps;
 using namespace drone_simulation::routing;
 
-void drawPath(Image& image, const BoundingBox& bb,
-              const std::vector<Point3f>& path, const Color color) {
+void drawPath(Image& image, const BoundingBox& bb, const vector<Point3f>& path,
+              const Color color) {
   for (size_t i = 1; i < path.size(); i++) {
     const Point3f normalized_pos1 = bb.normalize(path[i - 1]);
     const Point3f normalized_pos2 = bb.normalize(path[i]);
@@ -59,41 +60,41 @@ Image drawGraph(const IGraph* graph) {
 
 int main(int argc, char* argv[]) {
   if (argc != 3) {
-    std::cerr << "wrong usage, expected \"map_viewer path/to/map.osm "
-                 "path/to/output/folder/\""
-              << std::endl;
+    cerr << "wrong usage, expected \"map_viewer path/to/map.osm "
+            "path/to/output/folder/\""
+         << endl;
     return -1;
   }
 
   IGraph* graph = loadOsmGraph(argv[1], false).get();
   if (graph == nullptr) {
-    std::cerr << "Failed to parse graph file" << std::endl;
+    cerr << "Failed to parse graph file" << endl;
     return -2;
   }
 
   Image output1 = drawGraph(graph);
-  output1.saveAs(std::string(argv[2]) + "total.png");
+  output1.saveAs(string(argv[2]) + "total.png");
 
   graph->prune();
   Image output2 = drawGraph(graph);
-  output2.saveAs(std::string(argv[2]) + "pruned.png");
+  output2.saveAs(string(argv[2]) + "pruned.png");
 
   BoundingBox bb = graph->getBoundingBox();
   int64_t start = graph->nearestNode(bb.min, euclideanDistance)->getId();
   int64_t end = graph->nearestNode(bb.max, euclideanDistance)->getId();
 
-  const std::vector<Point3f> a_star_path =
+  const vector<Point3f> a_star_path =
       A_Star::Default().getPath(graph, start, end);
-  const std::vector<Point3f> dijkstra_path =
+  const vector<Point3f> dijkstra_path =
       Dijkstra::Default().getPath(graph, start, end);
-  const std::vector<Point3f> dfs_path =
+  const vector<Point3f> dfs_path =
       DepthFirstSearch::Default().getPath(graph, start, end);
 
   Image base_image = drawGraph(graph);
   drawPath(base_image, bb, dfs_path, {1, 0, 0, 1});
   drawPath(base_image, bb, a_star_path, {0, 1, 0, 1});
   drawPath(base_image, bb, dijkstra_path, {1, 0.5, 0, 1});
-  base_image.saveAs(std::string(argv[2]) + "routes.png");
+  base_image.saveAs(string(argv[2]) + "routes.png");
 
   return 0;
 }
