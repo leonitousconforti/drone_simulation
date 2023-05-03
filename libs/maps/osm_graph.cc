@@ -12,9 +12,9 @@
 namespace drone_simulation::maps {
 
 // Helpful reference https://wiki.openstreetmap.org/wiki/Elements
-std::unique_ptr<IGraph> loadOsmGraph(const std::string& filepath,
+std::shared_ptr<IGraph> loadOsmGraph(const std::string& filepath,
                                      const bool prune) {
-  std::unique_ptr<IGraph> graph = std::make_unique<IGraph>();
+  std::shared_ptr<IGraph> graph = std::make_shared<IGraph>();
 
   try {
     // Only read the node and the way data entries
