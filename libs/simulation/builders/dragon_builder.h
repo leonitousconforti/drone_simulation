@@ -6,7 +6,15 @@
 namespace drone_simulation::simulation::builders {
 
 class DragonBuilder : public IBuilder<entities::Dragon> {
-  DragonBuilder* addFireBreath() { return this; }
+  DragonBuilder* addFireBreath() {
+    this->addTag("fireBreath", "true");
+    return this;
+  }
+
+  virtual DragonBuilder* fromObject(const std::any data) {
+    IBuilder::fromObject(data);
+    return this;
+  }
 };
 
 }  // namespace drone_simulation::simulation::builders

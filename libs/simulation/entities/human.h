@@ -18,7 +18,7 @@ class Human : public IEntity {
    * @param dt Delta time
    * @param scheduler Vector containing all the entities in the system
    */
-  void update(double dt, std::vector<IEntity*> scheduler);
+  virtual void update(double dt, std::vector<IEntity*> scheduler) {}
 };
 
 }  // namespace drone_simulation::simulation::entities

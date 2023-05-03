@@ -15,19 +15,15 @@ using namespace drone_simulation::simulation::entities;
 using namespace drone_simulation::simulation::decorators;
 using namespace drone_simulation::simulation::movement_strategies;
 
-int main(int argc, char* argv[]) {
+int main(void) {
   // We use the singleton pattern to only allow one instance of the
   // SimulationModel at a time.
   SimulationModel* sm = SimulationModel::getInstance();
 
-  // We use the factory pattern to get entity builders.
-  DroneBuilder* droneBuilder =
-      std::get<DroneBuilder*>(sm->getEntityBuilder("drone"));
-
   // We use the builder pattern to construct entities.
-  Drone* drone = droneBuilder->addPosition({})
+  DroneBuilder* droneBuilder = new DroneBuilder();
+  Drone* drone = droneBuilder->addPosition({0, 0, 0})
                      ->addSpeed(1.0f)
-                     ->addDestination({})
                      ->addAvailability(true)
                      ->construct();
 

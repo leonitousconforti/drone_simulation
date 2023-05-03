@@ -12,7 +12,6 @@
 
 using namespace bazel::tools::cpp::runfiles;
 using namespace drone_simulation::simulation;
-using namespace drone_simulation::simulation::entities;
 
 int main(int argc, char* argv[]) {
   // Create a runfiles object to load models
@@ -25,16 +24,16 @@ int main(int argc, char* argv[]) {
   }
 
   // Setup the window
-  SetTraceLogLevel(LOG_ALL);
+  SetTraceLogLevel(LOG_WARNING);
   InitWindow(800, 450, "Drone Simulation");
   SetTargetFPS(60);
   DisableCursor();
 
   // Load the umn obj model
-  auto umn_model = loadUmnModel(runfiles.get());
+  Model umn_model = loadUmnModel(runfiles.get());
 
   // Load all the glb models (MUST happen after the window is create!)
-  // auto all_models = loadAllGlbModels(runfiles.get());
+  auto all_models = loadAllGlbModels(runfiles.get());
 
   // Define the camera to look into our 3d world
   Camera camera;
@@ -45,8 +44,8 @@ int main(int argc, char* argv[]) {
   camera.projection = CAMERA_PERSPECTIVE;
 
   // Populate the simulation
-  // SimulationModel* sm = SimulationModel::getInstance();
-  // populate_simulation();
+  SimulationModel* sm = SimulationModel::getInstance();
+  populate_simulation();
 
   // Detects window close button or ESC key
   while (!WindowShouldClose()) {
@@ -54,22 +53,23 @@ int main(int argc, char* argv[]) {
     BeginDrawing();
     ClearBackground(RAYWHITE);
     BeginMode3D(camera);
-    DrawModel(umn_model, {0, 0, 0}, 0.2f, WHITE);
-    DrawGrid(20, 10.0f);
 
-    // for (IEntity* entity : sm->getEntities()) {
-    //   const std::string renderModelName = entity->getTag("renderModel");
-    //   RenderModel rm = all_models[renderModelName];
-    //   DrawModel(rm.model, {0, 0, 0}, 1.0f, WHITE);
-    // }
+    DrawModel(umn_model, {0, 0, 0}, 0.2f, WHITE);
+    for (IEntity* entity : sm->getEntities()) {
+      const std::string renderModelName = entity->getTag("renderModel");
+      const float renderScale = std::stof(entity->getTag("renderScale"));
+      RenderModel rm = all_models[renderModelName];
+      DrawModel(rm.model, {0, 0, 0}, renderScale, WHITE);
+    }
+
     EndMode3D();
     DrawFPS(10, 10);
     EndDrawing();
   }
 
   // De-initialize
-  // for (auto m : all_models) UnloadModel(m.second.model);
+  for (auto m : all_models) UnloadModel(m.second.model);
   CloseWindow();
-  // delete sm;
+  delete sm;
   return 0;
 }

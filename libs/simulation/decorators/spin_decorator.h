@@ -20,7 +20,7 @@ class SpinDecorator : public CelebrationDecorator {
   /**
    * @brief SpinDecorator Destructor
    */
-  ~SpinDecorator();
+  ~SpinDecorator() { delete strategy; }
 
   /**
    * @brief Move the entity with the spin behavior for 4 seconds.
@@ -28,7 +28,14 @@ class SpinDecorator : public CelebrationDecorator {
    * @param entity Entity to move
    * @param dt Delta Time
    */
-  virtual void move(IEntity* entity, double dt);
+  virtual void move(IEntity* entity, double dt) {
+    if (strategy->isCompleted() && !isCompleted()) {
+      entity->rotate(dt * 10);
+      time += dt;
+    } else {
+      strategy->move(entity, dt);
+    }
+  }
 };
 
 }  // namespace drone_simulation::simulation::decorators

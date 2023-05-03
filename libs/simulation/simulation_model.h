@@ -36,7 +36,7 @@ class SimulationModel {
    */
   void operator=(const SimulationModel&) = delete;
 
-  anyBuilder getEntityBuilder(const std::string& forEntity);
+  IBuilder<IEntity>* getEntityBuilder(const std::string& entityType);
 
   /**
    * @brief Creates a new simulation entity

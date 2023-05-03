@@ -1,6 +1,5 @@
 # Blender 3.5.1
 # www.blender.org
-mtllib umn.mtl
 o EXPORT_GOOGLE_SAT_WM
 v -1904.749268 225.000031 -1071.531982
 v 1917.102661 257.000000 -1071.531982

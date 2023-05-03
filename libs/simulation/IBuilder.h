@@ -1,5 +1,7 @@
 #pragma once
 
+#include <any>
+
 #include "IEntity.h"
 #include "libs/geometry/point3f.h"
 #include "libs/geometry/vector3f.h"
@@ -14,36 +16,38 @@ class IBuilder {
 
   T* construct() { return this->entity; }
 
-  virtual IBuilder<T>* addPosition(geometry::Point3f position) {
+  virtual IBuilder<T>* addPosition(geometry::Point3f position) final {
     this->entity->setPosition(position);
     return this;
   }
 
-  virtual IBuilder<T>* addDirection(geometry::Vector3f direction) {
+  virtual IBuilder<T>* addDirection(geometry::Vector3f direction) final {
     this->entity->setDirection(direction);
     return this;
   }
 
-  virtual IBuilder<T>* addDestination(geometry::Point3f destination) {
+  virtual IBuilder<T>* addDestination(geometry::Point3f destination) final {
     this->entity->setDestination(destination);
     return this;
   }
 
-  virtual IBuilder<T>* addSpeed(float speed) {
+  virtual IBuilder<T>* addSpeed(float speed) final {
     this->entity->setSpeed(speed);
     return this;
   }
 
-  virtual IBuilder<T>* addAvailability(bool availability) {
+  virtual IBuilder<T>* addAvailability(bool availability) final {
     this->entity->setAvailability(availability);
     return this;
   }
 
   virtual IBuilder<T>* addTag(const std::string& key,
-                              const std::string& value) {
+                              const std::string& value) final {
     this->entity->addTag(key, value);
     return this;
   }
+
+  virtual IBuilder<T>* fromObject(const std::any data) { return this; }
 
  protected:
   T* entity;

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cmath>
 #include <vector>
 
 #include "libs/geometry/vector3f.h"
@@ -19,13 +20,17 @@ class Drone : public IEntity {
    * @param dt Delta time
    * @param scheduler Vector containing all the entities in the system
    */
-  void update(double dt, std::vector<IEntity*> scheduler);
+  virtual void update(double dt, std::vector<IEntity*> scheduler) {}
 
   /**
    * @brief Rotates the drone
    * @param angle The angle by which the drone should be rotated
    */
-  void rotate(double angle);
+  virtual void rotate(double angle) {
+    geometry::Vector3f dirTmp = this->direction;
+    direction.x = dirTmp.x * std::cos(angle) - dirTmp.z * std::sin(angle);
+    direction.z = dirTmp.x * std::sin(angle) + dirTmp.z * std::cos(angle);
+  }
 
   //  private:
   //   bool pickedUp;

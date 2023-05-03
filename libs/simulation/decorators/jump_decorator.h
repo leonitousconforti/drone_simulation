@@ -20,7 +20,7 @@ class JumpDecorator : public CelebrationDecorator {
   /**
    * @brief JumpDecorator Destructor
    */
-  ~JumpDecorator();
+  ~JumpDecorator() { delete strategy; }
 
   /**
    * @brief Move the entity with the jump behavior for 4 seconds.
@@ -28,7 +28,14 @@ class JumpDecorator : public CelebrationDecorator {
    * @param entity Entity to move
    * @param dt Delta Time
    */
-  virtual void move(IEntity* entity, double dt);
+  virtual void move(IEntity* entity, double dt) {
+    if (strategy->isCompleted() && !isCompleted()) {
+      entity->jump(dt * 10);
+      time += dt;
+    } else {
+      strategy->move(entity, dt);
+    }
+  }
 };
 
 }  // namespace drone_simulation::simulation::decorators
