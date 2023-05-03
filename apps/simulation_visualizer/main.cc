@@ -29,10 +29,10 @@ int main(int argc, char* argv[]) {
   SetTargetFPS(60);
   DisableCursor();
 
-  // Load the umn obj model
+  // Load the umn obj model (MUST happen after the window is created!)
   Model umn_model = loadUmnModel(runfiles.get());
 
-  // Load all the glb models (MUST happen after the window is create!)
+  // Load all the glb models (MUST happen after the window is created!)
   auto all_models = loadAllGlbModels(runfiles.get());
 
   // Define the camera to look into our 3d world
@@ -54,7 +54,7 @@ int main(int argc, char* argv[]) {
     ClearBackground(RAYWHITE);
     BeginMode3D(camera);
 
-    DrawModel(umn_model, {0, 0, 0}, 0.2f, WHITE);
+    DrawModel(umn_model, {0, -60, 0}, 0.2f, WHITE);
     for (IEntity* entity : sm->getEntities()) {
       const std::string renderModelName = entity->getTag("renderModel");
       const float renderScale = std::stof(entity->getTag("renderScale"));
