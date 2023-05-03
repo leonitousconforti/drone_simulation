@@ -66,31 +66,28 @@ int main(int argc, char* argv[]) {
     return -1;
   }
 
-  IGraph* graph = loadOsmGraph(argv[1], false).get();
+  shared_ptr<IGraph> graph = loadOsmGraph(argv[1], false);
   if (graph == nullptr) {
     cerr << "Failed to parse graph file" << endl;
     return -2;
   }
 
-  Image output1 = drawGraph(graph);
+  Image output1 = drawGraph(graph.get());
   output1.saveAs(string(argv[2]) + "total.png");
 
   graph->prune();
-  Image output2 = drawGraph(graph);
+  Image output2 = drawGraph(graph.get());
   output2.saveAs(string(argv[2]) + "pruned.png");
 
   BoundingBox bb = graph->getBoundingBox();
-  int64_t start = graph->nearestNode(bb.min, euclideanDistance)->getId();
-  int64_t end = graph->nearestNode(bb.max, euclideanDistance)->getId();
-
   const vector<Point3f> a_star_path =
-      A_Star::Default().getPath(graph, start, end);
+      A_Star::Default().getPath(graph.get(), bb.min, bb.max);
   const vector<Point3f> dijkstra_path =
-      Dijkstra::Default().getPath(graph, start, end);
+      Dijkstra::Default().getPath(graph.get(), bb.min, bb.max);
   const vector<Point3f> dfs_path =
-      DepthFirstSearch::Default().getPath(graph, start, end);
+      DepthFirstSearch::Default().getPath(graph.get(), bb.min, bb.max);
 
-  Image base_image = drawGraph(graph);
+  Image base_image = drawGraph(graph.get());
   drawPath(base_image, bb, dfs_path, {1, 0, 0, 1});
   drawPath(base_image, bb, a_star_path, {0, 1, 0, 1});
   drawPath(base_image, bb, dijkstra_path, {1, 0.5, 0, 1});

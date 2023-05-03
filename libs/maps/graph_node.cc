@@ -2,7 +2,7 @@
 
 namespace drone_simulation::maps {
 
-IGraphNode::IGraphNode(geometry::Point3f position, const int64_t id)
+IGraphNode::IGraphNode(const int64_t id, const geometry::Point3f position)
     : id(id), position(position){};
 
 IGraphNode::~IGraphNode(){};

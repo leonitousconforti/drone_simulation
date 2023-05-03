@@ -24,11 +24,11 @@ const std::vector<geometry::Point3f> nodesToPoints(
 
 // https://en.wikipedia.org/wiki/A*_search_algorithm
 const std::vector<geometry::Point3f> A_Star::getPath(
-    const maps::IGraph* graph, const int64_t from_id,
-    const int64_t to_id) const {
+    const maps::IGraph* graph, const geometry::Point3f from_location,
+    const geometry::Point3f to_location) const {
   // Grab some important nodes
-  std::shared_ptr<maps::IGraphNode> start = graph->getNodeById(from_id);
-  std::shared_ptr<maps::IGraphNode> end = graph->getNodeById(to_id);
+  std::shared_ptr<maps::IGraphNode> start = graph->nearestNode(from_location);
+  std::shared_ptr<maps::IGraphNode> end = graph->nearestNode(to_location);
 
   // Initially, only the start node is known.
   std::priority_queue<std::shared_ptr<maps::IGraphNode>> openSet;
@@ -56,11 +56,11 @@ const std::vector<geometry::Point3f> A_Star::getPath(
 
 // https://en.wikipedia.org/wiki/Depth-first_search
 const std::vector<geometry::Point3f> DepthFirstSearch::getPath(
-    const maps::IGraph* graph, const int64_t from_id,
-    const int64_t to_id) const {
+    const maps::IGraph* graph, const geometry::Point3f from_location,
+    const geometry::Point3f to_location) const {
   // Grab the important nodes
-  std::shared_ptr<maps::IGraphNode> start = graph->getNodeById(from_id);
-  std::shared_ptr<maps::IGraphNode> end = graph->getNodeById(to_id);
+  std::shared_ptr<maps::IGraphNode> start = graph->nearestNode(from_location);
+  std::shared_ptr<maps::IGraphNode> end = graph->nearestNode(to_location);
 
   // Initialize data structures
   std::unordered_set<int64_t> visited({start->getId()});

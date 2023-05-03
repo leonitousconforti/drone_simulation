@@ -9,7 +9,7 @@ namespace drone_simulation::maps {
 class IGraphNode {
  public:
   ~IGraphNode();
-  IGraphNode(geometry::Point3f position, const int64_t id);
+  IGraphNode(const int64_t id, const geometry::Point3f position);
 
   const int64_t getId() const;
   const geometry::Point3f getPosition() const;
@@ -20,7 +20,7 @@ class IGraphNode {
 
  private:
   const int64_t id;
-  geometry::Point3f position;
+  const geometry::Point3f position;
   std::vector<std::shared_ptr<IGraphNode>> neighbors;
 };
 

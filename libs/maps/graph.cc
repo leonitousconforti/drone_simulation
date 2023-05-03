@@ -1,34 +1,15 @@
 #include "graph.h"
 
-#include <functional>
+#include <algorithm>
 #include <limits>
-#include <stdexcept>
-#include <unordered_set>
 
 namespace drone_simulation::maps {
 
 IGraph::IGraph() {}
 IGraph::~IGraph() {}
 
-void IGraph::addNode(std::shared_ptr<IGraphNode> node) {
-  int64_t id = node.get()->getId();
-  if (this->contains(id)) {
-    throw std::invalid_argument("graph already contains that node");
-  }
-  this->lookup.insert({id, node});
-  this->nodes.push_back(node);
-};
-
-const bool IGraph::contains(const int64_t id) const {
-  return !(this->lookup.find(id) == this->lookup.end());
-};
-
-const std::shared_ptr<IGraphNode> IGraph::getNodeById(const int64_t id) const {
-  auto result = this->lookup.find(id);
-  if (result == this->lookup.end()) {
-    throw std::invalid_argument("graph does not contain that node");
-  }
-  return result->second;
+void IGraph::addNode(const int64_t id, const geometry::Point3f pos) {
+  this->nodes.push_back(std::make_shared<IGraphNode>(id, pos));
 };
 
 const std::vector<std::shared_ptr<IGraphNode>>& IGraph::getNodes() const {
@@ -36,15 +17,23 @@ const std::vector<std::shared_ptr<IGraphNode>>& IGraph::getNodes() const {
 }
 
 void IGraph::addEdge(const int64_t id1, const int64_t id2) {
-  std::shared_ptr<IGraphNode> node1 = getNodeById(id1);
-  std::shared_ptr<IGraphNode> node2 = getNodeById(id2);
-  node1->addNeighbor(node2);
-  node2->addNeighbor(node1);
+  auto findById = [](const int64_t id) {
+    return [=](const std::shared_ptr<IGraphNode> node) {
+      return node->getId() == id;
+    };
+  };
+
+  auto node1 = std::find_if(nodes.begin(), nodes.end(), findById(id1));
+  auto node2 = std::find_if(nodes.begin(), nodes.end(), findById(id2));
+  if (node1 == nodes.end() || node2 == nodes.end()) return;
+
+  node1->get()->addNeighbor(*node2);
+  node2->get()->addNeighbor(*node1);
 };
 
 void IGraph::prune() {
-  auto noNeighbors = [](std::shared_ptr<IGraphNode> node) {
-    return node.get()->getNeighbors().size() == 0;
+  auto noNeighbors = [](const std::shared_ptr<IGraphNode> node) {
+    return node->getNeighbors().size() == 0;
   };
   auto _ = std::remove_if(this->nodes.begin(), this->nodes.end(), noNeighbors);
   this->nodes.erase(_, this->nodes.end());

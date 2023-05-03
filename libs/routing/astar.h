@@ -19,8 +19,8 @@ class A_Star : public RoutingStrategy {
       : cost(cost), heuristic(heuristic) {}
 
   virtual const std::vector<geometry::Point3f> getPath(
-      const maps::IGraph* graph, const int64_t from_id,
-      const int64_t to_id) const;
+      const maps::IGraph* graph, const geometry::Point3f from_location,
+      const geometry::Point3f to_location) const;
 
   static const RoutingStrategy& Default() {
     static A_Star astar;

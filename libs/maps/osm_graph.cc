@@ -43,9 +43,7 @@ std::shared_ptr<IGraph> loadOsmGraph(const std::string& filepath,
       float lon = lon_diff * 40075160 * std::cos(center_lat_rads) / 360.0f;
       float lat = -lat_diff * 40008000.0 / 360.0;
 
-      geometry::Point3f nodePos{lat, lon, 0};
-      auto graphNode = std::make_shared<IGraphNode>(nodePos, id);
-      graph->addNode(graphNode);
+      graph->addNode(id, {lat, lon, 0});
     };
 
     // Lambda function that takes a way and computes the adjacency lists
