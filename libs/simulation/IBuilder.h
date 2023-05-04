@@ -47,7 +47,7 @@ class IBuilder {
     return this;
   }
 
-  virtual IBuilder<T>* fromObject(const std::any data) { return this; }
+  virtual IBuilder<T>* addDetails(const std::any data) { return this; }
 
  protected:
   T* entity;

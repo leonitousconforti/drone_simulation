@@ -11,8 +11,8 @@ class DragonBuilder : public IBuilder<entities::Dragon> {
     return this;
   }
 
-  virtual DragonBuilder* fromObject(const std::any data) {
-    IBuilder::fromObject(data);
+  virtual DragonBuilder* addDetails(const std::any data) {
+    IBuilder::addDetails(data);
     return this;
   }
 };
