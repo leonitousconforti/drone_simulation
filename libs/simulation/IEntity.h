@@ -138,6 +138,10 @@ class IEntity {
     return this->tags[key];
   }
 
+  virtual const bool hasTag(const std::string& key) final {
+    return this->tags.count(key) != 0;
+  }
+
   /**
    * @brief Rotate the entity.
    * @param angle The angle to rotate the entity by.
