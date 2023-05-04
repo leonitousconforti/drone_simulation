@@ -9,7 +9,7 @@ const Model loadUmnModel(bazel::tools::cpp::runfiles::Runfiles* runfiles) {
 
   const std::string umn_texture_path = runfiles->Rlocation(
       "drone_simulation/apps/simulation_visualizer/textures/"
-      "umn_diffuse.png");
+      "umn_diffuse_4k.png");
 
   Model model = LoadModel(umn_model_path.c_str());
   Texture2D texture = LoadTexture(umn_texture_path.c_str());
