@@ -11,7 +11,8 @@ class DragonBuilder : public IBuilder<entities::Dragon> {
     return this;
   }
 
-  virtual DragonBuilder* addDetails(const std::any data) {
+  virtual DragonBuilder* addDetails(
+      const std::map<std::string, std::any> data) {
     IBuilder::addDetails(data);
     return this;
   }

@@ -8,7 +8,8 @@ namespace drone_simulation::simulation::builders {
 class HelicopterBuilder : public IBuilder<entities::Helicopter> {
   HelicopterBuilder* addBlades(int number) { return this; }
 
-  virtual HelicopterBuilder* addDetails(const std::any data) {
+  virtual HelicopterBuilder* addDetails(
+      const std::map<std::string, std::any> data) {
     IBuilder::addDetails(data);
     return this;
   }
