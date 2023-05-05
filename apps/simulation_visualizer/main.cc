@@ -1,16 +1,20 @@
 #include <iostream>
 #include <memory>
 #include <string>
-#include <vector>
 
 #include "libs/simulation/simulation_model.h"
 #include "load_models.h"
+#include "mode_instructions.h"
+#include "mode_render.h"
+#include "mode_scedule.h"
 #include "populate_simulation.h"
 #include "raylib.h"
 #include "tools/cpp/runfiles/runfiles.h"
 
-using namespace bazel::tools::cpp::runfiles;
-using namespace drone_simulation::simulation;
+using Runfiles = bazel::tools::cpp::runfiles::Runfiles;
+using SimulationModel = drone_simulation::simulation::SimulationModel;
+
+enum class Mode { INSTRUCTIONS, RENDER, SCHEDULE_TRIP };
 
 int main(int argc, char* argv[]) {
   // Create a runfiles object to load models
@@ -45,6 +49,9 @@ int main(int argc, char* argv[]) {
   // Populate the simulation with some starter entities
   populate_simulation();
 
+  // Set the initial application state
+  Mode mode = Mode::INSTRUCTIONS;
+
   // Detects window close button or ESC key
   while (!WindowShouldClose()) {
     UpdateCamera(&camera, CAMERA_THIRD_PERSON);
@@ -52,22 +59,25 @@ int main(int argc, char* argv[]) {
     ClearBackground(SKYBLUE);
     BeginMode3D(camera);
 
-    // UMN campus is approximately 260m above see level
-    DrawModel(umn_model, {0, -260, 0}, 1.0f, WHITE);
+    switch (mode) {
+      // In the instructions mode, we display a graphic overlay with the
+      // controls to the user.
+      case Mode::INSTRUCTIONS:
+        break;
 
-    // Render every entity in the simulation that has a render model
-    for (auto entity : SimulationModel::getInstance()->getEntities()) {
-      if (!entity->hasTag("renderModel")) continue;
+      // In the render mode, we render update the simulation every frame and
+      // then we render all the entities that have render data.
+      case Mode::RENDER:
+        DrawModel(umn_model, {0, -260, 0}, 1.0f, WHITE);
+        for (auto entity : SimulationModel::getInstance()->getEntities())
+          DrawEntity(entity, all_models);
+        break;
 
-      const std::string renderModelName = entity->getTag("renderModel");
-      const Vector3 position{entity->getPosition().x, entity->getPosition().y,
-                             entity->getPosition().z};
-      const float renderScale = entity->hasTag("renderScale")
-                                    ? std::stof(entity->getTag("renderScale"))
-                                    : 1.0f;
-
-      const RenderModel rm = all_models[renderModelName];
-      DrawModel(rm.model, position, renderScale, WHITE);
+      // In the schedule trip mode, we display a 2d map of the umn campus and
+      // the user can select the start and end points for a trip as well as
+      // provide a trip name
+      case Mode::SCHEDULE_TRIP:
+        break;
     }
 
     EndMode3D();
