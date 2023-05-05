@@ -34,6 +34,11 @@ git_repository(
     name = "raysan5_raylib",
     branch = "master",
     build_file = "//dependencies:BUILD.raylib.bazel",
+    patch_args = ["-p1"],
+    patches = [
+        "//dependencies:0001-update-RL_CULL_DISTANCE_FAR.patch",
+        "//dependencies:0002-update-CAMERA_MOVE_SPEED.patch",
+    ],
     remote = "https://github.com/raysan5/raylib",
 )
 

@@ -1,0 +1,25 @@
+From 5211cc12c6edfcb2ebfb654f4dfd6336869d10f7 Mon Sep 17 00:00:00 2001
+From: Leo Conforti <leo@leoconforti.us>
+Date: Thu, 4 May 2023 22:10:28 -0500
+Subject: [PATCH 1/2] update RL_CULL_DISTANCE_FAR
+
+---
+ src/config.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/config.h b/src/config.h
+index fbc7a5b4..f908048f 100644
+--- a/src/config.h
++++ b/src/config.h
+@@ -108,7 +108,7 @@
+ #define RL_MAX_SHADER_LOCATIONS               32      // Maximum number of shader locations supported
+
+ #define RL_CULL_DISTANCE_NEAR               0.01      // Default projection matrix near cull distance
+-#define RL_CULL_DISTANCE_FAR              1000.0      // Default projection matrix far cull distance
++#define RL_CULL_DISTANCE_FAR              5000.0      // Default projection matrix far cull distance
+
+ // Default shader vertex attribute names to set location points
+ // NOTE: When a new shader is loaded, the following locations are tried to be set for convenience
+--
+2.37.1 (Apple Git-137.1)
+
