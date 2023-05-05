@@ -3,7 +3,6 @@
 #include <string>
 #include <vector>
 
-#include "libs/simulation/IEntity.h"
 #include "libs/simulation/simulation_model.h"
 #include "load_models.h"
 #include "populate_simulation.h"
@@ -25,7 +24,7 @@ int main(int argc, char* argv[]) {
 
   // Setup the window
   SetTraceLogLevel(LOG_WARNING);
-  InitWindow(800, 450, "Drone Simulation");
+  InitWindow(800, 500, "Drone Simulation");
   SetTargetFPS(60);
   DisableCursor();
 
@@ -37,29 +36,38 @@ int main(int argc, char* argv[]) {
 
   // Define the camera to look into our 3d world
   Camera camera;
-  camera.position = {5.0f, 5.0f, 25.0f};
-  camera.target = {0.0f, 0.0f, 2.0f};
+  camera.fovy = 70.0f;
   camera.up = {0.0f, 1.0f, 0.0f};
-  camera.fovy = 45.0f;
+  camera.target = {0.0f, 0.0f, 0.0f};
+  camera.position = {150.0f, 150.0f, 150.0f};
   camera.projection = CAMERA_PERSPECTIVE;
 
-  // Populate the simulation
-  SimulationModel* sm = SimulationModel::getInstance();
+  // Populate the simulation with some starter entities
   populate_simulation();
 
   // Detects window close button or ESC key
   while (!WindowShouldClose()) {
     UpdateCamera(&camera, CAMERA_THIRD_PERSON);
     BeginDrawing();
-    ClearBackground(RAYWHITE);
+    ClearBackground(SKYBLUE);
     BeginMode3D(camera);
 
-    DrawModel(umn_model, {0, -60, 0}, 0.2f, WHITE);
-    for (IEntity* entity : sm->getEntities()) {
+    // UMN campus is approximately 260m above see level
+    DrawModel(umn_model, {0, -260, 0}, 1.0f, WHITE);
+
+    // Render every entity in the simulation that has a render model
+    for (auto entity : SimulationModel::getInstance()->getEntities()) {
+      if (!entity->hasTag("renderModel")) continue;
+
       const std::string renderModelName = entity->getTag("renderModel");
-      const float renderScale = std::stof(entity->getTag("renderScale"));
-      RenderModel rm = all_models[renderModelName];
-      DrawModel(rm.model, {0, 0, 0}, renderScale, WHITE);
+      const Vector3 position{entity->getPosition().x, entity->getPosition().y,
+                             entity->getPosition().z};
+      const float renderScale = entity->hasTag("renderScale")
+                                    ? std::stof(entity->getTag("renderScale"))
+                                    : 1.0f;
+
+      const RenderModel rm = all_models[renderModelName];
+      DrawModel(rm.model, position, renderScale, WHITE);
     }
 
     EndMode3D();
@@ -69,7 +77,7 @@ int main(int argc, char* argv[]) {
 
   // De-initialize
   for (auto m : all_models) UnloadModel(m.second.model);
+  delete SimulationModel::getInstance();
   CloseWindow();
-  delete sm;
   return 0;
 }
