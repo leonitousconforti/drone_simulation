@@ -1,0 +1,9 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+cc_library(
+    name = "raysan5_raygui",
+    srcs = ["src/raygui.h"],
+    hdrs = ["src/raygui.h"],
+    includes = ["src"],
+    visibility = ["//visibility:public"],
+)

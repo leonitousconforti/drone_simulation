@@ -18,6 +18,7 @@ cc_binary(
         "//libs/routing",
         "//libs/simulation",
         "@bazel_tools//tools/cpp/runfiles",
+        "@raysan5_raygui",
         "@raysan5_raylib",
     ],
 )
