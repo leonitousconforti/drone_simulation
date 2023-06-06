@@ -2,14 +2,15 @@
 
 namespace drone_simulation::maps {
 
-IGraphNode::IGraphNode(geometry::Point3f position, const int64_t id)
+IGraphNode::IGraphNode(const int64_t id, const geometry::Point3f position)
     : id(id), position(position){};
 
 IGraphNode::~IGraphNode(){};
 
 const int64_t IGraphNode::getId() const { return this->id; };
 
-const std::vector<IGraphNode*>& IGraphNode::getNeighbors() const {
+const std::vector<std::shared_ptr<IGraphNode>>& IGraphNode::getNeighbors()
+    const {
   return this->neighbors;
 };
 
@@ -17,7 +18,7 @@ const geometry::Point3f IGraphNode::getPosition() const {
   return this->position;
 }
 
-void IGraphNode::addNeighbor(IGraphNode* neighbor) {
+void IGraphNode::addNeighbor(std::shared_ptr<IGraphNode> neighbor) {
   this->neighbors.push_back(neighbor);
 };
 

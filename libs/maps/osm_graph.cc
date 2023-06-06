@@ -12,8 +12,9 @@
 namespace drone_simulation::maps {
 
 // Helpful reference https://wiki.openstreetmap.org/wiki/Elements
-IGraph* loadOsmGraph(const std::string& filepath, const bool prune) {
-  IGraph* graph = new IGraph();
+std::shared_ptr<IGraph> loadOsmGraph(const std::string& filepath,
+                                     const bool prune) {
+  std::shared_ptr<IGraph> graph = std::make_shared<IGraph>();
 
   try {
     // Only read the node and the way data entries
@@ -42,8 +43,7 @@ IGraph* loadOsmGraph(const std::string& filepath, const bool prune) {
       float lon = lon_diff * 40075160 * std::cos(center_lat_rads) / 360.0f;
       float lat = -lat_diff * 40008000.0 / 360.0;
 
-      IGraphNode* graphNode = new IGraphNode({lat, lon, 0}, id);
-      graph->addNode(graphNode);
+      graph->addNode(id, {lat, lon, 0});
     };
 
     // Lambda function that takes a way and computes the adjacency lists
@@ -71,7 +71,6 @@ IGraph* loadOsmGraph(const std::string& filepath, const bool prune) {
   // Catch any errors, making sure to cleanup
   catch (const std::exception& e) {
     std::cerr << e.what() << std::endl;
-    delete graph;
     return nullptr;
   }
 }

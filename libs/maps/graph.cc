@@ -1,57 +1,39 @@
 #include "graph.h"
 
-#include <functional>
+#include <algorithm>
 #include <limits>
-#include <stdexcept>
-#include <unordered_set>
 
 namespace drone_simulation::maps {
 
 IGraph::IGraph() {}
+IGraph::~IGraph() {}
 
-IGraph::~IGraph() {
-  for (auto node : this->nodes) {
-    delete node;
-  }
+void IGraph::addNode(const int64_t id, const geometry::Point3f pos) {
+  this->nodes.push_back(std::make_shared<IGraphNode>(id, pos));
+};
+
+const std::vector<std::shared_ptr<IGraphNode>>& IGraph::getNodes() const {
+  return this->nodes;
 }
 
-void IGraph::addNode(IGraphNode* node) {
-  int64_t id = node->getId();
-  if (this->contains(id)) {
-    throw std::invalid_argument("graph already contains that node");
-  }
-  this->lookup.insert({id, node});
-  this->nodes.push_back(node);
-};
+void IGraph::addEdge(const int64_t id1, const int64_t id2) {
+  auto findById = [](const int64_t id) {
+    return [=](const std::shared_ptr<IGraphNode> node) {
+      return node->getId() == id;
+    };
+  };
 
-bool IGraph::contains(int64_t id) const {
-  return !(this->lookup.find(id) == this->lookup.end());
-};
+  auto node1 = std::find_if(nodes.begin(), nodes.end(), findById(id1));
+  auto node2 = std::find_if(nodes.begin(), nodes.end(), findById(id2));
+  if (node1 == nodes.end() || node2 == nodes.end()) return;
 
-IGraphNode* IGraph::getNodeById(int64_t id) const {
-  auto result = this->lookup.find(id);
-  if (result == this->lookup.end()) {
-    throw std::invalid_argument("graph does not contain that node");
-  }
-  return result->second;
-};
-
-const std::vector<IGraphNode*>& IGraph::getNodes() const { return this->nodes; }
-
-void IGraph::addEdge(int64_t id1, int64_t id2) {
-  IGraphNode* node1 = getNodeById(id1);
-  IGraphNode* node2 = getNodeById(id2);
-  node1->addNeighbor(node2);
-  node2->addNeighbor(node1);
+  node1->get()->addNeighbor(*node2);
+  node2->get()->addNeighbor(*node1);
 };
 
 void IGraph::prune() {
-  auto noNeighbors = [](IGraphNode* node) {
-    if (node->getNeighbors().size() == 0) {
-      delete node;
-      return true;
-    }
-    return false;
+  auto noNeighbors = [](const std::shared_ptr<IGraphNode> node) {
+    return node->getNeighbors().size() == 0;
   };
   auto _ = std::remove_if(this->nodes.begin(), this->nodes.end(), noNeighbors);
   this->nodes.erase(_, this->nodes.end());
@@ -59,7 +41,7 @@ void IGraph::prune() {
 
 const geometry::BoundingBox IGraph::getBoundingBox() const {
   geometry::BoundingBox bb;
-  const std::vector<IGraphNode*>& nodes = this->getNodes();
+  const std::vector<std::shared_ptr<IGraphNode>>& nodes = this->getNodes();
 
   geometry::Point3f initial = nodes[0]->getPosition();
   bb.min.x = initial.x;
@@ -69,7 +51,7 @@ const geometry::BoundingBox IGraph::getBoundingBox() const {
   bb.min.z = 0;
   bb.max.z = 0;
 
-  for (IGraphNode* node : nodes) {
+  for (std::shared_ptr<IGraphNode> node : nodes) {
     geometry::Point3f pos = node->getPosition();
     if (bb.min.x > pos.x) bb.min.x = pos.x;
     if (bb.min.y > pos.y) bb.min.y = pos.y;
@@ -80,19 +62,19 @@ const geometry::BoundingBox IGraph::getBoundingBox() const {
   return bb;
 }
 
-const IGraphNode* IGraph::nearestNode(
-    geometry::Point3f point, const geometry::DistanceFunction& distance) const {
-  const std::vector<IGraphNode*> nodes = this->getNodes();
-  float minDistance = std::numeric_limits<float>::infinity();
+const std::shared_ptr<IGraphNode> IGraph::nearestNode(
+    const geometry::Point3f point,
+    const geometry::DistanceFunction& distance) const {
   std::vector<float> point_v = point.toVec();
-  const IGraphNode* closestNode = NULL;
+  float minDistance = std::numeric_limits<float>::infinity();
+  std::shared_ptr<IGraphNode> closestNode = NULL;
 
-  for (auto* node : nodes) {
+  for (auto node : this->getNodes()) {
     auto temp_3d = node->getPosition().toVec();
     float d = distance(temp_3d, point_v);
     if (d < minDistance) {
-      closestNode = node;
       minDistance = d;
+      closestNode = node;
     }
   }
 
